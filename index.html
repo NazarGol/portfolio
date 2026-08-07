@@ -10,24 +10,27 @@
   --bg:#fbfaf8; --panel:#ffffff; --ink:#17161a; --ink-2:#4a4750; --ink-3:#7b7783;
   --rule:#ddd9d2; --rule-2:#ebe8e2;
   --stamp:#a8321f; --stamp-bg:#f7ebe8;
-  --null:#a5a1a9; --null-bg:#f2f0ed;
+  --ok:#3d6b4f; --ok-bg:#eef4ef;
+  --null:#a5a1a9; --null-bg:#f0eeea;
   --link:#1f4f8f;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+    --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#8b8793;
     --rule:#2f2f39; --rule-2:#24242c;
     --stamp:#e8705a; --stamp-bg:#2c1b18;
+    --ok:#7fbb95; --ok-bg:#18241c;
     --null:#6e6a76; --null-bg:#212129;
     --link:#7aa9e6;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+  --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#8b8793;
   --rule:#2f2f39; --rule-2:#24242c;
   --stamp:#e8705a; --stamp-bg:#2c1b18;
+  --ok:#7fbb95; --ok-bg:#18241c;
   --null:#6e6a76; --null-bg:#212129;
   --link:#7aa9e6;
 }
@@ -36,66 +39,106 @@ html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--sans); font-size:16.5px; line-height:1.62;
-  font-variant-numeric:tabular-nums;
+  font-variant-numeric:tabular-nums; overflow-wrap:anywhere;
 }
 .wrap{max-width:56rem; margin:0 auto; padding:0 1.5rem}
 a{color:var(--link); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
 a:hover{border-bottom-color:var(--link)}
 a:focus-visible,summary:focus-visible{outline:2px solid var(--stamp); outline-offset:3px; border-radius:2px}
-h1,h2,h3{line-height:1.22; letter-spacing:-0.011em; font-weight:640; margin:0}
+h1,h2,h3{line-height:1.24; letter-spacing:-0.011em; font-weight:640; margin:0}
 p{margin:0 0 1rem}
 ul{margin:0 0 1rem; padding-left:1.15rem}
 li{margin:.3rem 0}
-code,.mono{font-family:var(--mono); font-size:.9em}
+code,.mono{font-family:var(--mono); font-size:.9em; overflow-wrap:anywhere}
 
 /* ---------- masthead ---------- */
-header.top{border-bottom:2px solid var(--ink); padding:2.75rem 0 1.25rem; margin-bottom:2.5rem}
+header.top{border-bottom:2px solid var(--ink); padding:2.75rem 0 1.25rem; margin-bottom:2.25rem}
 .eyebrow{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:1rem}
 h1{font-size:clamp(1.9rem,5.2vw,2.9rem); margin-bottom:.6rem}
-.thesis{font-size:clamp(1.02rem,2.4vw,1.2rem); color:var(--ink-2); max-width:44rem; margin-bottom:1.5rem}
+.thesis{font-size:clamp(1.02rem,2.4vw,1.2rem); color:var(--ink-2); max-width:44rem; margin-bottom:1.25rem}
 .thesis strong{color:var(--ink); font-weight:620}
-.contact{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; font-family:var(--mono); font-size:.815rem; color:var(--ink-2)}
+.contact{display:flex; flex-wrap:wrap; gap:.15rem 1.4rem; font-family:var(--mono); font-size:.815rem; color:var(--ink-2)}
 .contact span.k{color:var(--ink-3)}
+.contact a{display:inline-block; padding:.55rem 0; min-height:44px; line-height:1.9}
+.alias{font-family:var(--mono); font-size:.75rem; color:var(--ink-3); margin:.35rem 0 0}
 
-/* ---------- index ---------- */
-nav.index{margin:0 0 3.25rem}
-nav.index h2{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:500; margin-bottom:.9rem}
-nav.index ol{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule-2)}
-nav.index li{margin:0; border-bottom:1px solid var(--rule-2)}
-nav.index a{display:flex; gap:1rem; align-items:baseline; padding:.62rem .25rem; border:0; color:var(--ink)}
-nav.index a:hover{background:var(--panel); color:var(--link)}
-nav.index .n{font-family:var(--mono); font-size:.75rem; color:var(--ink-3); min-width:1.9rem}
-nav.index .t{flex:1}
-nav.index .k{font-family:var(--mono); font-size:.7rem; color:var(--ink-3); text-align:right}
+/* ---------- contents ---------- */
+details.toc{margin:0 0 3rem}
+details.toc > summary{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); cursor:pointer; padding:.75rem .25rem;
+  min-height:44px; display:flex; align-items:center; gap:.5rem;
+  border-top:1px solid var(--rule-2); border-bottom:1px solid var(--rule-2); list-style:none}
+details.toc > summary::-webkit-details-marker{display:none}
+details.toc > summary::after{content:"+"; margin-left:auto; font-size:.95rem}
+details.toc[open] > summary::after{content:"–"}
+details.toc ol{list-style:none; margin:0; padding:0}
+details.toc li{margin:0; border-bottom:1px solid var(--rule-2)}
+details.toc a{display:flex; gap:.9rem; align-items:center; min-height:44px;
+  padding:.55rem .25rem; border:0; color:var(--ink)}
+details.toc a:hover{background:var(--panel); color:var(--link)}
+details.toc .n{font-family:var(--mono); font-size:.75rem; color:var(--ink-3); min-width:1.9rem; flex:none}
+details.toc .t{flex:1; line-height:1.35}
+details.toc .k{font-family:var(--mono); font-size:.7rem; color:var(--ink-3); text-align:right; flex:none}
 
 /* ---------- record ---------- */
-article.rec{margin:0 0 3.5rem; scroll-margin-top:1.5rem}
-.rec-head{border-top:2px solid var(--ink); padding-top:.85rem; margin-bottom:1.4rem}
-.rec-meta{display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; font-family:var(--mono); font-size:.7rem;
-  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.5rem}
+article.rec{margin:0 0 3.5rem; scroll-margin-top:1rem}
+.rec-head{border-top:2px solid var(--ink); padding-top:.85rem; margin-bottom:1.35rem}
+.rec-meta{display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; font-family:var(--mono); font-size:.7rem;
+  line-height:1.7; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.7rem}
 .rec-meta .idx{color:var(--stamp); font-weight:600}
 .rec h2{font-size:clamp(1.3rem,3.4vw,1.72rem); margin-bottom:.45rem}
 .rec .sub{color:var(--ink-2); font-size:.98rem}
 
-.field{display:grid; grid-template-columns:7.2rem 1fr; gap:0 1.25rem; padding:.8rem 0; border-bottom:1px solid var(--rule-2)}
+.field{display:grid; grid-template-columns:7.2rem 1fr; gap:0 1.25rem; padding:.85rem 0; border-bottom:1px solid var(--rule-2)}
 .field:last-of-type{border-bottom:0}
 .field > dt{font-family:var(--mono); font-size:.685rem; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); padding-top:.28rem}
-.field > dd{margin:0}
+.field > dd{margin:0; min-width:0}
 .field > dd > p:last-child{margin-bottom:0}
-@media (max-width:34rem){
-  .field{grid-template-columns:1fr; gap:.3rem}
-  .field > dt{padding-top:0}
-}
 
 .result{background:var(--panel); border-left:3px solid var(--stamp); padding:.7rem .95rem; border-radius:0 3px 3px 0}
 .result p{margin:0}
 .result strong{font-family:var(--mono); font-size:1.02em; color:var(--stamp)}
 
 .stack{display:flex; flex-wrap:wrap; gap:.32rem}
-.stack span{font-family:var(--mono); font-size:.735rem; color:var(--ink-2);
+.stack span{font-family:var(--mono); font-size:.735rem; color:var(--ink-2); overflow-wrap:normal;
   border:1px solid var(--rule); border-radius:2px; padding:.13rem .42rem; background:var(--panel)}
 
-.links{display:flex; flex-wrap:wrap; gap:.4rem .95rem; font-family:var(--mono); font-size:.79rem}
+.links{display:flex; flex-wrap:wrap; gap:0 1.1rem; font-family:var(--mono); font-size:.79rem}
+.links a{display:inline-block; padding:.6rem 0; min-height:44px; line-height:1.9}
+
+/* ---------- figures ---------- */
+figure.fig{margin:.35rem 0 1.15rem; padding:.9rem .8rem .7rem; background:var(--panel);
+  border:1px solid var(--rule); border-radius:3px}
+figure.fig svg{display:block; width:100%; height:auto; max-width:34rem; margin:0 auto}
+figure.fig figcaption{font-family:var(--mono); font-size:.7rem; line-height:1.5; color:var(--ink-3);
+  margin-top:.7rem; padding-top:.6rem; border-top:1px solid var(--rule-2)}
+/* figure palette — class-based so custom properties resolve reliably */
+.fig svg text,.fig svg tspan{font-family:var(--mono)}
+.fig .mono{font-family:var(--mono)}
+.fig .f-ink{fill:var(--ink)}
+.fig .s-ink{stroke:var(--ink)}
+.fig .f-ink2{fill:var(--ink-2)}
+.fig .s-ink2{stroke:var(--ink-2)}
+.fig .f-ink3{fill:var(--ink-3)}
+.fig .s-ink3{stroke:var(--ink-3)}
+.fig .f-stamp{fill:var(--stamp)}
+.fig .s-stamp{stroke:var(--stamp)}
+.fig .f-stampbg{fill:var(--stamp-bg)}
+.fig .s-stampbg{stroke:var(--stamp-bg)}
+.fig .f-ok{fill:var(--ok)}
+.fig .s-ok{stroke:var(--ok)}
+.fig .f-okbg{fill:var(--ok-bg)}
+.fig .s-okbg{stroke:var(--ok-bg)}
+.fig .f-bg{fill:var(--bg)}
+.fig .s-bg{stroke:var(--bg)}
+.fig .f-panel{fill:var(--panel)}
+.fig .s-panel{stroke:var(--panel)}
+.fig .f-rule{fill:var(--rule)}
+.fig .s-rule{stroke:var(--rule)}
+.fig .f-rule2{fill:var(--rule-2)}
+.fig .s-rule2{stroke:var(--rule-2)}
+.fig .f-nullbg{fill:var(--null-bg)}
+.fig .s-nullbg{stroke:var(--null-bg)}
 
 /* ---------- jurisdiction matrix ---------- */
 .matrix-wrap{overflow-x:auto; margin:0 0 1rem; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
@@ -104,36 +147,77 @@ table.matrix th,table.matrix td{padding:.5rem .7rem; text-align:left; border-bot
 table.matrix thead th{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-3); font-weight:500; border-bottom:1px solid var(--rule); white-space:nowrap}
 table.matrix tbody tr:last-child td{border-bottom:0}
-table.matrix td.num,table.matrix th.num{text-align:right; font-family:var(--mono); font-variant-numeric:tabular-nums}
+table.matrix td.num,table.matrix th.num{text-align:right; font-family:var(--mono)}
 table.matrix tr.total td{border-top:1px solid var(--rule); font-weight:640}
 td.zero{color:var(--stamp); font-weight:700; background:var(--stamp-bg)}
 .cl{font-family:var(--mono); font-size:.78rem; color:var(--ink-3)}
 
-.headline-stat{display:grid; grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr)); gap:1px;
+/* cluster cards — mobile replacement for the matrix */
+.cluster-cards{display:none; margin:0 0 1rem}
+.cc{background:var(--panel); border:1px solid var(--rule); border-radius:3px; padding:.7rem .8rem; margin-bottom:.5rem}
+.cc-h{display:flex; align-items:baseline; gap:.5rem; margin-bottom:.55rem}
+.cc-h .rn{font-family:var(--mono); font-size:.75rem; color:var(--stamp); font-weight:700; flex:none}
+.cc-h .nm{font-size:.87rem; line-height:1.3; flex:1}
+.cc-h .n{font-family:var(--mono); font-size:.75rem; color:var(--ink-3); flex:none}
+.cc-j{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule-2);
+  border:1px solid var(--rule-2); border-radius:2px; overflow:hidden; margin-bottom:.55rem}
+.cc-j div{background:var(--panel); padding:.3rem .2rem; text-align:center}
+.cc-j .jl{font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; color:var(--ink-3)}
+.cc-j .jv{font-family:var(--mono); font-size:.95rem; font-weight:650}
+.cc-j .z .jv{color:var(--stamp)}
+.cc-j .z{background:var(--stamp-bg)}
+.cc-g{display:flex; align-items:baseline; gap:.45rem; font-size:.75rem; color:var(--ink-3)}
+.cc-g b{font-family:var(--mono); font-size:1.15rem; font-weight:650; color:var(--stamp)}
+
+.headline-stat{display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
   background:var(--rule); border:1px solid var(--rule); border-radius:3px; margin:0 0 1.15rem; overflow:hidden}
-.headline-stat div{background:var(--panel); padding:.85rem .9rem}
+.headline-stat div{background:var(--panel); padding:.8rem .85rem}
 .headline-stat .v{font-family:var(--mono); font-size:1.5rem; font-weight:650; line-height:1.1; color:var(--ink)}
 .headline-stat .v.hot{color:var(--stamp)}
 .headline-stat .l{font-size:.755rem; color:var(--ink-3); margin-top:.2rem; line-height:1.35}
 
 /* ---------- writing ---------- */
-.piece{border-top:1px solid var(--rule-2); padding:1rem 0}
+.piece{border-top:1px solid var(--rule-2); padding:1.05rem 0}
 .piece:first-of-type{border-top:0}
 .piece h3{font-size:1.02rem; margin-bottom:.32rem}
-.piece .role{font-family:var(--mono); font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.42rem}
+.piece .role{font-family:var(--mono); font-size:.7rem; line-height:1.6; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.42rem}
 .piece p{margin-bottom:.45rem; color:var(--ink-2); font-size:.945rem}
-.piece .links{margin-top:.3rem}
+.piece blockquote{margin:.6rem 0; padding:.6rem .8rem; background:var(--panel);
+  border-left:3px solid var(--stamp); border-radius:0 3px 3px 0; font-size:.9rem; color:var(--ink-2)}
+.piece blockquote p{margin:0}
 
-.flag{font-family:var(--mono); font-size:.72rem; color:var(--ink-3);
-  border:1px dashed var(--rule); border-radius:2px; padding:.5rem .7rem; margin:.6rem 0 0; background:var(--panel)}
+.flag{font-family:var(--mono); font-size:.72rem; line-height:1.55; color:var(--ink-3);
+  border:1px dashed var(--rule); border-radius:2px; padding:.55rem .7rem; margin:.6rem 0 0; background:var(--panel)}
 
-footer{border-top:2px solid var(--ink); margin-top:1.5rem; padding:1.6rem 0 3.5rem;
-  font-family:var(--mono); font-size:.78rem; color:var(--ink-3)}
-footer a{color:var(--ink-2)}
+footer{border-top:2px solid var(--ink); margin-top:1.5rem; padding:1.4rem 0 3.5rem;
+  font-family:var(--mono); font-size:.78rem; line-height:1.7; color:var(--ink-3)}
+footer a{color:var(--ink-2); display:inline-block; padding:.35rem 0}
 footer p{margin:0 0 .5rem}
 .skip{position:absolute; left:-9999px}
 .skip:focus{left:.5rem; top:.5rem; position:fixed; background:var(--panel); color:var(--ink);
   padding:.6rem .9rem; border:2px solid var(--stamp); border-radius:3px; z-index:9}
+
+/* ---------- narrow ---------- */
+@media (max-width:40rem){
+  .wrap{padding:0 1.1rem}
+  .field{grid-template-columns:1fr; gap:.3rem; padding:.9rem 0}
+  .field > dt{padding-top:0}
+  .stack span{font-size:.685rem; padding:.12rem .38rem}
+  details.toc .k{display:none}
+  details.toc .t{font-size:.93rem}
+  figure.fig{padding:.7rem .5rem .6rem}
+  .matrix-wrap{display:none}
+  .cluster-cards{display:block}
+  .headline-stat{grid-template-columns:repeat(2,1fr)}
+  .headline-stat .v{font-size:1.4rem}
+  .rec-meta{font-size:.66rem; gap:.25rem .8rem}
+}
+@media (max-width:22.5rem){
+  .wrap{padding:0 .85rem}
+  h1{font-size:1.75rem}
+  .headline-stat div{padding:.65rem .6rem}
+  .cc-j .jv{font-size:.88rem}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important; scroll-behavior:auto!important}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
@@ -150,14 +234,14 @@ footer p{margin:0 0 .5rem}
   <div class="contact">
     <span><span class="k">email</span> <a href="mailto:golianych.nazar@gmail.com">golianych.nazar@gmail.com</a></span>
     <span><span class="k">github</span> <a href="https://github.com/NazarGol">github.com/NazarGol</a></span>
-    <span><span class="k">cv</span> <a href="cv.txt">cv.txt</a></span>
   </div>
+  <p class="alias">Published under Holianych in OCCRP/StateWatch.</p>
 </header>
 
 <main id="work">
 
-<nav class="index" aria-label="Contents">
-  <h2>Contents</h2>
+<details class="toc" open>
+  <summary>Contents</summary>
   <ol>
     <li><a href="#sanctions-checker"><span class="n">01</span><span class="t">Sanctions Checker — EU · US · UK export-control lookup</span><span class="k">code</span></a></li>
     <li><a href="#russian-military-ai"><span class="n">02</span><span class="t">The UK has designated none of them — 97 Russian military-AI entities</span><span class="k">analysis</span></a></li>
@@ -169,7 +253,7 @@ footer p{margin:0 0 .5rem}
     <li><a href="#rcp"><span class="n">08</span><span class="t">Russia Context Platform — adversary-capability research</span><span class="k">research</span></a></li>
     <li><a href="#practice"><span class="n">09</span><span class="t">Practice</span><span class="k">art</span></a></li>
   </ol>
-</nav>
+</details>
 
 <!-- 01 ------------------------------------------------------------------ -->
 <article class="rec" id="sanctions-checker">
@@ -185,14 +269,74 @@ footer p{margin:0 0 .5rem}
     <div class="field"><dt>Built</dt><dd>
       <p>A FastAPI service over a 7,676-entry SQLite database, with 15 EU annex parsers, UK schedule parsers and US BIS supplement parsers that rebuild the database from official sources. Product names are accepted in Ukrainian and English; every answer returns its legal basis, annex, restriction type, date enacted and a deep link into the source document.</p>
       <p>Classification runs four tiers: an alias table of ~200 known products, then an LLM stage, then keyword-intersection SQL with progressive relaxation, then a rapidfuzz fallback.</p>
-      <p><strong>The design decision worth explaining is tier two.</strong> The naive approach — asking a model for an HS code — fails in the worst possible way: it returns a plausible, correctly-formatted code that does not exist. In a compliance context that is a false clearance. So the model is never asked for a code. It is asked only for the <em>2-digit HS chapter</em>, a coarse classification into 97 buckets that language models do reliably. Every database row in that chapter is then fetched, and the model re-ranks <em>within that list</em>. Its output is a selection from real rows, not a generated string — so a code that is not in the database cannot come out of the pipeline. A wrong chapter yields a wrong but checkable answer pointing at a real entry. It is never wrong by inventing one.</p></dd></div>
+      <p><strong>The design decision worth explaining is tier two.</strong> The naive approach — asking a model for an HS code — fails in the worst possible way: it returns a plausible, correctly-formatted code that does not exist. In a compliance context that is a false clearance.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 360 246" role="img" aria-labelledby="f1t f1d">
+          <title id="f1t">Two classification paths compared</title>
+          <desc id="f1d">The naive path lets the model generate an HS code as free text, which can produce a plausible code that does not exist in the database. The chapter-first path asks the model only for a 2-digit chapter, fetches every database row in that chapter, and has the model re-rank within that list, so the returned value originates from the database rather than from the model.</desc>
+          <defs>
+            <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-ink3"/>
+            </marker>
+            <marker id="ahr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-stamp"/>
+            </marker>
+            <marker id="aho" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-ok"/>
+            </marker>
+          </defs>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-stamp">NAIVE — MODEL GENERATES THE CODE</text>
+          <rect x="0" y="17" width="74" height="30" rx="2" class="f-bg s-rule"/>
+          <text x="37" y="36" font-size="11.5" text-anchor="middle" class="f-ink">LLM</text>
+          <line x1="76" y1="32" x2="99" y2="32" stroke-width="1.2" marker-end="url(#ah)" class="s-ink3"/>
+          <rect x="103" y="17" width="97" height="30" rx="2" class="f-bg s-rule"/>
+          <text x="151.5" y="30" font-size="10" text-anchor="middle" class="f-ink2">generates</text>
+          <text x="151.5" y="41" font-size="10" text-anchor="middle" class="f-ink2">free text</text>
+          <line x1="202" y1="32" x2="225" y2="32" stroke-width="1.2" marker-end="url(#ahr)" class="s-stamp"/>
+          <rect x="229" y="17" width="131" height="30" rx="2" class="f-stampbg s-stamp"/>
+          <text x="294.5" y="30" font-size="11" text-anchor="middle" class="f-stamp">"3912.11"</text>
+          <text x="294.5" y="41" font-size="9.5" text-anchor="middle" class="f-stamp">may not exist</text>
+
+          <line x1="0" y1="64" x2="360" y2="64" stroke-dasharray="3 3" class="s-rule"/>
+
+          <text x="0" y="83" font-size="10" letter-spacing="1.2" class="f-ok">CHAPTER-FIRST — MODEL SELECTS A ROW</text>
+
+          <rect x="0" y="91" width="74" height="30" rx="2" class="f-bg s-rule"/>
+          <text x="37" y="110" font-size="11.5" text-anchor="middle" class="f-ink">LLM</text>
+          <line x1="76" y1="106" x2="99" y2="106" stroke-width="1.2" marker-end="url(#ah)" class="s-ink3"/>
+          <rect x="103" y="91" width="97" height="30" rx="2" class="f-bg s-rule"/>
+          <text x="151.5" y="104" font-size="11" text-anchor="middle" class="f-ink">chapter 39</text>
+          <text x="151.5" y="115" font-size="9.5" text-anchor="middle" class="f-ink3">1 of 97</text>
+          <path d="M151.5,123 L151.5,140" stroke-width="1.2" fill="none" marker-end="url(#ah)" class="s-ink3"/>
+          <text x="158" y="136" font-size="9" class="f-ink3">scopes the query</text>
+
+          <rect x="0" y="146" width="360" height="58" rx="2" stroke-width="1.3" class="f-bg s-ink3"/>
+          <text x="8" y="160" font-size="9.5" letter-spacing="1" class="f-ink3">DATABASE — EVERY ROW IN CH. 39</text>
+          <rect x="8" y="166" width="104" height="14" rx="1.5" class="f-panel s-rule"/>
+          <text x="13" y="176" font-size="9" class="f-ink2">3912.11 · Annex XXIII</text>
+          <rect x="118" y="166" width="104" height="14" rx="1.5" class="f-okbg s-ok"/>
+          <text x="123" y="176" font-size="9" class="f-ok">3912.20 · Annex XXIII</text>
+          <rect x="228" y="166" width="104" height="14" rx="1.5" class="f-panel s-rule"/>
+          <text x="233" y="176" font-size="9" class="f-ink2">3912.31 · Annex XXI</text>
+          <text x="338" y="176" font-size="9.5" class="f-ink3">…</text>
+          <text x="8" y="196" font-size="9.5" class="f-ink2">LLM re-ranks <tspan class="f-ink">within this list</tspan> — it picks, never writes</text>
+
+          <path d="M170,204 L170,222" stroke-width="1.6" fill="none" marker-end="url(#aho)" class="s-ok"/>
+          <rect x="88" y="226" width="184" height="20" rx="2" class="f-okbg s-ok"/>
+          <text x="180" y="240" font-size="10" text-anchor="middle" class="f-ok">output is a database row, not a string</text>
+        </svg>
+        <figcaption>The output arrow starts at the database, not at the model. Because the model is only ever asked to choose among rows it was handed, a code absent from the database cannot leave the pipeline. A wrong chapter yields a wrong but checkable real entry — never an invented one.</figcaption>
+      </figure>
+      </dd></div>
 
     <div class="field"><dt>Stack</dt><dd><div class="stack">
       <span>Python 3.10+</span><span>FastAPI</span><span>SQLite → PostgreSQL path</span><span>Ollama qwen2.5:7b</span><span>rapidfuzz</span><span>pyhscodes</span><span>Docker Compose</span><span>nginx + certbot</span><span>pytest</span>
     </div></dd></div>
 
     <div class="field"><dt>Result</dt><dd><div class="result">
-      <p><strong>96.8%</strong> classifier accuracy on a 125-query bilingual (UK/EN) test set. <strong>7,676</strong> active sanctions entries across three jurisdictions — EU 2,332 · US 2,797 · UK 2,547. ~7,300 lines of Python, 64 tests across 8 test modules.</p>
+      <p><strong>96.8%</strong> classifier accuracy on a 125-query Ukrainian-and-English test set. <strong>7,676</strong> active sanctions entries across three jurisdictions — EU 2,332 · US 2,797 · UK 2,547. ~7,300 lines of Python; <strong>64</strong> pytest tests across 3 modules, plus 5 accuracy harnesses that are how the 96.8% was measured.</p>
     </div></dd></div>
 
     <div class="field"><dt>Links</dt><dd><div class="links">
@@ -215,18 +359,93 @@ footer p{margin:0 0 .5rem}
     <div class="field"><dt>Built</dt><dd>
       <p>I mapped 97 Russian companies, institutes and state structures developing AI for military, surveillance and information-control applications, and checked each against four sanctions regimes. Every entity carries registry number (OGRN), tax number (INN), addresses in Russian, Ukrainian and English, a sourced designation justification, and an explicit listed/not-listed status per jurisdiction.</p>
       <p>Recording OGRN and INN rather than names is the load-bearing choice: Russian corporate names are unstable and routinely re-registered, but a registration number survives renaming and is what makes an entity matchable against a sanctions list or a procurement record.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 360 288" role="img" aria-labelledby="f2t f2d">
+          <title id="f2t">Sanctions coverage of 97 Russian military-AI entities</title>
+          <desc id="f2d">Bars over a common baseline of 97 entities: Ukraine has designated 47, the United States 31, the European Union 21, and the United Kingdom none. Below, six cluster rows show the share of each cluster carrying no Western designation, ranging from 42 percent for microelectronics to 77 percent for computer vision and surveillance.</desc>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-ink3">ENTITIES DESIGNATED, OF 97 MAPPED</text>
+
+          <text x="0" y="30" font-size="10.5" class="f-ink2">UKR</text>
+          <rect x="38" y="21" width="272" height="13" stroke-width=".6" class="f-nullbg s-rule"/>
+          <rect x="38" y="21" width="131.8" height="13" class="f-ink3"/>
+          <text x="316" y="31" font-size="11.5" class="f-ink">47</text>
+
+          <text x="0" y="52" font-size="10.5" class="f-ink2">USA</text>
+          <rect x="38" y="43" width="272" height="13" stroke-width=".6" class="f-nullbg s-rule"/>
+          <rect x="38" y="43" width="86.9" height="13" class="f-ink3"/>
+          <text x="316" y="53" font-size="11.5" class="f-ink">31</text>
+
+          <text x="0" y="74" font-size="10.5" class="f-ink2">EU</text>
+          <rect x="38" y="65" width="272" height="13" stroke-width=".6" class="f-nullbg s-rule"/>
+          <rect x="38" y="65" width="58.9" height="13" class="f-ink3"/>
+          <text x="316" y="75" font-size="11.5" class="f-ink">21</text>
+
+          <text x="0" y="96" font-size="10.5" class="f-stamp">UK</text>
+          <rect x="38" y="87" width="272" height="13" stroke-width="1" class="f-stampbg s-stamp"/>
+          <text x="44" y="97" font-size="9" class="f-stamp">empty track — none designated</text>
+          <text x="316" y="97" font-size="11.5" font-weight="700" class="f-stamp">0</text>
+
+          <line x1="0" y1="112" x2="360" y2="112" stroke-dasharray="3 3" class="s-rule"/>
+          <text x="0" y="130" font-size="10" letter-spacing="1.2" class="f-ink3">NO WESTERN DESIGNATION, BY CLUSTER</text>
+
+          <text x="0" y="150" font-size="9.5" class="f-ink3">I</text>
+          <text x="14" y="150" font-size="9.5" class="f-ink2">UAV, weapons AI</text>
+          <rect x="150" y="143" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="143" width="110.5" height="9" opacity=".72" class="f-stamp"/>
+          <text x="326" y="150" font-size="10" class="f-ink">65%</text>
+
+          <text x="0" y="167" font-size="9.5" class="f-ink3">II</text>
+          <text x="14" y="167" font-size="9.5" class="f-ink2">Computer vision</text>
+          <rect x="150" y="160" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="160" width="130.9" height="9" class="f-stamp"/>
+          <text x="326" y="167" font-size="10" font-weight="700" class="f-stamp">77%</text>
+
+          <text x="0" y="184" font-size="9.5" class="f-ink3">III</text>
+          <text x="14" y="184" font-size="9.5" class="f-ink2">Media monitoring</text>
+          <rect x="150" y="177" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="177" width="90.1" height="9" opacity=".72" class="f-stamp"/>
+          <text x="326" y="184" font-size="10" class="f-ink">53%</text>
+
+          <text x="0" y="201" font-size="9.5" class="f-ink3">IV</text>
+          <text x="14" y="201" font-size="9.5" class="f-ink2">Microelectronics</text>
+          <rect x="150" y="194" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="194" width="71.4" height="9" opacity=".55" class="f-stamp"/>
+          <text x="326" y="201" font-size="10" class="f-ink">42%</text>
+
+          <text x="0" y="218" font-size="9.5" class="f-ink3">V</text>
+          <text x="14" y="218" font-size="9.5" class="f-ink2">Universities</text>
+          <rect x="150" y="211" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="211" width="113.9" height="9" opacity=".72" class="f-stamp"/>
+          <text x="326" y="218" font-size="10" class="f-ink">67%</text>
+
+          <text x="0" y="235" font-size="9.5" class="f-ink3">VI</text>
+          <text x="14" y="235" font-size="9.5" class="f-ink2">State funds</text>
+          <rect x="150" y="228" width="170" height="9" class="f-nullbg"/>
+          <rect x="150" y="228" width="108.8" height="9" opacity=".72" class="f-stamp"/>
+          <text x="326" y="235" font-size="10" class="f-ink">64%</text>
+
+          <line x1="0" y1="250" x2="360" y2="250" class="s-rule"/>
+          <text x="0" y="266" font-size="9.5" class="f-ink2">Weakest coverage sits where capability grows fastest.</text>
+          <text x="0" y="280" font-size="9.5" class="f-ink2">Hardware is legible to a goods-based regime. Software is not.</text>
+        </svg>
+        <figcaption>The UK bar is drawn as a visible empty track, because the absence is the finding. A zero is a different kind of number from a low number: US and EU coverage describes a regime that has engaged the sector and reached part of it.</figcaption>
+      </figure>
+
       <div class="headline-stat">
-        <div><div class="v">47</div><div class="l">🇺🇦 Ukraine designated</div></div>
-        <div><div class="v">31</div><div class="l">🇺🇸 United States</div></div>
-        <div><div class="v">21</div><div class="l">🇪🇺 European Union</div></div>
-        <div><div class="v hot">0</div><div class="l">🇬🇧 United Kingdom</div></div>
+        <div><div class="v">47</div><div class="l">Ukraine designated</div></div>
+        <div><div class="v">31</div><div class="l">United States</div></div>
+        <div><div class="v">21</div><div class="l">European Union</div></div>
+        <div><div class="v hot">0</div><div class="l">United Kingdom</div></div>
       </div>
-      <p>A zero is a different kind of number from a low number. US and EU coverage describes a regime engaging with the sector and reaching part of it. Zero describes a sector that has not been engaged at all — and not for want of instruments, since the UK maintains detailed goods-based export controls across 11 schedules under the same Russia regime.</p>
+
+      <p>The UK maintains detailed goods-based export controls across 11 schedules under the same Russia regime, so the absence is not for want of instruments. It is that the developer layer specifically has not been brought inside them.</p>
+
       <div class="matrix-wrap">
       <table class="matrix">
-        <caption class="skip">Sanctions coverage by cluster and jurisdiction</caption>
         <thead><tr>
-          <th>Cluster</th><th class="num">n</th><th class="num">UA</th><th class="num">US</th><th class="num">EU</th><th class="num">UK</th><th class="num">No Western</th>
+          <th>Cluster</th><th class="num">n</th><th class="num">UKR</th><th class="num">USA</th><th class="num">EU</th><th class="num">UK</th><th class="num">No Western</th>
         </tr></thead>
         <tbody>
           <tr><td><span class="cl">I</span> UAV, unmanned ground systems, weapons AI</td><td class="num">34</td><td class="num">16</td><td class="num">11</td><td class="num">6</td><td class="num zero">0</td><td class="num">65%</td></tr>
@@ -239,6 +458,45 @@ footer p{margin:0 0 .5rem}
         </tbody>
       </table>
       </div>
+
+      <div class="cluster-cards">
+        <div class="cc">
+          <div class="cc-h"><span class="rn">I</span><span class="nm">UAV, unmanned ground systems, weapons AI</span><span class="n">n 34</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">16</div></div><div><div class="jl">USA</div><div class="jv">11</div></div><div><div class="jl">EU</div><div class="jv">6</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>65%</b> no Western designation</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">II</span><span class="nm">Computer vision, surveillance, biometrics</span><span class="n">n 13</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">3</div></div><div><div class="jl">USA</div><div class="jv">1</div></div><div><div class="jl">EU</div><div class="jv">2</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>77%</b> no Western designation — the worst</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">III</span><span class="nm">Media monitoring, censorship, cyber ops</span><span class="n">n 15</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">4</div></div><div><div class="jl">USA</div><div class="jv">7</div></div><div><div class="jl">EU</div><div class="jv">2</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>53%</b> no Western designation</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">IV</span><span class="nm">Component base, microelectronics, hardware</span><span class="n">n 12</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">10</div></div><div><div class="jl">USA</div><div class="jv">5</div></div><div><div class="jl">EU</div><div class="jv">6</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>42%</b> no Western designation — the best</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">V</span><span class="nm">Universities and research institutes</span><span class="n">n 12</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">8</div></div><div><div class="jl">USA</div><div class="jv">4</div></div><div><div class="jl">EU</div><div class="jv">3</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>67%</b> no Western designation</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">VI</span><span class="nm">State funds, accelerators, administration</span><span class="n">n 11</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">6</div></div><div><div class="jl">USA</div><div class="jv">3</div></div><div><div class="jl">EU</div><div class="jv">2</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>64%</b> no Western designation</div>
+        </div>
+        <div class="cc">
+          <div class="cc-h"><span class="rn">—</span><span class="nm">All clusters</span><span class="n">n 97</span></div>
+          <div class="cc-j"><div><div class="jl">UKR</div><div class="jv">47</div></div><div><div class="jl">USA</div><div class="jv">31</div></div><div><div class="jl">EU</div><div class="jv">21</div></div><div class="z"><div class="jl">UK</div><div class="jv">0</div></div></div>
+          <div class="cc-g"><b>62%</b> no Western designation</div>
+        </div>
+      </div>
+
       <p><strong>Cluster III is the counter-disinformation cut.</strong> Fifteen entities building media monitoring, censorship and cyber-operations tooling — the systems that detect, characterise and act on the information environment. US coverage is comparatively strong here at 7 of 15, its best ratio of any cluster. The UK's is zero. Several are marketed openly to government buyers, and at least one claims publicly to forecast public reaction to state initiatives and to identify and "work with" difficult authors and opinion leaders. That is the point at which media monitoring stops being analytics.</p></dd></div>
 
     <div class="field"><dt>Result</dt><dd><div class="result">
@@ -264,7 +522,76 @@ footer p{margin:0 0 .5rem}
 
     <div class="field"><dt>Built</dt><dd>
       <p>A batch collection script driving GroupInt across all 28 targets — 500 messages each, endorsement extraction, flood-wait handling, failures logged and skipped rather than aborting — into a Neo4j graph. Nodes: channels, messages, users. Edges: <code>ENDORSES</code>, extracted from <code>@username</code> and <code>t.me/</code> links in message text. Degree metrics in Cypher; the GDS plugin was unavailable, so clustering is an analyst's reading rather than an algorithm's, and the report says so.</p>
-      <p><strong>Structural finding.</strong> <code>@primulinmd</code> is the single node receiving endorsements from all three narrative pipelines — in-degree 83, out-degree 8. A channel cited by ideologically distinct clusters that cites almost nobody is the network's shared authority. KP Moldova is the distribution hub at out-degree 129, in-degree 0: it pushes, it does not receive.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 360 268" role="img" aria-labelledby="f3t f3d">
+          <title id="f3t">Schematic of the Moldovan channel network</title>
+          <desc id="f3d">A hand-laid schematic. KP Moldova pushes 129 endorsements outward and receives none. The channel primulinmd receives 83 endorsements arriving from all three narrative pipelines — the central anti-Sandu hub, the Transnistrian cluster and the Gagauz cluster — while sending only 8. Unlabelled dots represent the remaining channels.</desc>
+          <defs>
+            <marker id="na" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-ink3"/>
+            </marker>
+            <marker id="nas" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-stamp"/>
+            </marker>
+          </defs>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-ink3">SCHEMATIC — NOT THE FULL GRAPH</text>
+
+          <!-- cluster regions -->
+          <rect x="0" y="20" width="150" height="72" rx="3" fill="none" stroke-dasharray="2 2" class="s-rule"/>
+          <text x="6" y="31" font-size="9" letter-spacing=".6" class="f-ink3">CENTRAL / ANTI-SANDU</text>
+          <rect x="0" y="106" width="150" height="62" rx="3" fill="none" stroke-dasharray="2 2" class="s-rule"/>
+          <text x="6" y="117" font-size="9" letter-spacing=".6" class="f-ink3">TRANSNISTRIAN</text>
+          <rect x="0" y="182" width="150" height="60" rx="3" fill="none" stroke-dasharray="2 2" class="s-rule"/>
+          <text x="6" y="193" font-size="9" letter-spacing=".6" class="f-ink3">GAGAUZ</text>
+          <rect x="238" y="196" width="122" height="46" rx="3" fill="none" stroke-dasharray="2 2" class="s-rule"/>
+          <text x="244" y="207" font-size="9" letter-spacing=".6" class="f-ink3">EXTERNAL BRIDGE</text>
+
+          <!-- edges into primulinmd -->
+          <path d="M78,53 C150,60 190,88 232,105" stroke-width="2.6" fill="none" marker-end="url(#nas)" opacity=".85" class="s-stamp"/>
+          <text x="146" y="76" font-size="9" class="f-stamp">59</text>
+          <path d="M62,136 C140,132 190,124 230,118" stroke-width="1.2" fill="none" marker-end="url(#na)" class="s-ink3"/>
+          <path d="M54,212 C150,206 200,158 234,130" stroke-width="1.2" fill="none" marker-end="url(#na)" class="s-ink3"/>
+          <path d="M110,44 C170,52 200,80 234,100" stroke-width="1.1" fill="none" marker-end="url(#na)" class="s-ink3"/>
+
+          <!-- KP Moldova pushing outward, nothing returning -->
+          <path d="M46,44 C36,26 22,22 12,26" stroke-width="1" fill="none" marker-end="url(#na)" class="s-ink3"/>
+          <path d="M40,58 C24,66 16,76 12,84" stroke-width="1" fill="none" marker-end="url(#na)" class="s-ink3"/>
+          <path d="M58,64 C60,80 62,88 64,96" stroke-width="1" fill="none" marker-end="url(#na)" class="s-ink3"/>
+
+          <!-- nodes -->
+          <circle cx="60" cy="52" r="15" stroke-width="1.6" class="f-panel s-ink"/>
+          <text x="60" y="55" font-size="9.5" text-anchor="middle" class="f-ink">KP</text>
+          <text x="60" y="78" font-size="9" text-anchor="middle" class="f-ink2">KP Moldova</text>
+          <text x="60" y="88" font-size="9" text-anchor="middle" class="f-ink3">out 129 · in 0</text>
+
+          <circle cx="248" cy="116" r="20" stroke-width="1.8" class="f-stampbg s-stamp"/>
+          <text x="248" y="119" font-size="10" text-anchor="middle" class="f-stamp">83</text>
+          <text x="248" y="146" font-size="9" text-anchor="middle" class="f-ink">@primulinmd</text>
+          <text x="248" y="156" font-size="9" text-anchor="middle" class="f-ink3">in 83 · out 8</text>
+
+          <circle cx="46" cy="138" r="8.5" stroke-width="1.2" class="f-panel s-ink2"/>
+          <text x="46" y="158" font-size="9" text-anchor="middle" class="f-ink2">e_tiraspol</text>
+          <circle cx="42" cy="214" r="7.5" stroke-width="1.2" class="f-panel s-ink2"/>
+          <text x="46" y="232" font-size="9" text-anchor="middle" class="f-ink2">gagauznewsmd</text>
+          <circle cx="300" cy="220" r="8" stroke-width="1.2" class="f-panel s-ink2"/>
+          <text x="300" y="238" font-size="9" text-anchor="middle" class="f-ink2">balkancentre</text>
+
+          <!-- unlabelled dots -->
+          <circle cx="10" cy="26" r="3" class="f-ink3"/><circle cx="10" cy="84" r="3" class="f-ink3"/>
+          <circle cx="65" cy="99" r="3" class="f-ink3"/><circle cx="112" cy="40" r="3.5" class="f-ink3"/>
+          <circle cx="120" cy="66" r="3" class="f-ink3"/><circle cx="88" cy="132" r="3" class="f-ink3"/>
+          <circle cx="112" cy="150" r="3" class="f-ink3"/><circle cx="86" cy="206" r="3" class="f-ink3"/>
+          <circle cx="112" cy="226" r="3" class="f-ink3"/><circle cx="262" cy="222" r="3" class="f-ink3"/>
+          <circle cx="334" cy="214" r="3" class="f-ink3"/>
+
+          <line x1="0" y1="250" x2="360" y2="250" class="s-rule"/>
+          <text x="0" y="263" font-size="9" class="f-ink3">node size ∝ degree · dots = other channels</text>
+        </svg>
+        <figcaption>Three pipelines, one destination. A channel cited by ideologically distinct clusters that cites almost nobody back is the network's shared authority — the structural signature that separates a coordinated network from an organic one.</figcaption>
+      </figure>
+
       <p><strong>Coordination indicators</strong>, each weighted differently rather than collapsed into one claim: byte-identical texts published same-day by <code>@e_tiraspol</code> and <code>@pridnestrovec</code>; four or more channels framing the 27 May gas VAT decision within hours in near-identical wording; and a narrow shared set of externally cited channels across otherwise unconnected clusters.</p></dd></div>
 
     <div class="field"><dt>Stack</dt><dd><div class="stack">
@@ -295,8 +622,40 @@ footer p{margin:0 0 .5rem}
 
     <div class="field"><dt>Built</dt><dd>
       <p>The same profiling task run twice — same model, same subject, search explicitly disabled on both sides — varying only prompt construction. Twelve discrete claims extracted from the output and checked one at a time against public sources, each scored true / hallucinated / unverifiable / partial, with the basis recorded per claim.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 360 162" role="img" aria-labelledby="f4t f4d">
+          <title id="f4t">Twelve claims, two prompts</title>
+          <desc id="f4d">Under the unconstrained prompt, of twelve claims two were explicit fabrications, four were unverifiable against any source, and six were confirmed or partially confirmed. Under the source-constrained prompt on the identical task, no claims were fabricated and none were unverifiable. The unverifiable band is the largest failure category.</desc>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-ink3">UNCONSTRAINED PROMPT — 12 CLAIMS</text>
+
+          <rect x="0" y="17" width="53" height="34" rx="2" class="f-stamp"/>
+          <rect x="56" y="17" width="53" height="34" rx="2" class="f-stamp"/>
+          <text x="55" y="39" font-size="11.5" text-anchor="middle" font-weight="700" class="f-panel">2 fabricated</text>
+
+          <rect x="112" y="17" width="52" height="34" rx="2" class="f-ink"/>
+          <rect x="167" y="17" width="52" height="34" rx="2" class="f-ink"/>
+          <rect x="222" y="17" width="52" height="34" rx="2" class="f-ink"/>
+          <rect x="277" y="17" width="52" height="34" rx="2" class="f-ink"/>
+          <text x="220" y="39" font-size="11.5" text-anchor="middle" font-weight="700" class="f-bg">4 unverifiable</text>
+
+          <rect x="332" y="17" width="28" height="34" rx="2" class="f-nullbg s-rule"/>
+
+          <text x="0" y="66" font-size="9.5" class="f-stamp">17% fabricated</text>
+          <text x="112" y="66" font-size="9.5" class="f-ink">33% unverifiable — the larger failure</text>
+          <text x="0" y="80" font-size="9" class="f-ink3">remaining 6 confirmed or partial (block at right)</text>
+
+          <line x1="0" y1="92" x2="360" y2="92" stroke-dasharray="3 3" class="s-rule"/>
+
+          <text x="0" y="111" font-size="10" letter-spacing="1.2" class="f-ok">SOURCE-CONSTRAINED PROMPT — SAME TASK</text>
+          <rect x="0" y="119" width="360" height="34" rx="2" class="f-okbg s-ok"/>
+          <text x="180" y="141" font-size="11.5" text-anchor="middle" font-weight="700" class="f-ok">0 fabricated · 0 unverifiable</text>
+        </svg>
+        <figcaption>The unverifiable band is drawn heaviest because it is the argument. Unverifiable claims cannot be disproven, so they survive review as harmless colour — having been generated from nothing. A fabrication can be caught by checking; an unfalsifiable claim cannot be checked at all, which is exactly why it passes.</figcaption>
+      </figure>
+
       <p><strong>The dangerous errors are the ones that look right.</strong> The model placed the subject at the wrong university — and the university it named is a real institution in the same city. Locally plausible, superficially correct, invisible without a deliberate check. A hallucination that looks wrong gets caught in review; one that looks right becomes a sourced claim.</p>
-      <p><strong>The 33% unverifiable bucket is arguably worse than the 17% fabricated.</strong> Claims like "speaks at conferences" and "part of a new wave of managers" cannot be disproven — so they pass review as harmless colour, and they were generated from nothing. I score them as their own category, because collapsing them in either direction is how unsourced claims enter analysis.</p>
       <p>What moved fabrication to zero was not the persona or the tone instruction. It was two clauses — <em>use only facts explicitly present in the text</em>, and <em>if a field is absent, return null</em> — which change the model's implicit objective from producing a complete-looking profile to reporting what the source supports.</p>
       <p>A prompt-injection test is documented alongside: a hostile instruction embedded in a source document was detected and refused unprompted. The correct conclusion is narrower than "models are safe" — one passing test on one model is not a control.</p></dd></div>
 
@@ -324,7 +683,31 @@ footer p{margin:0 0 .5rem}
 
     <div class="field"><dt>Built</dt><dd>
       <p>A Dockerised MindsDB instance over the OpenSanctions consolidated dataset, with two query paths deliberately compared: a manual-context model where I pull data with SQL and hand it over as text, and a tool-calling agent that writes its own SQL. Local models could not do tool calling reliably, so that path runs on Groq while the manual path runs on local Ollama.</p>
-      <p><strong>The finding is a negative one and it is the useful part.</strong> Asked how many sanctioned entities are from Russia, the agent returned 21,210. My own direct SQL returned 19,238. Neither is wrong — the gap is almost certainly multi-country records like <code>ru;ua</code> — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to tell which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying on its own terms: a number without its query is an assertion, not a finding.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 360 156" role="img" aria-labelledby="f5t f5d">
+          <title id="f5t">Agent answer against direct SQL</title>
+          <desc id="f5d">Asked how many sanctioned entities are from Russia, the tool-calling agent returned 21,210 while direct SQL on an exact country match returned 19,238 — a difference of 1,972 records. The agent did not surface the query it generated, so the difference cannot be attributed without redoing the work.</desc>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-ink3">ENTITIES FROM RUSSIA — TWO ANSWERS</text>
+
+          <text x="0" y="32" font-size="10" class="f-ink2">agent</text>
+          <rect x="0" y="38" width="290" height="26" rx="2" opacity=".85" class="f-stamp"/>
+          <text x="296" y="56" font-size="12.5" font-weight="700" class="f-ink">21,210</text>
+          <text x="8" y="55" font-size="9.5" class="f-panel">tool-calling · generated SQL not shown</text>
+
+          <text x="0" y="86" font-size="10" class="f-ink2">direct SQL</text>
+          <rect x="0" y="92" width="263" height="26" rx="2" class="f-ink3"/>
+          <text x="296" y="110" font-size="12.5" font-weight="700" class="f-ink">19,238</text>
+          <text x="8" y="109" font-size="9.5" class="f-bg">countries = 'ru' · query is on the page</text>
+
+          <path d="M263,124 L263,136 L290,136 L290,124" stroke-width="1.1" fill="none" class="s-stamp"/>
+          <text x="276" y="150" font-size="10" text-anchor="middle" class="f-stamp">1,972</text>
+          <text x="0" y="150" font-size="9.5" class="f-ink2">delta — likely multi-country rows (<tspan class="mono">ru;ua</tspan>)</text>
+        </svg>
+        <figcaption>The gap is not the problem — the missing query is. Neither number can be checked without reproducing the work the agent was meant to save. Both are defensible; only one is auditable. For sanctions screening a number without its query is an assertion, not a finding.</figcaption>
+      </figure>
+
       <p>A second observation from the same session: the second-largest country group in the dataset is <code>NULL</code>. For anyone filtering on jurisdiction, that is a silent hole in coverage rather than an empty category.</p></dd></div>
 
     <div class="field"><dt>Stack</dt><dd><div class="stack">
@@ -353,8 +736,63 @@ footer p{margin:0 0 .5rem}
       <p>A few hundred short videos scraped from Telegram are too many to watch and too unstructured to grep. Filenames tell you nothing about what is in the footage, or which clips resemble each other.</p></dd></div>
 
     <div class="field"><dt>Built</dt><dd>
-      <p>A pipeline that collects videos from public Telegram channels via Telethon, reduces each to a feature vector — ffprobe metadata, librosa audio energy, OpenCV optical-flow motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels, k-means dominant colours, and a CLIP ViT-B/32 embedding — then projects all embeddings through UMAP into 3-D and computes top-10 cosine nearest-neighbour edges. SQLite behind a FastAPI service feeding a Three.js frontend.</p>
-      <p>Both stages are resumable: downloaded files are skipped on re-scrape, embedded nodes on re-process. At corpus scale a failure 80% through a run should cost 20%, not everything.</p>
+      <figure class="fig">
+        <svg viewBox="0 0 360 190" role="img" aria-labelledby="f6t f6d">
+          <title id="f6t">Corpus Editor pipeline</title>
+          <desc id="f6d">Six stages: Telegram collection, per-item feature extraction using ffprobe, librosa, OpenCV and MediaPipe, CLIP embedding, UMAP projection to three dimensions, top-ten cosine nearest-neighbour edges, and a FastAPI service over SQLite. The collection and feature-extraction stages are resumable.</desc>
+          <defs>
+            <marker id="pa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5.5" markerHeight="5.5" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" class="f-ink3"/>
+            </marker>
+          </defs>
+
+          <text x="0" y="9" font-size="10" letter-spacing="1.2" class="f-ink3">PER-ITEM STAGES</text>
+
+          <rect x="0" y="17" width="106" height="42" rx="2" stroke-width="1.3" class="f-bg s-ok"/>
+          <text x="53" y="33" font-size="10.5" text-anchor="middle" class="f-ink">Telegram</text>
+          <text x="53" y="44" font-size="10.5" text-anchor="middle" class="f-ink">collection</text>
+          <text x="53" y="54" font-size="9" text-anchor="middle" class="f-ok">↻ resumable</text>
+
+          <line x1="108" y1="38" x2="125" y2="38" stroke-width="1.2" marker-end="url(#pa)" class="s-ink3"/>
+
+          <rect x="129" y="17" width="122" height="42" rx="2" stroke-width="1.3" class="f-bg s-ok"/>
+          <text x="190" y="31" font-size="10.5" text-anchor="middle" class="f-ink">feature extraction</text>
+          <text x="190" y="42" font-size="9" text-anchor="middle" class="f-ink3">ffprobe · librosa · OpenCV</text>
+          <text x="190" y="51" font-size="9" text-anchor="middle" class="f-ok">MediaPipe · ↻ resumable</text>
+
+          <line x1="253" y1="38" x2="270" y2="38" stroke-width="1.2" marker-end="url(#pa)" class="s-ink3"/>
+
+          <rect x="274" y="17" width="86" height="42" rx="2" class="f-bg s-rule"/>
+          <text x="317" y="33" font-size="10.5" text-anchor="middle" class="f-ink">CLIP</text>
+          <text x="317" y="44" font-size="9" text-anchor="middle" class="f-ink3">ViT-B/32 · 512-d</text>
+
+          <path d="M317,61 L317,74 L20,74 L20,86" stroke-width="1.2" fill="none" marker-end="url(#pa)" class="s-ink3"/>
+
+          <text x="0" y="103" font-size="10" letter-spacing="1.2" class="f-ink3">BATCH STAGES — RUN ONCE, WHOLE CORPUS</text>
+
+          <rect x="0" y="111" width="106" height="40" rx="2" class="f-bg s-rule"/>
+          <text x="53" y="127" font-size="10.5" text-anchor="middle" class="f-ink">UMAP → 3-D</text>
+          <text x="53" y="139" font-size="9" text-anchor="middle" class="f-ink3">pos x / y / z</text>
+
+          <line x1="108" y1="131" x2="125" y2="131" stroke-width="1.2" marker-end="url(#pa)" class="s-ink3"/>
+
+          <rect x="129" y="111" width="122" height="40" rx="2" class="f-bg s-rule"/>
+          <text x="190" y="127" font-size="10.5" text-anchor="middle" class="f-ink">kNN edges</text>
+          <text x="190" y="139" font-size="9" text-anchor="middle" class="f-ink3">top-10 cosine</text>
+
+          <line x1="253" y1="131" x2="270" y2="131" stroke-width="1.2" marker-end="url(#pa)" class="s-ink3"/>
+
+          <rect x="274" y="111" width="86" height="40" rx="2" stroke-width="1.3" class="f-bg s-ink3"/>
+          <text x="317" y="127" font-size="10.5" text-anchor="middle" class="f-ink">FastAPI</text>
+          <text x="317" y="139" font-size="9" text-anchor="middle" class="f-ink3">over SQLite</text>
+
+          <line x1="0" y1="166" x2="360" y2="166" class="s-rule"/>
+          <text x="0" y="181" font-size="9.5" class="f-ok">↻ marks the two resumable stages.</text>
+        </svg>
+        <figcaption>At corpus scale a failure 80% into a run should cost the remaining 20%, not the whole run — so downloaded files are skipped on re-scrape and embedded nodes on re-process. The batch stages cannot be resumable: UMAP fits over the whole corpus at once.</figcaption>
+      </figure>
+
+      <p>Per-video extraction covers ffprobe metadata, librosa audio energy, OpenCV optical-flow motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels and k-means dominant colours, alongside the CLIP ViT-B/32 embedding.</p>
       <p>This started as a tool for a film project, not an intelligence one. It is here because the pipeline underneath — bulk Telegram collection, per-item feature extraction, embedding, dimensionality reduction, an API over the result — is what a media-monitoring system needs, and I would rather show one I built end to end.</p></dd></div>
 
     <div class="field"><dt>Stack</dt><dd><div class="stack">
@@ -381,8 +819,10 @@ footer p{margin:0 0 .5rem}
 
   <div class="piece">
     <h3>Passwork — an FSB-licensed password manager in EU government systems</h3>
-    <div class="role">Contributing researcher · StateWatch / OCCRP · July 2026</div>
+    <div class="role">StateWatch / OCCRP · 17 July 2026 · author Anna Holishevska</div>
     <p>A cross-border investigation into a password manager presenting as European while operating under Russian jurisdiction, holding an FSB cryptographic licence, and counting sanctioned Russian companies among its clients. Co-published by StateWatch and OCCRP with a consortium of European outlets.</p>
+    <p>My credit, as published on the StateWatch article:</p>
+    <blockquote><p>This investigation was produced with contributions from OCCRP journalists and StateWatch volunteers Matvii Liadov and <strong>Nazar Holianych</strong>.</p></blockquote>
     <div class="links">
       <a href="https://statewatch.org.ua/en/publications/rozsliduvannia/sanktsii/passwork-fsb-password-manager-eu-government/">StateWatch</a>
       <a href="https://www.occrp.org/en/investigation/european-password-manager-shares-origins-and-updates-with-state-certified-russian-firm">OCCRP</a>
@@ -441,10 +881,25 @@ footer p{margin:0 0 .5rem}
 </main>
 
 <footer>
-  <p>Nazar Golianych · OSINT analyst · <a href="mailto:golianych.nazar@gmail.com">golianych.nazar@gmail.com</a> · <a href="https://github.com/NazarGol">github.com/NazarGol</a> · <a href="cv.txt">CV (plain text)</a></p>
+  <p>Nazar Golianych · OSINT analyst · <a href="mailto:golianych.nazar@gmail.com">golianych.nazar@gmail.com</a> · <a href="https://github.com/NazarGol">github.com/NazarGol</a></p>
+  <p>Published under Holianych in OCCRP/StateWatch. CV on request.</p>
   <p>Every figure on this page comes from the code or the source files behind it. Where a number could not be verified, it is not here.</p>
 </footer>
 
 </div>
+
+<script>
+/* Collapse the contents list on small screens. Markup ships open, so with
+   JS unavailable the list is simply always visible — nothing is lost. */
+(function () {
+  var t = document.querySelector('details.toc');
+  if (!t || !window.matchMedia) return;
+  var m = window.matchMedia('(max-width: 40rem)');
+  var sync = function () { t.open = !m.matches; };
+  sync();
+  if (m.addEventListener) m.addEventListener('change', sync);
+  else if (m.addListener) m.addListener(sync);
+})();
+</script>
 </body>
 </html>

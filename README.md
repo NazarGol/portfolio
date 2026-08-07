@@ -3,7 +3,8 @@
 I work on **Russian information and defence-tech infrastructure** — and I build the tooling to do that work at scale.
 
 **Live site:** [nazargol.github.io/portfolio](https://nazargol.github.io/portfolio)
-**Contact:** golianych.nazar@gmail.com · [github.com/NazarGol](https://github.com/NazarGol) · [CV (plain text)](cv.txt)
+**Contact:** golianych.nazar@gmail.com · [github.com/NazarGol](https://github.com/NazarGol)
+*Published under Holianych in OCCRP/StateWatch.*
 
 ---
 
@@ -15,7 +16,7 @@ A local tool answering "is this product under sanctions?" — returning the lega
 
 The classifier runs four tiers: alias table → LLM stage → keyword-intersection SQL → rapidfuzz fallback. The design decision worth explaining is tier two. Asking a model for an HS code fails in the worst possible way — it returns a plausible, correctly-formatted code that does not exist, which in a compliance context is a false clearance. So the model is never asked for a code. It is asked only for the **2-digit HS chapter** — a coarse classification into 97 buckets that language models do reliably — and then re-ranks **within the database rows belonging to that chapter**. Its output is a selection from real rows, not a generated string. A code that is not in the database cannot come out of the pipeline.
 
-**Result:** 96.8% classifier accuracy on a 125-query bilingual test set. 7,676 active entries — EU 2,332 (Reg. 833/2014, 13 annexes) · US 2,797 (EAR Part 746, Supplements 2/4/5) · UK 2,547 (Russia (Sanctions) (EU Exit) Regs 2019, 11 schedules). ~7,300 lines of Python, 64 tests across 8 test modules.
+**Result:** 96.8% classifier accuracy on a 125-query bilingual test set (Ukrainian and English). 7,676 active entries — EU 2,332 (Reg. 833/2014, 13 annexes) · US 2,797 (EAR Part 746, Supplements 2/4/5) · UK 2,547 (Russia (Sanctions) (EU Exit) Regs 2019, 11 schedules). ~7,300 lines of Python; 64 pytest tests across 3 modules, plus 5 accuracy harnesses that are how the 96.8% was measured.
 
 **Stack:** Python · FastAPI · SQLite (PostgreSQL migration path) · Ollama `qwen2.5:7b` · rapidfuzz · Docker Compose · nginx + certbot
 
@@ -111,8 +112,14 @@ No credentials, session file or scraped corpus are published.
 ## 07 · Analytical writing
 
 **Passwork — an FSB-licensed password manager in EU government systems**
-*Contributing researcher · StateWatch / OCCRP · July 2026*
-A cross-border investigation into a password manager presenting as European while operating under Russian jurisdiction, holding an FSB cryptographic licence, and counting sanctioned Russian companies among its clients.
+*StateWatch / OCCRP · 17 July 2026 · author Anna Holishevska*
+
+A cross-border investigation into a password manager presenting as European while operating under Russian jurisdiction, holding an FSB cryptographic licence, and counting sanctioned Russian companies among its clients. Co-published by StateWatch and OCCRP with a consortium of European outlets.
+
+My credit, as published on the StateWatch article:
+
+> This investigation was produced with contributions from OCCRP journalists and StateWatch volunteers Matvii Liadov and **Nazar Holianych**.
+
 [StateWatch](https://statewatch.org.ua/en/publications/rozsliduvannia/sanktsii/passwork-fsb-password-manager-eu-government/) · [OCCRP](https://www.occrp.org/en/investigation/european-password-manager-shares-origins-and-updates-with-state-certified-russian-firm)
 
 **ZhBK-185 — tracing captured Ukrainian plants into a Russian corporate network**

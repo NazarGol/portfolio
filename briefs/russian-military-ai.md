@@ -89,6 +89,12 @@ Recording OGRN and INN rather than names alone is the load-bearing decision. Rus
 
 **Sanctions status** was checked per entity against each of the four regimes' published lists, recorded as an explicit binary — listed or not listed — for every jurisdiction. No jurisdiction is inferred from another. The empty cells are as deliberate as the filled ones: a blank is a checked negative, not an unchecked field, which is what allows the coverage gap to be counted rather than estimated.
 
+**Cluster assignment, and one resolved conflict.** Each entity carries a cluster in two places: the section it sits under, and an explicit cluster field on its own row. For 96 of 97 entities these agree. For one they did not — its row field read Cluster I while it sat under Cluster III.
+
+I resolved it to **Cluster III** on two independent grounds. Its functional classification field reads "content analysis", which is the value carried by every one of the 15 Cluster III entities and by none of the Cluster I entities (those are uniformly UAV, unmanned-ground-system and weapons-control types). And its sourced justification describes it as the largest IT supplier to the federal communications regulator and that regulator's subordinate radio-frequency centre, funded principally through state contracts — a media-monitoring and censorship function, not a weapons one. The row field is a data-entry error.
+
+This moves one entity between clusters relative to a naive read of the row fields: **Cluster I is 34 and Cluster III is 15**, not 35 and 14. The total of 97 is unaffected, as is every jurisdiction count, since the entity in question is undesignated in all four regimes. It is not named here for that reason — it is not under public sanction anywhere, and the rule governing this brief is that only already-designated entities are identified.
+
 **A note on what this measures.** Designation status is a snapshot. Sanctions lists change, and any of these figures can be moved by a single listing round. The 97 figure is a floor on the sector, not a census of it — it is what a systematic open-source sweep surfaced, and the true population of Russian entities working on military and surveillance AI is larger.
 
 ## Worked examples
