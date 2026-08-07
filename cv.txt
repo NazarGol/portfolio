@@ -1,0 +1,37 @@
+NAZAR GOLIANYCH
+OSINT analyst · tool builder
+
+golianych.nazar@gmail.com
+github.com/NazarGol
+nazargol.github.io/portfolio
+
+------------------------------------------------------------------------
+
+PLACEHOLDER — this file has not been filled in yet.
+
+The portfolio site links here for a plain-text CV. Replace the section
+below with your actual CV content and commit; the link will then work
+without any change to the site.
+
+Nothing has been drafted for you here on purpose: a CV asserts dates,
+titles, employers and durations, and none of those could be verified
+from the repository contents. Inventing them would contradict the
+sourcing standard the rest of this portfolio is built on.
+
+Source material already on disk that you may want to draw from:
+  ~/Downloads/CV_Golianych_Research_AI_Ukraine.pdf
+  ~/Downloads/CV_RA_Golianych.pdf
+  ~/Downloads/CV_Golianych_Partnerships_UA.pdf
+  ~/Downloads/Резюме-ОСІНТ.pdf
+
+Suggested structure:
+
+  SUMMARY
+  EXPERIENCE
+  SELECTED WORK          (see the portfolio site — items 01-09)
+  PUBLICATIONS           (Passwork, StateWatch/OCCRP, July 2026)
+  SKILLS
+  LANGUAGES
+  EDUCATION
+
+------------------------------------------------------------------------
