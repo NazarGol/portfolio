@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nazar Golianych — OSINT analyst who builds</title>
+<meta name="description" content="OSINT analyst and tool-builder. Russian information and defence-tech infrastructure, and the tooling to do that work at scale.">
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#17161a; --ink-2:#4a4750; --ink-3:#7b7783;
+  --rule:#ddd9d2; --rule-2:#ebe8e2;
+  --stamp:#a8321f; --stamp-bg:#f7ebe8;
+  --null:#a5a1a9; --null-bg:#f2f0ed;
+  --link:#1f4f8f;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+    --rule:#2f2f39; --rule-2:#24242c;
+    --stamp:#e8705a; --stamp-bg:#2c1b18;
+    --null:#6e6a76; --null-bg:#212129;
+    --link:#7aa9e6;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+  --rule:#2f2f39; --rule-2:#24242c;
+  --stamp:#e8705a; --stamp-bg:#2c1b18;
+  --null:#6e6a76; --null-bg:#212129;
+  --link:#7aa9e6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16.5px; line-height:1.62;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{max-width:56rem; margin:0 auto; padding:0 1.5rem}
+a{color:var(--link); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--stamp); outline-offset:3px; border-radius:2px}
+h1,h2,h3{line-height:1.22; letter-spacing:-0.011em; font-weight:640; margin:0}
+p{margin:0 0 1rem}
+ul{margin:0 0 1rem; padding-left:1.15rem}
+li{margin:.3rem 0}
+code,.mono{font-family:var(--mono); font-size:.9em}
+
+/* ---------- masthead ---------- */
+header.top{border-bottom:2px solid var(--ink); padding:2.75rem 0 1.25rem; margin-bottom:2.5rem}
+.eyebrow{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:1rem}
+h1{font-size:clamp(1.9rem,5.2vw,2.9rem); margin-bottom:.6rem}
+.thesis{font-size:clamp(1.02rem,2.4vw,1.2rem); color:var(--ink-2); max-width:44rem; margin-bottom:1.5rem}
+.thesis strong{color:var(--ink); font-weight:620}
+.contact{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; font-family:var(--mono); font-size:.815rem; color:var(--ink-2)}
+.contact span.k{color:var(--ink-3)}
+
+/* ---------- index ---------- */
+nav.index{margin:0 0 3.25rem}
+nav.index h2{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:500; margin-bottom:.9rem}
+nav.index ol{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule-2)}
+nav.index li{margin:0; border-bottom:1px solid var(--rule-2)}
+nav.index a{display:flex; gap:1rem; align-items:baseline; padding:.62rem .25rem; border:0; color:var(--ink)}
+nav.index a:hover{background:var(--panel); color:var(--link)}
+nav.index .n{font-family:var(--mono); font-size:.75rem; color:var(--ink-3); min-width:1.9rem}
+nav.index .t{flex:1}
+nav.index .k{font-family:var(--mono); font-size:.7rem; color:var(--ink-3); text-align:right}
+
+/* ---------- record ---------- */
+article.rec{margin:0 0 3.5rem; scroll-margin-top:1.5rem}
+.rec-head{border-top:2px solid var(--ink); padding-top:.85rem; margin-bottom:1.4rem}
+.rec-meta{display:flex; flex-wrap:wrap; gap:.35rem 1.1rem; font-family:var(--mono); font-size:.7rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.5rem}
+.rec-meta .idx{color:var(--stamp); font-weight:600}
+.rec h2{font-size:clamp(1.3rem,3.4vw,1.72rem); margin-bottom:.45rem}
+.rec .sub{color:var(--ink-2); font-size:.98rem}
+
+.field{display:grid; grid-template-columns:7.2rem 1fr; gap:0 1.25rem; padding:.8rem 0; border-bottom:1px solid var(--rule-2)}
+.field:last-of-type{border-bottom:0}
+.field > dt{font-family:var(--mono); font-size:.685rem; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); padding-top:.28rem}
+.field > dd{margin:0}
+.field > dd > p:last-child{margin-bottom:0}
+@media (max-width:34rem){
+  .field{grid-template-columns:1fr; gap:.3rem}
+  .field > dt{padding-top:0}
+}
+
+.result{background:var(--panel); border-left:3px solid var(--stamp); padding:.7rem .95rem; border-radius:0 3px 3px 0}
+.result p{margin:0}
+.result strong{font-family:var(--mono); font-size:1.02em; color:var(--stamp)}
+
+.stack{display:flex; flex-wrap:wrap; gap:.32rem}
+.stack span{font-family:var(--mono); font-size:.735rem; color:var(--ink-2);
+  border:1px solid var(--rule); border-radius:2px; padding:.13rem .42rem; background:var(--panel)}
+
+.links{display:flex; flex-wrap:wrap; gap:.4rem .95rem; font-family:var(--mono); font-size:.79rem}
+
+/* ---------- jurisdiction matrix ---------- */
+.matrix-wrap{overflow-x:auto; margin:0 0 1rem; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
+table.matrix{border-collapse:collapse; width:100%; min-width:31rem; font-size:.86rem}
+table.matrix th,table.matrix td{padding:.5rem .7rem; text-align:left; border-bottom:1px solid var(--rule-2)}
+table.matrix thead th{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:500; border-bottom:1px solid var(--rule); white-space:nowrap}
+table.matrix tbody tr:last-child td{border-bottom:0}
+table.matrix td.num,table.matrix th.num{text-align:right; font-family:var(--mono); font-variant-numeric:tabular-nums}
+table.matrix tr.total td{border-top:1px solid var(--rule); font-weight:640}
+td.zero{color:var(--stamp); font-weight:700; background:var(--stamp-bg)}
+.cl{font-family:var(--mono); font-size:.78rem; color:var(--ink-3)}
+
+.headline-stat{display:grid; grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); border-radius:3px; margin:0 0 1.15rem; overflow:hidden}
+.headline-stat div{background:var(--panel); padding:.85rem .9rem}
+.headline-stat .v{font-family:var(--mono); font-size:1.5rem; font-weight:650; line-height:1.1; color:var(--ink)}
+.headline-stat .v.hot{color:var(--stamp)}
+.headline-stat .l{font-size:.755rem; color:var(--ink-3); margin-top:.2rem; line-height:1.35}
+
+/* ---------- writing ---------- */
+.piece{border-top:1px solid var(--rule-2); padding:1rem 0}
+.piece:first-of-type{border-top:0}
+.piece h3{font-size:1.02rem; margin-bottom:.32rem}
+.piece .role{font-family:var(--mono); font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:.42rem}
+.piece p{margin-bottom:.45rem; color:var(--ink-2); font-size:.945rem}
+.piece .links{margin-top:.3rem}
+
+.flag{font-family:var(--mono); font-size:.72rem; color:var(--ink-3);
+  border:1px dashed var(--rule); border-radius:2px; padding:.5rem .7rem; margin:.6rem 0 0; background:var(--panel)}
+
+footer{border-top:2px solid var(--ink); margin-top:1.5rem; padding:1.6rem 0 3.5rem;
+  font-family:var(--mono); font-size:.78rem; color:var(--ink-3)}
+footer a{color:var(--ink-2)}
+footer p{margin:0 0 .5rem}
+.skip{position:absolute; left:-9999px}
+.skip:focus{left:.5rem; top:.5rem; position:fixed; background:var(--panel); color:var(--ink);
+  padding:.6rem .9rem; border:2px solid var(--stamp); border-radius:3px; z-index:9}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important; scroll-behavior:auto!important}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to work</a>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">OSINT analyst · tool builder · Ukraine</div>
+  <h1>Nazar Golianych</h1>
+  <p class="thesis">An analyst who builds. I work on <strong>Russian information and defence-tech infrastructure</strong> — and I build the tooling to do that work at scale.</p>
+  <div class="contact">
+    <span><span class="k">email</span> <a href="mailto:golianych.nazar@gmail.com">golianych.nazar@gmail.com</a></span>
+    <span><span class="k">github</span> <a href="https://github.com/NazarGol">github.com/NazarGol</a></span>
+    <span><span class="k">cv</span> <a href="cv.txt">cv.txt</a></span>
+  </div>
+</header>
+
+<main id="work">
+
+<nav class="index" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#sanctions-checker"><span class="n">01</span><span class="t">Sanctions Checker — EU · US · UK export-control lookup</span><span class="k">code</span></a></li>
+    <li><a href="#russian-military-ai"><span class="n">02</span><span class="t">The UK has designated none of them — 97 Russian military-AI entities</span><span class="k">analysis</span></a></li>
+    <li><a href="#moldova"><span class="n">03</span><span class="t">Pro-Russian information network in Moldova</span><span class="k">analysis · code</span></a></li>
+    <li><a href="#llm-verification"><span class="n">04</span><span class="t">Measuring LLM fabrication rate in OSINT profiling</span><span class="k">method</span></a></li>
+    <li><a href="#opensanctions"><span class="n">05</span><span class="t">Querying 77k sanctions entities — SQL and an agent</span><span class="k">code</span></a></li>
+    <li><a href="#corpus-editor"><span class="n">06</span><span class="t">Corpus Editor — Telegram video pipeline</span><span class="k">code</span></a></li>
+    <li><a href="#writing"><span class="n">07</span><span class="t">Analytical writing</span><span class="k">published</span></a></li>
+    <li><a href="#rcp"><span class="n">08</span><span class="t">Russia Context Platform — adversary-capability research</span><span class="k">research</span></a></li>
+    <li><a href="#practice"><span class="n">09</span><span class="t">Practice</span><span class="k">art</span></a></li>
+  </ol>
+</nav>
+
+<!-- 01 ------------------------------------------------------------------ -->
+<article class="rec" id="sanctions-checker">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">01</span><span>Engineering</span><span>TrapAggressor / StateWatch</span></div>
+    <h2>Sanctions Checker — EU · US · UK export-control lookup</h2>
+    <p class="sub">A local tool that answers "is this product under sanctions?" — built so the LLM structurally cannot invent an answer.</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>An investigator tracking sanctions evasion has a product description in Ukrainian, or an HS code off a customs declaration, and needs to know whether it is restricted, under which instrument, since when, and where the official text says so. By hand that means reading three legal regimes — 13 EU annexes, 3 US BIS supplements, 11 UK schedules — each with its own code format and amendment history.</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>A FastAPI service over a 7,676-entry SQLite database, with 15 EU annex parsers, UK schedule parsers and US BIS supplement parsers that rebuild the database from official sources. Product names are accepted in Ukrainian and English; every answer returns its legal basis, annex, restriction type, date enacted and a deep link into the source document.</p>
+      <p>Classification runs four tiers: an alias table of ~200 known products, then an LLM stage, then keyword-intersection SQL with progressive relaxation, then a rapidfuzz fallback.</p>
+      <p><strong>The design decision worth explaining is tier two.</strong> The naive approach — asking a model for an HS code — fails in the worst possible way: it returns a plausible, correctly-formatted code that does not exist. In a compliance context that is a false clearance. So the model is never asked for a code. It is asked only for the <em>2-digit HS chapter</em>, a coarse classification into 97 buckets that language models do reliably. Every database row in that chapter is then fetched, and the model re-ranks <em>within that list</em>. Its output is a selection from real rows, not a generated string — so a code that is not in the database cannot come out of the pipeline. A wrong chapter yields a wrong but checkable answer pointing at a real entry. It is never wrong by inventing one.</p></dd></div>
+
+    <div class="field"><dt>Stack</dt><dd><div class="stack">
+      <span>Python 3.10+</span><span>FastAPI</span><span>SQLite → PostgreSQL path</span><span>Ollama qwen2.5:7b</span><span>rapidfuzz</span><span>pyhscodes</span><span>Docker Compose</span><span>nginx + certbot</span><span>pytest</span>
+    </div></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p><strong>96.8%</strong> classifier accuracy on a 125-query bilingual (UK/EN) test set. <strong>7,676</strong> active sanctions entries across three jurisdictions — EU 2,332 · US 2,797 · UK 2,547. ~7,300 lines of Python, 64 tests across 8 test modules.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd><div class="links">
+      <a href="https://github.com/NazarGol/sanctions-checker">github.com/NazarGol/sanctions-checker</a>
+    </div></dd></div>
+  </dl>
+</article>
+
+<!-- 02 ------------------------------------------------------------------ -->
+<article class="rec" id="russian-military-ai">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">02</span><span>Analysis</span><span>Independent research</span></div>
+    <h2>The UK has designated none of them</h2>
+    <p class="sub">A four-jurisdiction coverage gap across 97 Russian military-AI entities.</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>Sanctions policy has tracked hardware — components, microelectronics, supply chains — because goods are legible to a goods-based regime. The developer layer writing the targeting, recognition, monitoring and censorship software has been tracked much less. I wanted to know how much less, and where exactly the holes are.</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>I mapped 97 Russian companies, institutes and state structures developing AI for military, surveillance and information-control applications, and checked each against four sanctions regimes. Every entity carries registry number (OGRN), tax number (INN), addresses in Russian, Ukrainian and English, a sourced designation justification, and an explicit listed/not-listed status per jurisdiction.</p>
+      <p>Recording OGRN and INN rather than names is the load-bearing choice: Russian corporate names are unstable and routinely re-registered, but a registration number survives renaming and is what makes an entity matchable against a sanctions list or a procurement record.</p>
+      <div class="headline-stat">
+        <div><div class="v">47</div><div class="l">🇺🇦 Ukraine designated</div></div>
+        <div><div class="v">31</div><div class="l">🇺🇸 United States</div></div>
+        <div><div class="v">21</div><div class="l">🇪🇺 European Union</div></div>
+        <div><div class="v hot">0</div><div class="l">🇬🇧 United Kingdom</div></div>
+      </div>
+      <p>A zero is a different kind of number from a low number. US and EU coverage describes a regime engaging with the sector and reaching part of it. Zero describes a sector that has not been engaged at all — and not for want of instruments, since the UK maintains detailed goods-based export controls across 11 schedules under the same Russia regime.</p>
+      <div class="matrix-wrap">
+      <table class="matrix">
+        <caption class="skip">Sanctions coverage by cluster and jurisdiction</caption>
+        <thead><tr>
+          <th>Cluster</th><th class="num">n</th><th class="num">UA</th><th class="num">US</th><th class="num">EU</th><th class="num">UK</th><th class="num">No Western</th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="cl">I</span> UAV, unmanned ground systems, weapons AI</td><td class="num">34</td><td class="num">16</td><td class="num">11</td><td class="num">6</td><td class="num zero">0</td><td class="num">65%</td></tr>
+          <tr><td><span class="cl">II</span> Computer vision, surveillance, biometrics</td><td class="num">13</td><td class="num">3</td><td class="num">1</td><td class="num">2</td><td class="num zero">0</td><td class="num">77%</td></tr>
+          <tr><td><span class="cl">III</span> Media monitoring, censorship, cyber ops</td><td class="num">15</td><td class="num">4</td><td class="num">7</td><td class="num">2</td><td class="num zero">0</td><td class="num">53%</td></tr>
+          <tr><td><span class="cl">IV</span> Component base, microelectronics, hardware</td><td class="num">12</td><td class="num">10</td><td class="num">5</td><td class="num">6</td><td class="num zero">0</td><td class="num">42%</td></tr>
+          <tr><td><span class="cl">V</span> Universities and research institutes</td><td class="num">12</td><td class="num">8</td><td class="num">4</td><td class="num">3</td><td class="num zero">0</td><td class="num">67%</td></tr>
+          <tr><td><span class="cl">VI</span> State funds, accelerators, administration</td><td class="num">11</td><td class="num">6</td><td class="num">3</td><td class="num">2</td><td class="num zero">0</td><td class="num">64%</td></tr>
+          <tr class="total"><td>Total</td><td class="num">97</td><td class="num">47</td><td class="num">31</td><td class="num">21</td><td class="num zero">0</td><td class="num">62%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p><strong>Cluster III is the counter-disinformation cut.</strong> Fifteen entities building media monitoring, censorship and cyber-operations tooling — the systems that detect, characterise and act on the information environment. US coverage is comparatively strong here at 7 of 15, its best ratio of any cluster. The UK's is zero. Several are marketed openly to government buyers, and at least one claims publicly to forecast public reaction to state initiatives and to identify and "work with" difficult authors and opinion leaders. That is the point at which media monitoring stops being analytics.</p></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p><strong>62%</strong> of the 97 carry no Western designation at all. <strong>41%</strong> carry none in any of the four jurisdictions. <strong>20</strong> are Ukraine-listed with no Western follow-through — already assessed by the state fighting the war, with the evidentiary work done and published, and untouched by any Western regime.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd>
+      <div class="links"><a href="briefs/russian-military-ai.md">Read the full brief</a></div>
+      <p class="flag">The brief publishes the finding, the cluster taxonomy, the full record schema and three worked examples — all three drawn only from entities already under public designation, so nothing is disclosed that is not already a published listing. The 97-entity dataset itself is held privately. <strong>Full dataset available on request.</strong></p></dd></div>
+  </dl>
+</article>
+
+<!-- 03 ------------------------------------------------------------------ -->
+<article class="rec" id="moldova">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">03</span><span>Analysis · Code</span><span>FIMI / coordinated behaviour</span></div>
+    <h2>Pro-Russian information network in Moldova</h2>
+    <p class="sub">Graph analysis of 27 Telegram channels — is the structure organic, or coordinated?</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>Within a fixed perimeter of 28 Telegram channels pushing pro-Russian and anti-Western content in Moldova, does the observable structure look organic — or does it show coordination? The channel set was defined in advance, so this describes structure inside a boundary rather than a network discovered from scratch. That limitation is stated in the report rather than buried.</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>A batch collection script driving GroupInt across all 28 targets — 500 messages each, endorsement extraction, flood-wait handling, failures logged and skipped rather than aborting — into a Neo4j graph. Nodes: channels, messages, users. Edges: <code>ENDORSES</code>, extracted from <code>@username</code> and <code>t.me/</code> links in message text. Degree metrics in Cypher; the GDS plugin was unavailable, so clustering is an analyst's reading rather than an algorithm's, and the report says so.</p>
+      <p><strong>Structural finding.</strong> <code>@primulinmd</code> is the single node receiving endorsements from all three narrative pipelines — in-degree 83, out-degree 8. A channel cited by ideologically distinct clusters that cites almost nobody is the network's shared authority. KP Moldova is the distribution hub at out-degree 129, in-degree 0: it pushes, it does not receive.</p>
+      <p><strong>Coordination indicators</strong>, each weighted differently rather than collapsed into one claim: byte-identical texts published same-day by <code>@e_tiraspol</code> and <code>@pridnestrovec</code>; four or more channels framing the 27 May gas VAT decision within hours in near-identical wording; and a narrow shared set of externally cited channels across otherwise unconnected clusters.</p></dd></div>
+
+    <div class="field"><dt>Stack</dt><dd><div class="stack">
+      <span>Python 3.13</span><span>Neo4j 5.x</span><span>Cypher</span><span>Telethon (via GroupInt)</span><span>Docker</span>
+    </div></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p><strong>27</strong> channels indexed of 28 targeted · <strong>23,110</strong> messages · <strong>424</strong> endorsement links across 164 unique channel pairs · <strong>4</strong> clusters mapped.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd><div class="links">
+      <a href="https://github.com/NazarGol/moldova-information-network">github.com/NazarGol/moldova-information-network</a>
+    </div>
+    <p class="flag">Telegram collection ran on <strong>GroupInt</strong>, an open-source tool by <strong>OSINT for Ukraine</strong> — used as a harness, not authored by me. The scrape script, graph model, Cypher and analysis are mine. The report is written in Ukrainian.</p></dd></div>
+  </dl>
+</article>
+
+<!-- 04 ------------------------------------------------------------------ -->
+<article class="rec" id="llm-verification">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">04</span><span>Methodology</span><span>LLM output reliability</span></div>
+    <h2>Measuring LLM fabrication rate in OSINT profiling</h2>
+    <p class="sub">How much of a model's output is invented — and does prompt construction change that, or only the tone?</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>Analysts use language models to profile people. The failure mode everyone names is hallucination; the failure mode that actually reaches finished reports is subtler. I wanted a number rather than an intuition.</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>The same profiling task run twice — same model, same subject, search explicitly disabled on both sides — varying only prompt construction. Twelve discrete claims extracted from the output and checked one at a time against public sources, each scored true / hallucinated / unverifiable / partial, with the basis recorded per claim.</p>
+      <p><strong>The dangerous errors are the ones that look right.</strong> The model placed the subject at the wrong university — and the university it named is a real institution in the same city. Locally plausible, superficially correct, invisible without a deliberate check. A hallucination that looks wrong gets caught in review; one that looks right becomes a sourced claim.</p>
+      <p><strong>The 33% unverifiable bucket is arguably worse than the 17% fabricated.</strong> Claims like "speaks at conferences" and "part of a new wave of managers" cannot be disproven — so they pass review as harmless colour, and they were generated from nothing. I score them as their own category, because collapsing them in either direction is how unsourced claims enter analysis.</p>
+      <p>What moved fabrication to zero was not the persona or the tone instruction. It was two clauses — <em>use only facts explicitly present in the text</em>, and <em>if a field is absent, return null</em> — which change the model's implicit objective from producing a complete-looking profile to reporting what the source supports.</p>
+      <p>A prompt-injection test is documented alongside: a hostile instruction embedded in a source document was detected and refused unprompted. The correct conclusion is narrower than "models are safe" — one passing test on one model is not a control.</p></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p>Unconstrained prompt: <strong>17%</strong> explicit hallucination, <strong>33%</strong> unverifiable claims. Source-constrained prompt on the identical task: <strong>0%</strong> fabrication.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd><div class="links">
+      <a href="https://github.com/NazarGol/llm-verification-osint">github.com/NazarGol/llm-verification-osint</a>
+    </div>
+    <p class="flag">My first attempt at this comparison was invalid — I had compared a tool with retrieval against one without, not two prompts. The repo documents that error and the fix, because catching a confounded comparison before publishing is the same skill as catching a plausible hallucination before it ships. The verification subject is anonymised and identifying links removed.</p></dd></div>
+  </dl>
+</article>
+
+<!-- 05 ------------------------------------------------------------------ -->
+<article class="rec" id="opensanctions">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">05</span><span>Code</span><span>Agent reliability</span></div>
+    <h2>Querying 77k sanctions entities — SQL and an agent</h2>
+    <p class="sub">A local analytics stack over the consolidated sanctions corpus, and what the agent got wrong.</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>Can a local stack put the full consolidated sanctions corpus behind plain SQL and a natural-language agent — and can the agent's answers be trusted without checking its work?</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>A Dockerised MindsDB instance over the OpenSanctions consolidated dataset, with two query paths deliberately compared: a manual-context model where I pull data with SQL and hand it over as text, and a tool-calling agent that writes its own SQL. Local models could not do tool calling reliably, so that path runs on Groq while the manual path runs on local Ollama.</p>
+      <p><strong>The finding is a negative one and it is the useful part.</strong> Asked how many sanctioned entities are from Russia, the agent returned 21,210. My own direct SQL returned 19,238. Neither is wrong — the gap is almost certainly multi-country records like <code>ru;ua</code> — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to tell which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying on its own terms: a number without its query is an assertion, not a finding.</p>
+      <p>A second observation from the same session: the second-largest country group in the dataset is <code>NULL</code>. For anyone filtering on jurisdiction, that is a silent hole in coverage rather than an empty category.</p></dd></div>
+
+    <div class="field"><dt>Stack</dt><dd><div class="stack">
+      <span>MindsDB</span><span>Docker</span><span>Ollama gemma3:4b</span><span>Groq API</span><span>SQL</span><span>OpenSanctions</span>
+    </div></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p><strong>76,996</strong> sanctions entities queryable in SQL, with both a manual-context path and a tool-calling agent — and a documented auditability failure in the agent path.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd><div class="links">
+      <a href="https://github.com/NazarGol/opensanctions-agent">github.com/NazarGol/opensanctions-agent</a>
+    </div></dd></div>
+  </dl>
+</article>
+
+<!-- 06 ------------------------------------------------------------------ -->
+<article class="rec" id="corpus-editor">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">06</span><span>Code</span><span>Collection pipeline</span></div>
+    <h2>Corpus Editor — Telegram video pipeline</h2>
+    <p class="sub">Bulk collection → feature extraction → embeddings → a navigable 3-D field.</p>
+  </div>
+  <dl>
+    <div class="field"><dt>Problem</dt><dd>
+      <p>A few hundred short videos scraped from Telegram are too many to watch and too unstructured to grep. Filenames tell you nothing about what is in the footage, or which clips resemble each other.</p></dd></div>
+
+    <div class="field"><dt>Built</dt><dd>
+      <p>A pipeline that collects videos from public Telegram channels via Telethon, reduces each to a feature vector — ffprobe metadata, librosa audio energy, OpenCV optical-flow motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels, k-means dominant colours, and a CLIP ViT-B/32 embedding — then projects all embeddings through UMAP into 3-D and computes top-10 cosine nearest-neighbour edges. SQLite behind a FastAPI service feeding a Three.js frontend.</p>
+      <p>Both stages are resumable: downloaded files are skipped on re-scrape, embedded nodes on re-process. At corpus scale a failure 80% through a run should cost 20%, not everything.</p>
+      <p>This started as a tool for a film project, not an intelligence one. It is here because the pipeline underneath — bulk Telegram collection, per-item feature extraction, embedding, dimensionality reduction, an API over the result — is what a media-monitoring system needs, and I would rather show one I built end to end.</p></dd></div>
+
+    <div class="field"><dt>Stack</dt><dd><div class="stack">
+      <span>Python 3.11+</span><span>Telethon</span><span>FastAPI</span><span>SQLite</span><span>CLIP ViT-B/32</span><span>UMAP</span><span>OpenCV</span><span>MediaPipe</span><span>librosa</span><span>ffmpeg</span><span>Three.js</span>
+    </div></dd></div>
+
+    <div class="field"><dt>Result</dt><dd><div class="result">
+      <p><strong>153</strong> videos from <strong>12</strong> channels with <strong>1,100</strong> similarity edges, from a target list of 102 Ukrainian public channels.</p>
+    </div></dd></div>
+
+    <div class="field"><dt>Links</dt><dd><div class="links">
+      <a href="https://github.com/NazarGol/corpus-editor">github.com/NazarGol/corpus-editor</a>
+    </div>
+    <p class="flag">No credentials, no Telegram session file and no scraped corpus are published — the pipeline is the contribution.</p></dd></div>
+  </dl>
+</article>
+
+<!-- 07 ------------------------------------------------------------------ -->
+<article class="rec" id="writing">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">07</span><span>Published</span></div>
+    <h2>Analytical writing</h2>
+  </div>
+
+  <div class="piece">
+    <h3>Passwork — an FSB-licensed password manager in EU government systems</h3>
+    <div class="role">Contributing researcher · StateWatch / OCCRP · July 2026</div>
+    <p>A cross-border investigation into a password manager presenting as European while operating under Russian jurisdiction, holding an FSB cryptographic licence, and counting sanctioned Russian companies among its clients. Co-published by StateWatch and OCCRP with a consortium of European outlets.</p>
+    <div class="links">
+      <a href="https://statewatch.org.ua/en/publications/rozsliduvannia/sanktsii/passwork-fsb-password-manager-eu-government/">StateWatch</a>
+      <a href="https://www.occrp.org/en/investigation/european-password-manager-shares-origins-and-updates-with-state-certified-russian-firm">OCCRP</a>
+    </div>
+  </div>
+
+  <div class="piece">
+    <h3>ZhBK-185 — tracing captured Ukrainian plants into a Russian corporate network</h3>
+    <div class="role">Sample analytical report — training exercise</div>
+    <p>Two Ukrainian reinforced-concrete plants in occupied Zaporizhzhia oblast, seized and now producing anti-tank obstacles. The report traces each to its successor Russian entity by registry number and physical address, and finds management continuity across the seizure — the pre-war director of one plant is now general director and a ~20.5% founder of the Russian company that took it. Individuals are anonymised by role; corporate registry identifiers are retained.</p>
+    <div class="links"><a href="briefs/zhbk-185.md">Read the report</a></div>
+  </div>
+
+  <div class="piece">
+    <h3>Occupational Formations</h3>
+    <div class="role">Project</div>
+    <p>Long-form research project.</p>
+    <div class="links"><a href="https://occformations.com.ua/">occformations.com.ua</a></div>
+  </div>
+
+  <div class="piece">
+    <h3>Anti-War Coalition — essay</h3>
+    <div class="role">Essay</div>
+    <div class="links"><a href="https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e">antiwarcoalition.art</a></div>
+  </div>
+</article>
+
+<!-- 08 ------------------------------------------------------------------ -->
+<article class="rec" id="rcp">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">08</span><span>Research</span><span>Adversary capability</span></div>
+    <h2>Russia Context Platform</h2>
+  </div>
+  <dl>
+    <div class="field"><dt>Frame</dt><dd>
+      <p>Adversary-capability research: modelling how synthetic local personas could be constructed from open sources, in order to understand what detection would have to catch.</p></dd></div>
+    <div class="field"><dt>Why</dt><dd>
+      <p>Everything above this entry is detection-side work — mapping networks, measuring model reliability, checking claims against sources. This is the same problem approached from the other direction. A detection system is only as good as its model of what it is trying to detect, and that model has to come from somewhere.</p></dd></div>
+    <div class="field"><dt>Status</dt><dd>
+      <p>Unfinished, and not open-sourced. Case study text only — no repository, no code, no screenshots. I am happy to discuss the research questions and what they imply for detection design; I do not publish the capability.</p></dd></div>
+  </dl>
+</article>
+
+<!-- 09 ------------------------------------------------------------------ -->
+<article class="rec" id="practice">
+  <div class="rec-head">
+    <div class="rec-meta"><span class="idx">09</span><span>Art</span></div>
+    <h2>Practice</h2>
+  </div>
+  <p>I also work as an artist — moving image, computational and generative work, and installation.</p>
+  <p>It is not decoration on this page. The technical habits are the same ones: building tools to handle material at a scale you cannot process by hand, and staying precise about what an image or a dataset actually shows versus what it appears to show.</p>
+  <div class="links"><a href="https://roflflfl.github.io/portfolio">roflflfl.github.io/portfolio</a></div>
+</article>
+
+</main>
+
+<footer>
+  <p>Nazar Golianych · OSINT analyst · <a href="mailto:golianych.nazar@gmail.com">golianych.nazar@gmail.com</a> · <a href="https://github.com/NazarGol">github.com/NazarGol</a> · <a href="cv.txt">CV (plain text)</a></p>
+  <p>Every figure on this page comes from the code or the source files behind it. Where a number could not be verified, it is not here.</p>
+</footer>
+
+</div>
+</body>
+</html>
