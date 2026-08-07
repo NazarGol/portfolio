@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZhBK-185: tracing captured Ukrainian plants into a Russian corporate network — Nazar Golianych</title>
+<meta name="description" content="Tracing two captured Ukrainian plants in occupied Zaporizhzhia oblast into their successor Russian corporate network. Sample analytical report.">
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#17161a; --ink-2:#4a4750; --ink-3:#7b7783;
+  --rule:#ddd9d2; --rule-2:#ebe8e2; --stamp:#a8321f; --stamp-bg:#f7ebe8; --link:#1f4f8f;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+  --rule:#2f2f39; --rule-2:#24242c; --stamp:#e8705a; --stamp-bg:#2c1b18; --link:#7aa9e6;
+}}
+:root[data-theme="dark"]{
+  --bg:#131318; --panel:#191920; --ink:#eceae6; --ink-2:#b3afb8; --ink-3:#837f8b;
+  --rule:#2f2f39; --rule-2:#24242c; --stamp:#e8705a; --stamp-bg:#2c1b18; --link:#7aa9e6;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:16.5px; line-height:1.66; font-variant-numeric:tabular-nums}
+.wrap{max-width:48rem; margin:0 auto; padding:0 1.5rem 4rem}
+a{color:var(--link); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--link) 35%,transparent)}
+a:hover{border-bottom-color:var(--link)}
+a:focus-visible{outline:2px solid var(--stamp); outline-offset:3px; border-radius:2px}
+.back{display:inline-block; margin:2rem 0 1.5rem; font-family:var(--mono); font-size:.78rem;
+  letter-spacing:.06em; color:var(--ink-3); border:0}
+.back:hover{color:var(--link)}
+h1{font-size:clamp(1.7rem,4.6vw,2.4rem); line-height:1.2; letter-spacing:-0.012em;
+  margin:0 0 .8rem; font-weight:640}
+h2{font-size:clamp(1.16rem,3vw,1.42rem); line-height:1.28; letter-spacing:-0.008em;
+  margin:2.6rem 0 .85rem; padding-top:.85rem; border-top:1px solid var(--rule); font-weight:640}
+h3{font-size:1.04rem; margin:1.9rem 0 .5rem; font-weight:640}
+p{margin:0 0 1rem}
+ul,ol{margin:0 0 1rem; padding-left:1.2rem}
+li{margin:.34rem 0}
+strong{font-weight:640}
+hr{border:0; border-top:2px solid var(--ink); margin:2.4rem 0}
+code{font-family:var(--mono); font-size:.885em; background:var(--panel);
+  border:1px solid var(--rule-2); border-radius:2px; padding:.06em .32em}
+blockquote{margin:1.3rem 0; padding:.85rem 1.05rem; background:var(--panel);
+  border-left:3px solid var(--stamp); border-radius:0 3px 3px 0; color:var(--ink-2)}
+blockquote p:last-child{margin-bottom:0}
+.tw{overflow-x:auto; margin:0 0 1.2rem; border:1px solid var(--rule);
+  border-radius:3px; background:var(--panel)}
+table{border-collapse:collapse; width:100%; min-width:24rem; font-size:.885rem}
+th,td{padding:.5rem .72rem; text-align:left; border-bottom:1px solid var(--rule-2);
+  vertical-align:top}
+thead th{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:500; border-bottom:1px solid var(--rule); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td:has(strong:only-child){white-space:nowrap}
+.byline{font-family:var(--mono); font-size:.78rem; color:var(--ink-3);
+  border-bottom:2px solid var(--ink); padding-bottom:1.4rem; margin-bottom:2rem}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../">&#8592; Nazar Golianych</a>
+<h1>ZhBK-185: tracing captured Ukrainian plants into a Russian corporate network</h1>
+<blockquote>
+<p><strong>Sample analytical report — training exercise.</strong>
+This is not client work and was not commissioned. It is published to show method.</p>
+<p>Individuals are anonymised by role throughout. Corporate registry identifiers are retained: companies operating in occupied territory are legitimate subjects of open-source research, and the registry numbers are the evidence. Personal-profile links have been removed.</p>
+</blockquote>
+<p class="byline"><strong>Nazar Golianych</strong> · OSINT analyst</p>
+<hr />
+<h2>The question</h2>
+<p>ZhBK-185 (ЖБК 185) produces anti-tank obstacles — "dragon's teeth" — in occupied Zaporizhzhia oblast, at sites in Berdiansk and Melitopol. Those are not new-build factories. They are Ukrainian reinforced-concrete plants that existed before the occupation and were taken over.</p>
+<p>Four questions follow, and they are the questions that matter for any occupied-asset case:</p>
+<ol>
+<li>Which Ukrainian companies and production facilities were captured and are now being used?</li>
+<li>Is the management of the successor operation connected to the original Ukrainian companies?</li>
+<li>What other companies is the operation linked to?</li>
+<li>What can be established about its finances?</li>
+</ol>
+<h2>Finding 1 — Two plants, two different capture patterns</h2>
+<p><strong>Melitopol.</strong> The pre-occupation entity was a Ukrainian private joint-stock company, a reinforced-concrete structures plant. After the occupation the asset split in two along the front line: the Ukrainian legal entity was re-registered inside the Ukrainian system as a limited liability successor, while a <strong>new Russian company was incorporated</strong> — OGRN 1229000000646, INN 9001000514 — and it is the Russian entity that actually operates the plant under the ZhBK-185 brand.</p>
+<p><strong>Berdiansk.</strong> A different pattern. The pre-war operator was a Ukrainian company, EDRPOU 32973034, at Melitopolske Shose 86. After the occupation, operations were taken over by Russian-registered entities <strong>at the same physical address</strong>. The address is the pivot: searching Russian registries for the original plant address surfaces the current occupant.</p>
+<p>The INN prefix <code>9001</code> on the Melitopol successor is itself an indicator — that range was allocated for entities registered in the occupied territories, so the number encodes the circumstances of its own creation.</p>
+<h2>Finding 2 — Management continuity across the seizure</h2>
+<p>This is the substantive finding, and it is the reason the question about management links is the right question to ask.</p>
+<p><strong>Melitopol.</strong> The person who was the long-standing director of the <em>pre-war Ukrainian company</em> is now <strong>General Director of the Russian successor entity</strong>, appointed June 2023, and holds a founder's stake of approximately 20.5%.</p>
+<p>The plant did not merely change hands. Its management stayed in place and acquired equity in the Russian vehicle that took it. That is a materially different fact from a seizure conducted by outside operators, and it changes what the case is — from expropriation to collaboration, with a documented ownership interest attached.</p>
+<p><strong>Berdiansk.</strong> Pre-war ownership of the plant was linked to the family of a Ukrainian MP. The current director of the Russian entity operating at the original plant address is a <strong>former deputy mayor of Berdiansk and a known political associate of that same MP</strong>. The pre-war political network around the asset is the network now running it.</p>
+<p>The Berdiansk entity also uses a corporate email on the domain of the group described in Finding 3 — a small artefact, and one of the harder links in the chain, because an operational email address is chosen for convenience rather than for cover.</p>
+<h2>Finding 3 — The wider network</h2>
+<p>ZhBK-185 is not a company. It is a brand operated across several legal entities, which is what makes the question "provide financial data for ZhBK-185" unanswerable as put — see Finding 4.</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Entity</th>
+<th>Identifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main operator, Berdiansk site</td>
+<td>Aitech LLC</td>
+<td>INN 9710069691</td>
+</tr>
+<tr>
+<td>Affiliated</td>
+<td>Aitech Group LLC</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Affiliated</td>
+<td>Zavod ZhBK-1 LLC</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Public/billing arm</td>
+<td>Novoe Snabzhenie LLC</td>
+<td>INN 7811642234</td>
+</tr>
+<tr>
+<td>Melitopol plant operator</td>
+<td>ZZhBK-5 LLC</td>
+<td>INN 9001000514</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two of these were found by different routes, and the routes are worth naming because they generalise:</p>
+<ul>
+<li><strong>Aitech</strong> surfaces when the Berdiansk plant's exact street address is searched in Russian corporate registries — an address search, not a name search.</li>
+<li><strong>Novoe Snabzhenie</strong> is listed as the legal entity on the ZhBK-185 brand's own public website contact page. The operation publishes its billing entity itself.</li>
+</ul>
+<h2>Finding 4 — Finances, and why there is no single number</h2>
+<p>There is no consolidated financial figure for ZhBK-185, because ZhBK-185 is a brand across a network rather than a single legal entity. The correct answer is not an estimate; it is to decline the estimate and report per-entity figures from the registries instead, which is what I did.</p>
+<p>One caveat materially limits what the Berdiansk operator's accounts can be made to say: its primary OKVED activity code is <strong>46.71 — wholesale trade in solid, liquid and gaseous fuels</strong>, and the plant is one of some seventy declared activity areas. Its revenue figures therefore cannot be attributed to fortification production. Reporting them as if they represented the plant's output would be wrong, and it is the kind of wrong that looks like a finding.</p>
+<h2>Citizenship of the individuals involved</h2>
+<p>Four individuals hold directing or founding roles across the network. <strong>Three hold Ukrainian citizenship; one is Russian.</strong> The three Ukrainians are the ones running the captured assets.</p>
+<p>One detail is worth recording as tradecraft: one individual's Russian INN begins with <code>23</code>, indicating it was issued in <strong>Krasnodar Krai</strong>. A tax number carries its issuing region, so it can date and place a person's entry into the Russian administrative system — useful when the question is when someone crossed over, not merely that they did.</p>
+<h2>Method</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Approach</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-occupation entity identification</td>
+<td>Ukrainian registry data (EDRPOU) and pre-war corporate directories; securities disclosure records for ownership history</td>
+</tr>
+<tr>
+<td>Successor identification</td>
+<td>Russian corporate registries queried by <strong>address</strong>, not by name — the address survives the renaming</td>
+</tr>
+<tr>
+<td>Ownership and management</td>
+<td>Russian registry aggregators for directors, founders, stakes, appointment dates</td>
+</tr>
+<tr>
+<td>Network expansion</td>
+<td>Names and organisations surfaced in initial reconnaissance, run back through registries; brand website contact pages for billing entities</td>
+</tr>
+<tr>
+<td>Financials</td>
+<td>Per-entity registry financial records, with the OKVED caveat applied before reading them</td>
+</tr>
+<tr>
+<td>Corroboration</td>
+<td>Existing published investigations into the pre-war ownership network, used to check the political-association link rather than to originate it</td>
+</tr>
+</tbody>
+</table></div>
+<p>The general shape: <strong>identify the pre-war entity, find the successor by physical address rather than by name, then check whether the people are the same.</strong> Names change, corporate forms change, jurisdictions change. Addresses and registry numbers persist, and people are lazier than they are careful.</p>
+<h2>Limitations</h2>
+<ul>
+<li><strong>Registry aggregators are secondary sources.</strong> Russian registry mirrors reflect filings, and filings can be stale, incomplete or deliberately misleading. Nothing here is confirmed against a primary Russian state extract.</li>
+<li><strong>The management-continuity finding rests on name and role matching</strong> across two registry systems in two languages. It is strong — matching directorship, matching plant, documented appointment date — but it is an identity inference, not a documentary confirmation of the same person.</li>
+<li><strong>Financial figures are entity-level and not attributable to the fortification production line</strong>, per the OKVED caveat above.</li>
+<li><strong>The network is almost certainly incomplete.</strong> Five entities were established; a brand operating two industrial sites across occupied territory will have logistics, staffing and supply relationships that registry-first research does not reach.</li>
+<li><strong>Point-in-time.</strong> Directorships and registrations as recorded at the time of research.</li>
+</ul>
+</div>
+</body>
+</html>
