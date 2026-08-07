@@ -120,9 +120,15 @@ A cross-border investigation into a password manager presenting as European whil
 Two Ukrainian reinforced-concrete plants in occupied Zaporizhzhia oblast, seized and now producing anti-tank obstacles. Traces each to its successor Russian entity by registry number and physical address, and finds management continuity across the seizure. Individuals anonymised by role.
 [Read the report](briefs/zhbk-185.md)
 
-**Occupational Formations** — [occformations.com.ua](https://occformations.com.ua/)
+**Occupational Formations**
+*Open-source data collection · Documenting Ukraine, a programme of the IWM Vienna*
+An interdisciplinary research project on Russian occupational infrastructure in the temporarily occupied territories. My contribution was open-source data: collecting and structuring records on the organisers and executors of construction projects in Russian-occupied Ukrainian territories. Published credit: "with support from Nazar Golianych".
+[occformations.com.ua](https://occformations.com.ua/)
 
-**Anti-War Coalition — essay** — [antiwarcoalition.art](https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e)
+**Economies of the Aftermath**
+*Essay · Anti-War Coalition*
+On economic transformation in post-violence environments, taking Mariupol as its case: systematic infrastructure destruction is what makes a new round of economic colonisation possible, and such economies read better as an architecture of gaps — disrupted labour, fractured markets, severed infrastructure — than as sites awaiting reconstruction.
+[antiwarcoalition.art](https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e)
 
 ---
 
