@@ -177,8 +177,8 @@
 
   <div class="beat finding">
     <h3>Result</h3>
-    <p><strong class="f">96.8%</strong> classifier accuracy on a 125-query Ukrainian-and-English
-    test set, over <strong>7,676</strong> active sanctions entries — EU 2,332 · US 2,797 ·
+    <div class="stat"><b>96.8%</b><span>classifier accuracy, 125-query Ukrainian-and-English test set</span></div>
+    <p>Over <strong>7,676</strong> active sanctions entries — EU 2,332 · US 2,797 ·
     UK 2,547. Roughly 7,300 lines of Python; <strong>64</strong> pytest tests across 3 modules,
     plus 5 accuracy harnesses that are how the 96.8% was measured, versioned so the number can be
     re-run rather than trusted.</p>
@@ -248,7 +248,7 @@
 
   <div class="beat finding">
     <h3>Result</h3>
-    <p><strong class="f">153</strong> videos from <strong>12</strong> channels with
+    <p><strong>153</strong> videos from <strong>12</strong> channels with
     <strong>1,100</strong> similarity edges, from a target list of 102 Ukrainian public channels —
     queryable through a REST API and navigable as a 3-D field.</p>
     <p>It began as a tool for a film project, not an intelligence one. It is here because the
@@ -397,9 +397,7 @@
 
   <div class="beat finding">
     <h3>Result</h3>
-    <p>The unconstrained prompt produced <strong class="f">17%</strong> explicit hallucination and
-    <strong class="f">33%</strong> unverifiable claims. The source-constrained prompt on the
-    identical task produced <strong>0%</strong> fabrication.</p>
+    <div class="stat"><b>17% → 0%</b><span>explicit hallucination, unconstrained against source-constrained prompt on the identical task. Unverifiable claims fell from 33% to none</span></div>
     <p>What moved the number was not the persona framing or the tone instruction but two clauses —
     <em>use only facts explicitly present in the text</em> and <em>if a field is absent, return
     null</em> — which change the model's implicit objective from producing a complete-looking
@@ -463,7 +461,7 @@
 
   <div class="beat finding">
     <h3>Result</h3>
-    <p><strong class="f">5</strong> signal classes, ranked by how hard each turned out to
+    <p><strong>5</strong> signal classes, ranked by how hard each turned out to
     fabricate — which is the output that transfers to detection.</p>
     <div class="chart">
       <p class="chart-h">What must be faked · what a detector must check</p>
@@ -545,8 +543,8 @@
   <div class="beat finding">
     <h3>Finding</h3>
     <p>The product shares origins and update infrastructure with a Russian legal entity. That
-    entity holds an <strong class="f">FSB cryptographic licence</strong> obtained in 2025, and
-    <strong class="f">FSTEC licences</strong> from 2024 covering information-security software for
+    entity holds an <strong>FSB cryptographic licence</strong> obtained in 2025, and
+    <strong>FSTEC licences</strong> from 2024 covering information-security software for
     state-owned enterprises. The corporate presentation had moved through a Spanish entity while
     the Russian company was acquiring exactly those permissions.</p>
     <p>Its published client list ran in both directions at once. On one side,
@@ -639,9 +637,7 @@
 
   <div class="beat finding">
     <h3>Finding</h3>
-    <p>Ukraine has designated <strong>47</strong>, the United States <strong>31</strong>, the
-    European Union <strong>21</strong> — and the United Kingdom
-    <strong class="f">none of the 97</strong>.</p>
+    <div class="stat"><b>0</b><span>of 97 entities designated by the United Kingdom. Ukraine has designated 47, the United States 31, the European Union 21</span></div>
 
     <div class="chart">
       <p class="chart-h">Entities designated, of 97 mapped</p>
@@ -664,10 +660,10 @@
       without arithmetic.</p>
     </div>
 
-    <p>Three further figures define the gap. <strong class="f">62%</strong> — 60 of 97 — carry no
-    Western designation at all, not US, not EU, not UK. <strong class="f">41%</strong> carry no
+    <p>Three further figures define the gap. <strong>62%</strong> — 60 of 97 — carry no
+    Western designation at all, not US, not EU, not UK. <strong>41%</strong> carry no
     designation in any of the four jurisdictions, including Ukraine's. And
-    <strong class="f">20</strong> entities are Ukraine-listed with no Western follow-through:
+    <strong>20</strong> entities are Ukraine-listed with no Western follow-through:
     already assessed as contributing to the war effort by the state fighting it, and untouched by
     any Western regime.</p>
     <p>The finding is not that these entities are unknown. Ukraine has designated 47 of them and
@@ -846,10 +842,11 @@
       in the network is one of the smallest nodes here, because nothing comes back to it.</figcaption>
     </figure>
 
+    <div class="stat"><b>83 in · 8 out</b><span><code>@primulinmd</code> — the one node cited by all three narrative pipelines. KP Moldova is the mirror: 129 out, 0 in</span></div>
     <p><strong>The structural finding.</strong> <code>@primulinmd</code> receives
     <strong>83</strong> endorsements and sends <strong>8</strong>. It is the single node receiving
     citations from all three narrative pipelines. KP Moldova is the mirror image: out-degree
-    <strong>129</strong>, in-degree <strong class="f">zero</strong> — the busiest distributor in
+    <strong>129</strong>, in-degree <strong>zero</strong> — the busiest distributor in
     the network, and nothing comes back to it.</p>
 
     <p><strong>Four clusters.</strong> A central anti-Sandu hub built around KP Moldova and
@@ -1050,10 +1047,10 @@
 
   <div class="beat finding">
     <h3>Finding</h3>
-    <p><strong class="f">All 15</strong> of the city's electricity lines were destroyed by
+    <p><strong>All 15</strong> of the city's electricity lines were destroyed by
     <strong>2 March 2022</strong>. <strong>16</strong> substations at 330/220/110 kV were
     assessed — the two major nodes plus at least fourteen 110 kV substations. Internet
-    connectivity fell to <strong class="f">7%</strong> of normal over the same period. Water
+    connectivity fell to <strong>7%</strong> of normal over the same period. Water
     treatment depended on one of the destroyed substations, which is how a power target becomes a
     water outage.</p>
     <p>The pattern extends to distribution. Of <strong>11</strong> announced bread distribution
@@ -1124,7 +1121,7 @@
 
   <div class="beat finding">
     <h3>Finding</h3>
-    <p><strong class="f">4</strong> case studies describing <strong>1</strong> process. The
+    <p><strong>4</strong> case studies describing <strong>1</strong> process. The
     Prirazlomnaya platform, the first extraction installation on the Arctic shelf. The North Sea
     Passage. A transarctic fibre-optic cable under development for Arctic conditions. And military
     expansion along the northern border.</p>
