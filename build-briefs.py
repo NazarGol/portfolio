@@ -16,17 +16,17 @@ BRIEFS = HERE / "briefs"
 STYLE = """
 :root{
   --bg:#0C0C0E; --panel:#131316; --ink:#EDEDEA; --ink-2:#9A9A96; --ink-3:#7C7C77;
-  --rule:#232326; --rule-2:#1A1A1D; --stamp:#FF4F35; --stamp-bg:#1F0F0C; --link:#EDEDEA;
+  --rule:#232326; --rule-2:#1A1A1D; --stamp:#E3A23C; --stamp-bg:#241A0C; --link:#EDEDEA;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
   --bg:#F2F1EE; --panel:#FAFAF8; --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
-  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#C3341B; --stamp-bg:#F8E7E2; --link:#141416;
+  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#8F6209; --stamp-bg:#FAF0DC; --link:#141416;
 }}
 :root[data-theme="light"]{
   --bg:#F2F1EE; --panel:#FAFAF8; --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
-  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#C3341B; --stamp-bg:#F8E7E2; --link:#141416;
+  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#8F6209; --stamp-bg:#FAF0DC; --link:#141416;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}

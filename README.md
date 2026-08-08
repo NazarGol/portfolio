@@ -1,11 +1,107 @@
 # Nazar Golianych
 
-OSINT analyst and tool-builder. I work on Russian information and defence-tech infrastructure — sanctions coverage, coordinated information networks, and the corporate record behind both. I build the tooling that makes that work possible at scale, and I publish the method alongside the finding.
+I build tools and automation for open-source intelligence work — agents, collection pipelines, and classification systems that make research possible at scale. I use them on Russian information and defence-tech infrastructure, and I publish the method alongside the finding.
 
 **Live site:** [nazargol.github.io/portfolio](https://nazargol.github.io/portfolio)
 
 - [Portfolio](https://nazargol.github.io/portfolio/portfolio/) — investigations and engineering
 - [CV (PDF, Ukrainian)](cv/nazar-golianych-cv.pdf)
+
+---
+
+# Engineering
+
+## Sanctions Checker — EU · US · UK export-control lookup
+
+**Tool · 2026 · TrapAggressor / StateWatch** — [repository](https://github.com/NazarGol/sanctions-checker)
+
+Answers one question — is this product under sanctions? — returning the legal basis, annex, restriction type, date enacted and a deep link into the official source document. Product names accepted in Ukrainian and English.
+
+Four tiers: alias table → LLM stage → keyword-intersection SQL → rapidfuzz fallback.
+
+**The answer is picked, not written.** Asking a model for an HS code fails in the worst available way: it returns a plausible, correctly-formatted code that does not exist, and in a compliance context a confident wrong code is a false clearance. The failure is not that the model is unreliable — it is that a generated string has no source to check it against. So the model is never asked for a code. It is asked for the **two-digit HS chapter**, a coarse classification into 97 buckets that language models do well. Every database row in that chapter is retrieved, and the model chooses one. Its output is a selection from rows that already exist, so a code absent from the database cannot leave the pipeline. A wrong chapter produces a wrong but checkable real entry, never an invented one.
+
+**Result:** 96.8% classifier accuracy on a 125-query Ukrainian-and-English test set. 7,676 active entries — EU 2,332 · US 2,797 · UK 2,547. ~7,300 lines of Python; 64 pytest tests across 3 modules, plus 5 accuracy harnesses that are how the 96.8% was measured.
+
+**Stack:** Python · FastAPI · SQLite (PostgreSQL migration path) · Ollama `qwen2.5:7b` · rapidfuzz · Docker Compose · nginx + certbot
+
+---
+
+## Corpus Editor — Telegram video pipeline
+
+**Tool · 2026** — [repository](https://github.com/NazarGol/corpus-editor)
+
+Bulk Telegram collection → per-video feature extraction → CLIP embeddings → UMAP 3-D projection → nearest-neighbour graph → SQLite behind FastAPI.
+
+Per-video extraction covers ffprobe metadata, librosa audio energy, OpenCV optical-flow motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels and k-means dominant colours. Collection and feature extraction are both resumable: at corpus scale a failure 80% into a run should cost the remaining 20%, not the whole run.
+
+**Result:** 153 videos from 12 channels with 1,100 similarity edges, from a target list of 102 Ukrainian public channels.
+
+Built for a film project, not an intelligence one. It is here because the pipeline underneath is what a media-monitoring system needs, and I would rather show one I built end to end.
+
+*No credentials, session file or scraped corpus are published.*
+
+---
+
+## Querying 77k sanctions entities — SQL and an agent
+
+**Tool · 2026** — [repository](https://github.com/NazarGol/opensanctions-agent)
+
+A Dockerised MindsDB stack over the OpenSanctions consolidated dataset — 76,996 entities — with two query paths compared: manual SQL context, and a tool-calling agent writing its own SQL.
+
+**The useful finding is a negative one.** Asked how many sanctioned entities are from Russia, the agent returned 21,210; direct SQL returned 19,238. The difference is almost certainly multi-country records like `ru;ua` — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to establish which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying: a number without its query is an assertion, not a finding.
+
+A second observation: the second-largest country group in the dataset is `NULL`. For anyone filtering on jurisdiction, that is a silent hole in coverage rather than an empty category.
+
+**Stack:** MindsDB · Docker · Ollama `gemma3:4b` · Groq API · OpenSanctions
+
+---
+
+## Measuring LLM fabrication rate in OSINT profiling
+
+**Method · 2026** — [repository](https://github.com/NazarGol/llm-verification-osint)
+
+The same profiling task run twice — same model, same subject, search disabled on both sides — varying only prompt construction. Twelve claims extracted and checked individually against public sources.
+
+**Result:** unconstrained prompt — **17%** explicit hallucination, **33%** unverifiable claims. Source-constrained prompt on the identical task — **0%** fabrication.
+
+The dangerous errors are the ones that look right: the model placed the subject at the wrong university, and the university it named is a real institution in the same city. The 33% unverifiable band is arguably worse than the 17% fabricated — those claims are not falsifiable, so they survive review as harmless colour, having been generated from nothing.
+
+What moved fabrication to zero was not persona or tone but two clauses: *use only facts explicitly present in the text*, and *if a field is absent, return null*.
+
+Also documents a prompt-injection test — detected and refused unprompted, which is a narrower result than "models are safe" — and an invalid first attempt at the comparison, where I had compared retrieval against no-retrieval rather than two prompts.
+
+*Subject anonymised. One subject, twelve claims: an order-of-magnitude signal about a failure mode, not a benchmark.*
+
+---
+
+## Russia Context Platform
+
+**Research · 2026 · unfinished**
+
+**The problem.** Detecting a synthetic persona means knowing what a convincing one would have to get right. That list is not published anywhere, so detection work runs on intuition about which signals are hard to fake — and intuition is a poor basis for deciding where to spend a detector's attention.
+
+**Approach.** Build the substrate for a single Russian settlement and see how far it gets. Collect the local Telegram channels, regional RSS and VK material for that one place, then synthesise a place profile from it: local geography, institutions, transport, prices, seasonal rhythms, recurring names, register and dialect — deep enough that a generated resident would be hard for an actual resident to catch out. Working at settlement scale rather than national scale is the point: national context is abundant and cheap, and it is the local, unrecorded texture that is expensive.
+
+**How it works.** A collection layer pulls from regional sources on a schedule and normalises the results. Synthesis runs over that corpus into a structured place profile. The primary store is a **wiki rather than a database** — the material is mostly prose with citations, it is edited by hand as often as by machine, and a wiki keeps provenance and revision attached to each claim in a way a schema does not. A knowledge graph sits alongside for entities and relations, with a map layer for the geographic material. Models run locally, since the corpus is regional-language material that does not need to leave the machine. It is unfinished: collection and the wiki store work, the graph is partial, the map layer is early, and synthesis has been run over a small number of settlements rather than at any scale.
+
+**Result.** Five signal classes, ranked by how hard each turned out to fabricate.
+
+| Signal class | Detection surface |
+|---|---|
+| Place knowledge | Detail finer than public maps carry |
+| Temporal habits | Posting rhythm against local hours |
+| Dialect, register | Lexis against regional corpora |
+| Social graph | Age and reciprocity of ties, not their count |
+| **Event memory** | **Recall of what no source ever wrote down** |
+
+The first four turned out tractable: enough local geography, rhythm, lexis and plausible social structure can be assembled from open regional sources to survive casual review. Event memory did not. A profile built from sources can only contain what a source recorded, and the unrecorded local event — the thing everyone in a town knows and nobody wrote down — has no substitute in the corpus.
+
+For detection that inverts the usual priority: effort is better spent probing for recall of unrecorded specifics than on stylometry or posting-time analysis, and coherence *across* classes matters more than any single anomaly. It also sets a realistic ceiling — a detector built on the assumption of sloppy synthesis will not catch competent synthesis, and competent synthesis is achievable with open sources.
+
+*Unfinished and not open-sourced. No repository, no code, no screenshots and no operational parameters.*
+
+---
 
 ---
 
@@ -104,98 +200,6 @@ Taken together they describe a single process rather than four developments: as 
 *No date shown on the published page.*
 
 ---
-
-# Engineering
-
-## Sanctions Checker — EU · US · UK export-control lookup
-
-**Tool · 2026 · TrapAggressor / StateWatch** — [repository](https://github.com/NazarGol/sanctions-checker)
-
-Answers one question — is this product under sanctions? — returning the legal basis, annex, restriction type, date enacted and a deep link into the official source document. Product names accepted in Ukrainian and English.
-
-Four tiers: alias table → LLM stage → keyword-intersection SQL → rapidfuzz fallback.
-
-**The answer is picked, not written.** Asking a model for an HS code fails in the worst available way: it returns a plausible, correctly-formatted code that does not exist, and in a compliance context a confident wrong code is a false clearance. The failure is not that the model is unreliable — it is that a generated string has no source to check it against. So the model is never asked for a code. It is asked for the **two-digit HS chapter**, a coarse classification into 97 buckets that language models do well. Every database row in that chapter is retrieved, and the model chooses one. Its output is a selection from rows that already exist, so a code absent from the database cannot leave the pipeline. A wrong chapter produces a wrong but checkable real entry, never an invented one.
-
-**Result:** 96.8% classifier accuracy on a 125-query Ukrainian-and-English test set. 7,676 active entries — EU 2,332 · US 2,797 · UK 2,547. ~7,300 lines of Python; 64 pytest tests across 3 modules, plus 5 accuracy harnesses that are how the 96.8% was measured.
-
-**Stack:** Python · FastAPI · SQLite (PostgreSQL migration path) · Ollama `qwen2.5:7b` · rapidfuzz · Docker Compose · nginx + certbot
-
----
-
-## Corpus Editor — Telegram video pipeline
-
-**Tool · 2026** — [repository](https://github.com/NazarGol/corpus-editor)
-
-Bulk Telegram collection → per-video feature extraction → CLIP embeddings → UMAP 3-D projection → nearest-neighbour graph → SQLite behind FastAPI.
-
-Per-video extraction covers ffprobe metadata, librosa audio energy, OpenCV optical-flow motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels and k-means dominant colours. Collection and feature extraction are both resumable: at corpus scale a failure 80% into a run should cost the remaining 20%, not the whole run.
-
-**Result:** 153 videos from 12 channels with 1,100 similarity edges, from a target list of 102 Ukrainian public channels.
-
-Built for a film project, not an intelligence one. It is here because the pipeline underneath is what a media-monitoring system needs, and I would rather show one I built end to end.
-
-*No credentials, session file or scraped corpus are published.*
-
----
-
-## Querying 77k sanctions entities — SQL and an agent
-
-**Tool · 2026** — [repository](https://github.com/NazarGol/opensanctions-agent)
-
-A Dockerised MindsDB stack over the OpenSanctions consolidated dataset — 76,996 entities — with two query paths compared: manual SQL context, and a tool-calling agent writing its own SQL.
-
-**The useful finding is a negative one.** Asked how many sanctioned entities are from Russia, the agent returned 21,210; direct SQL returned 19,238. The difference is almost certainly multi-country records like `ru;ua` — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to establish which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying: a number without its query is an assertion, not a finding.
-
-A second observation: the second-largest country group in the dataset is `NULL`. For anyone filtering on jurisdiction, that is a silent hole in coverage rather than an empty category.
-
-**Stack:** MindsDB · Docker · Ollama `gemma3:4b` · Groq API · OpenSanctions
-
----
-
-## Measuring LLM fabrication rate in OSINT profiling
-
-**Method · 2026** — [repository](https://github.com/NazarGol/llm-verification-osint)
-
-The same profiling task run twice — same model, same subject, search disabled on both sides — varying only prompt construction. Twelve claims extracted and checked individually against public sources.
-
-**Result:** unconstrained prompt — **17%** explicit hallucination, **33%** unverifiable claims. Source-constrained prompt on the identical task — **0%** fabrication.
-
-The dangerous errors are the ones that look right: the model placed the subject at the wrong university, and the university it named is a real institution in the same city. The 33% unverifiable band is arguably worse than the 17% fabricated — those claims are not falsifiable, so they survive review as harmless colour, having been generated from nothing.
-
-What moved fabrication to zero was not persona or tone but two clauses: *use only facts explicitly present in the text*, and *if a field is absent, return null*.
-
-Also documents a prompt-injection test — detected and refused unprompted, which is a narrower result than "models are safe" — and an invalid first attempt at the comparison, where I had compared retrieval against no-retrieval rather than two prompts.
-
-*Subject anonymised. One subject, twelve claims: an order-of-magnitude signal about a failure mode, not a benchmark.*
-
----
-
-## Russia Context Platform
-
-**Research · 2026 · unfinished**
-
-**The problem.** Detecting a synthetic persona means knowing what a convincing one would have to get right. That list is not published anywhere, so detection work runs on intuition about which signals are hard to fake — and intuition is a poor basis for deciding where to spend a detector's attention.
-
-**Approach.** Build the substrate for a single Russian settlement and see how far it gets. Collect the local Telegram channels, regional RSS and VK material for that one place, then synthesise a place profile from it: local geography, institutions, transport, prices, seasonal rhythms, recurring names, register and dialect — deep enough that a generated resident would be hard for an actual resident to catch out. Working at settlement scale rather than national scale is the point: national context is abundant and cheap, and it is the local, unrecorded texture that is expensive.
-
-**How it works.** A collection layer pulls from regional sources on a schedule and normalises the results. Synthesis runs over that corpus into a structured place profile. The primary store is a **wiki rather than a database** — the material is mostly prose with citations, it is edited by hand as often as by machine, and a wiki keeps provenance and revision attached to each claim in a way a schema does not. A knowledge graph sits alongside for entities and relations, with a map layer for the geographic material. Models run locally, since the corpus is regional-language material that does not need to leave the machine. It is unfinished: collection and the wiki store work, the graph is partial, the map layer is early, and synthesis has been run over a small number of settlements rather than at any scale.
-
-**Result.** Five signal classes, ranked by how hard each turned out to fabricate.
-
-| Signal class | Detection surface |
-|---|---|
-| Place knowledge | Detail finer than public maps carry |
-| Temporal habits | Posting rhythm against local hours |
-| Dialect, register | Lexis against regional corpora |
-| Social graph | Age and reciprocity of ties, not their count |
-| **Event memory** | **Recall of what no source ever wrote down** |
-
-The first four turned out tractable: enough local geography, rhythm, lexis and plausible social structure can be assembled from open regional sources to survive casual review. Event memory did not. A profile built from sources can only contain what a source recorded, and the unrecorded local event — the thing everyone in a town knows and nobody wrote down — has no substitute in the corpus.
-
-For detection that inverts the usual priority: effort is better spent probing for recall of unrecorded specifics than on stylometry or posting-time analysis, and coherence *across* classes matters more than any single anomaly. It also sets a realistic ceiling — a detector built on the assumption of sloppy synthesis will not catch competent synthesis, and competent synthesis is achievable with open sources.
-
-*Unfinished and not open-sourced. No repository, no code, no screenshots and no operational parameters.*
 
 ---
 

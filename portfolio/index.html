@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Portfolio — Nazar Golianych</title>
-<meta name="description" content="Investigations and engineering: sanctions coverage, coordinated information networks, occupied-territory corporate records, and the tooling behind them.">
+<meta name="description" content="Tools and automation for open-source intelligence work, and the investigations they were built for.">
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body class="no-js">
@@ -17,84 +17,84 @@
   <div class="list-head">
     <a class="home" href="../">← Nazar Golianych</a>
     <h1>Portfolio</h1>
+    <div class="tabs" role="tablist" aria-label="Categories">
+      <button class="tab" type="button" role="tab" id="t-eng" data-group="eng"
+              aria-controls="g-eng" aria-selected="true">Engineering<span class="n">5</span></button>
+      <button class="tab" type="button" role="tab" id="t-inv" data-group="inv"
+              aria-controls="g-inv" aria-selected="false">Investigations<span class="n">6</span></button>
+    </div>
     <div class="search">
       <label class="skip" for="q">Filter items</label>
-      <input id="q" type="search" placeholder="filter" autocomplete="off" spellcheck="false">
+      <input id="q" type="search" placeholder="filter both groups" autocomplete="off" spellcheck="false">
     </div>
   </div>
 
-  <h2 class="group-h">Investigations<span class="n">6</span></h2>
-  <p class="year">2026</p>
-  <ul class="rows">
-    <li class="row"><a href="#passwork">
-      <span class="rt">Passwork — an FSB-licensed password manager in EU government systems</span>
-      <span class="sign">+</span>
-      <span class="rd">Co-published with OCCRP. Contributing research.</span>
-      <span class="tags"><i class="tag">Investigation</i><i class="tag">OCCRP</i><i class="tag">Supply chain</i></span>
-    </a></li>
-    <li class="row"><a href="#russian-military-ai">
-      <span class="rt">The UK has designated none of them</span>
-      <span class="sign">+</span>
-      <span class="rd">97 Russian military-AI entities against four sanctions regimes.</span>
-      <span class="tags"><i class="tag">Analysis</i><i class="tag">Sanctions</i><i class="tag">Military AI</i></span>
-    </a></li>
-    <li class="row"><a href="#moldova">
-      <span class="rt">Pro-Russian information network in Moldova</span>
-      <span class="sign">+</span>
-      <span class="rd">27 Telegram channels: organic, or coordinated?</span>
-      <span class="tags"><i class="tag">Analysis</i><i class="tag">FIMI</i><i class="tag">Graph</i></span>
-    </a></li>
-    <li class="row"><a href="#zhbk-185">
-      <span class="rt">ZhBK-185</span>
-      <span class="sign">+</span>
-      <span class="rd">Captured Ukrainian plants traced into a Russian corporate network.</span>
-      <span class="tags"><i class="tag">Sample report</i><i class="tag">Occupied territory</i><i class="tag">Registries</i></span>
-    </a></li>
-  </ul>
-  <ul class="rows">
-    <li class="row"><a href="#economies-of-the-aftermath">
-      <span class="rt">Economies of the Aftermath</span>
-      <span class="sign">+</span>
-      <span class="rd">Mariupol's destroyed grid, read from satellite imagery.</span>
-      <span class="tags"><i class="tag">Investigation</i><i class="tag">Mariupol</i><i class="tag">Satellite</i></span>
-    </a></li>
-    <li class="row"><a href="#arctic">
-      <span class="rt">At the break: Territorialization of Arctic</span>
-      <span class="sign">+</span>
-      <span class="rd">Extractivist infrastructure across four Arctic case studies.</span>
-      <span class="tags"><i class="tag">Investigation</i><i class="tag">Arctic</i><i class="tag">Infrastructure</i></span>
-    </a></li>
-  </ul>
+  <div class="tabpanel" id="g-eng" role="tabpanel" data-group="eng" aria-labelledby="t-eng">
+    <p class="grouplabel">Engineering</p>
+    <p class="year">2026</p>
+    <ul class="rows">
+      <li class="row"><a href="#sanctions-checker">
+        <span class="rt">Sanctions Checker</span><span class="sign">+</span>
+        <span class="rd">EU · US · UK export-control lookup over 7,676 entries.</span>
+      </a></li>
+      <li class="row"><a href="#corpus-editor">
+        <span class="rt">Corpus Editor</span><span class="sign">+</span>
+        <span class="rd">Telegram video collection to a navigable embedding field.</span>
+      </a></li>
+      <li class="row"><a href="#opensanctions-agent">
+        <span class="rt">Querying 77k sanctions entities</span><span class="sign">+</span>
+        <span class="rd">SQL against a tool-calling agent — and why the agent is unauditable.</span>
+      </a></li>
+      <li class="row"><a href="#llm-verification">
+        <span class="rt">Measuring LLM fabrication rate in OSINT profiling</span><span class="sign">+</span>
+        <span class="rd">17% hallucination and 33% unverifiable, against 0% on the same task.</span>
+      </a></li>
+      <li class="row"><a href="#rcp">
+        <span class="rt">Russia Context Platform</span><span class="sign">+</span>
+        <span class="rd">A place-profile substrate for one Russian settlement.</span>
+      </a></li>
+    </ul>
+  </div>
 
-  <h2 class="group-h">Engineering<span class="n">5</span></h2>
-  <p class="year">2026</p>
-  <ul class="rows">
-    <li class="row"><a href="#sanctions-checker">
-      <span class="rt">Sanctions Checker</span>
-      <span class="sign">+</span>
-      <span class="rd">EU · US · UK export-control lookup over 7,676 entries.</span>
-    </a></li>
-    <li class="row"><a href="#corpus-editor">
-      <span class="rt">Corpus Editor</span>
-      <span class="sign">+</span>
-      <span class="rd">Telegram video collection to a navigable embedding field.</span>
-    </a></li>
-    <li class="row"><a href="#opensanctions-agent">
-      <span class="rt">Querying 77k sanctions entities</span>
-      <span class="sign">+</span>
-      <span class="rd">SQL against a tool-calling agent — and why the agent is unauditable.</span>
-    </a></li>
-    <li class="row"><a href="#llm-verification">
-      <span class="rt">Measuring LLM fabrication rate in OSINT profiling</span>
-      <span class="sign">+</span>
-      <span class="rd">17% hallucination and 33% unverifiable, against 0% on the same task.</span>
-    </a></li>
-    <li class="row"><a href="#rcp">
-      <span class="rt">Russia Context Platform</span>
-      <span class="sign">+</span>
-      <span class="rd">A place-profile substrate for one Russian settlement.</span>
-    </a></li>
-  </ul>
+  <div class="tabpanel" id="g-inv" role="tabpanel" data-group="inv" aria-labelledby="t-inv">
+    <p class="grouplabel">Investigations</p>
+    <p class="year">2026</p>
+    <ul class="rows">
+      <li class="row"><a href="#passwork">
+        <span class="rt">Passwork — an FSB-licensed password manager in EU government systems</span>
+        <span class="sign">+</span>
+        <span class="rd">Co-published with OCCRP. Contributing research.</span>
+        <span class="tags"><i class="tag">Investigation</i><i class="tag">OCCRP</i><i class="tag">Supply chain</i></span>
+      </a></li>
+      <li class="row"><a href="#russian-military-ai">
+        <span class="rt">The UK has designated none of them</span><span class="sign">+</span>
+        <span class="rd">97 Russian military-AI entities against four sanctions regimes.</span>
+        <span class="tags"><i class="tag">Analysis</i><i class="tag">Sanctions</i><i class="tag">Military AI</i></span>
+      </a></li>
+      <li class="row"><a href="#moldova">
+        <span class="rt">Pro-Russian information network in Moldova</span><span class="sign">+</span>
+        <span class="rd">27 Telegram channels: organic, or coordinated?</span>
+        <span class="tags"><i class="tag">Analysis</i><i class="tag">FIMI</i><i class="tag">Graph</i></span>
+      </a></li>
+      <li class="row"><a href="#zhbk-185">
+        <span class="rt">ZhBK-185</span><span class="sign">+</span>
+        <span class="rd">Captured Ukrainian plants traced into a Russian corporate network.</span>
+        <span class="tags"><i class="tag">Sample report</i><i class="tag">Occupied territory</i><i class="tag">Registries</i></span>
+      </a></li>
+    </ul>
+    <ul class="rows">
+      <li class="row"><a href="#economies-of-the-aftermath">
+        <span class="rt">Economies of the Aftermath</span><span class="sign">+</span>
+        <span class="rd">Mariupol's destroyed grid, read from satellite imagery.</span>
+        <span class="tags"><i class="tag">Investigation</i><i class="tag">Mariupol</i><i class="tag">Satellite</i></span>
+      </a></li>
+      <li class="row"><a href="#arctic">
+        <span class="rt">At the break: Territorialization of Arctic</span><span class="sign">+</span>
+        <span class="rd">Extractivist infrastructure across four Arctic case studies.</span>
+        <span class="tags"><i class="tag">Investigation</i><i class="tag">Arctic</i><i class="tag">Infrastructure</i></span>
+      </a></li>
+    </ul>
+  </div>
 
   <p class="no-hits" hidden>No matching item.</p>
 </nav>
@@ -102,498 +102,13 @@
 <!-- ============ detail pane ============ -->
 <div class="pane-detail" id="detail">
 
-<!-- ============================ INVESTIGATIONS ============================ -->
-
-<article class="item" id="passwork">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>Passwork — an FSB-licensed password manager in EU government systems</h2>
-  <div class="meta">
-    <span class="type">Investigation</span>
-    <span class="date">17 July 2026</span>
-    <span class="out">
-      <a href="https://statewatch.org.ua/en/publications/rozsliduvannia/sanktsii/passwork-fsb-password-manager-eu-government/">StateWatch →</a>
-      <a href="https://www.occrp.org/en/investigation/european-password-manager-shares-origins-and-updates-with-state-certified-russian-firm">OCCRP →</a>
-    </span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>Passwork sells itself as European software and is installed inside European public-sector
-    organisations. Nobody had established whether the corporate reality behind the product
-    matched the marketing — and if it did not, what that would mean for the institutions running
-    it.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>Corporate records across jurisdictions, cryptographic and technical licensing registries,
-    the product's own update infrastructure, and published client lists — cross-checked against
-    sanctions designations. A cross-border effort with OCCRP journalists and StateWatch; my role
-    was contributing research.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p>The product shares origins and update infrastructure with a Russian legal entity holding
-    an <strong>FSB cryptographic licence</strong> obtained in 2025, alongside further FSTEC
-    licences from 2024. Its published client list ran in both directions at once:
-    <strong>5</strong> named European public institutions — Germany's Federal Ministry for
-    Research, the Government of Ireland, the Hildesheim District Administration, the University
-    of Zurich and TU Dresden — and <strong>4</strong> sanctioned Russian companies, Gazprom
-    Neft, Aeroflot, Metrovagonmash and Rusal.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>An FSB licence is not only a permission, it is an obligation. Under Russian law a licensed
-    operator can be compelled to provide access to data in its possession, through Federal Law
-    144-FZ, Law 149-FZ and the SORM framework. The exposure is structural rather than incidental:
-    it does not depend on a breach having occurred.</p>
-    <p>The question the investigation puts is not whether passwords have been accessed but who
-    holds the keys — a systemic-risk argument, which is the harder and more durable kind to
-    make.</p>
-  </div>
-
-  <p>My credit is published on the StateWatch article and quoted here verbatim rather than
-  paraphrased, so it can be checked against the source:</p>
-
-  <blockquote><p>This investigation was produced with contributions from OCCRP journalists and
-  StateWatch volunteers Matvii Liadov and <strong>Nazar Holianych</strong>.</p></blockquote>
-
-  <div class="source">
-    <h3>Reference</h3>
-    <dl>
-      <dt>Publications</dt><dd>StateWatch (Ukraine) and OCCRP, co-published 17 July 2026, with a consortium of European outlets</dd>
-      <dt>Author</dt><dd>Anna Holishevska</dd>
-      <dt>My role</dt><dd>Contributing research, credited as a StateWatch volunteer. Published under the transliteration Holianych</dd>
-      <dt>Subject</dt><dd>Passwork — corporate structure, FSB and FSTEC licensing, client base</dd>
-    </dl>
-  </div>
-</article>
-
-<article class="item" id="russian-military-ai">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>The UK has designated none of them</h2>
-  <div class="meta">
-    <span class="type">Analysis</span>
-    <span class="date">2026</span>
-    <span class="out"><a href="../briefs/russian-military-ai.html">Full brief →</a></span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>Sanctions policy has tracked hardware — components, microelectronics, supply chains —
-    because goods are legible to a goods-based regime. The developer layer writing the targeting,
-    recognition, monitoring and censorship software has been tracked much less. How much less,
-    and where exactly are the holes?</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>97 entities identified from Russian-language open sources — product documentation,
-    procurement records, technology-park residency lists, university laboratory pages,
-    independent investigative reporting. Inclusion requires a sourced link to a military,
-    surveillance or information-control application, not merely that the entity works on AI.</p>
-    <p>Each record carries registry number (OGRN), tax number (INN), addresses in three
-    languages, a sourced designation justification and an explicit listed / not-listed status per
-    jurisdiction. Registry numbers rather than names are the load-bearing choice: Russian
-    corporate names are unstable and routinely re-registered, but a registration number survives
-    renaming.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p>Ukraine has designated <strong>47</strong>, the United States <strong>31</strong>, the
-    European Union <strong>21</strong> — and the United Kingdom
-    <strong class="f">none of the 97</strong>. <strong class="f">62%</strong> carry no Western
-    designation at all, <strong class="f">41%</strong> none in any of the four jurisdictions, and
-    <strong class="f">20</strong> are Ukraine-listed with no Western follow-through.</p>
-
-    <div class="chart">
-      <p class="chart-h">Entities designated, of 97 mapped</p>
-      <div class="bars">
-        <div class="bar ceilrow"><span></span><span class="c">97 ┤</span><span></span></div>
-        <div class="bar">
-          <span class="lab">UKR</span>
-          <span class="track"><span class="fill" style="width:48.5%"></span></span>
-          <span class="val">47</span>
-        </div>
-        <div class="bar">
-          <span class="lab">USA</span>
-          <span class="track"><span class="fill" style="width:32.0%"></span></span>
-          <span class="val">31</span>
-        </div>
-        <div class="bar">
-          <span class="lab">EU</span>
-          <span class="track"><span class="fill" style="width:21.6%"></span></span>
-          <span class="val">21</span>
-        </div>
-        <div class="bar zero">
-          <span class="lab">UK</span>
-          <span class="track"><span class="zerodigit">0</span></span>
-          <span class="val">0</span>
-        </div>
-      </div>
-      <p class="chart-n">Every track is all 97 entities, so the unfilled portion is the shortfall
-      without arithmetic. The UK track is empty rather than absent.</p>
-    </div>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>A zero is a different kind of number from a low number. US and EU coverage describes a
-    regime that has engaged the sector and reached part of it; an empty track describes one that
-    has not started — and not for want of instruments, since the UK maintains detailed
-    goods-based export controls across 11 schedules under the same Russia regime.</p>
-
-    <div class="chart">
-      <p class="chart-h">By cluster — bar length is the number of entities</p>
-      <ul class="legend">
-        <li><i class="miss"></i>no Western designation</li>
-        <li><i class="have"></i>designated</li>
-      </ul>
-      <div class="bars">
-        <div class="bar stacked">
-          <span class="lab">UAV, weapons AI</span>
-          <span class="track"><span class="sw" style="width:100%"><span class="seg miss" style="width:64.7%"></span><span class="seg have" style="width:35.3%"></span></span></span>
-          <span class="val">65%</span>
-        </div>
-        <div class="bar stacked">
-          <span class="lab">Media monitoring</span>
-          <span class="track"><span class="sw" style="width:44.1%"><span class="seg miss" style="width:53.3%"></span><span class="seg have" style="width:46.7%"></span></span></span>
-          <span class="val">53%</span>
-        </div>
-        <div class="bar stacked">
-          <span class="lab">Computer vision</span>
-          <span class="track"><span class="sw" style="width:38.2%"><span class="seg miss" style="width:76.9%"></span><span class="seg have" style="width:23.1%"></span></span></span>
-          <span class="val">77%</span>
-        </div>
-        <div class="bar stacked">
-          <span class="lab">Microelectronics</span>
-          <span class="track"><span class="sw" style="width:35.3%"><span class="seg miss" style="width:41.7%"></span><span class="seg have" style="width:58.3%"></span></span></span>
-          <span class="val">42%</span>
-        </div>
-        <div class="bar stacked">
-          <span class="lab">Universities</span>
-          <span class="track"><span class="sw" style="width:35.3%"><span class="seg miss" style="width:66.7%"></span><span class="seg have" style="width:33.3%"></span></span></span>
-          <span class="val">67%</span>
-        </div>
-        <div class="bar stacked">
-          <span class="lab">State funds</span>
-          <span class="track"><span class="sw" style="width:32.4%"><span class="seg miss" style="width:63.6%"></span><span class="seg have" style="width:36.4%"></span></span></span>
-          <span class="val">64%</span>
-        </div>
-      </div>
-      <p class="chart-n">Ordered largest cluster first, so proportion and absolute size read
-      together: the largest proportional gap sits in computer vision, one of the smallest
-      clusters, while the best-covered is microelectronics — which is what a goods-based regime
-      is built to reach.</p>
-    </div>
-
-    <p>The twenty Ukraine-listed entities with no Western follow-through are the lowest-friction
-    candidates for alignment, because the identification and evidentiary work is already done and
-    published. And the media-monitoring cluster is the counter-disinformation cut: fifteen
-    entities building the systems that detect, characterise and act on the information
-    environment, several marketed openly to government buyers.</p>
-  </div>
-
-  <p class="note">The brief publishes the finding, the taxonomy, the record schema and three
-  fully worked examples — all drawn only from entities already under public designation, so
-  nothing is disclosed that is not already a published listing. The dataset itself is held
-  privately. <strong>Full dataset available on request.</strong></p>
-
-  <div class="source">
-    <h3>Sources and limits</h3>
-    <dl>
-      <dt>Entity set</dt><dd>Russian-language open sources; inclusion requires a sourced link to a military, surveillance or information-control application</dd>
-      <dt>Designation</dt><dd>Checked per entity against the published lists of all four regimes as an explicit binary; no jurisdiction inferred from another</dd>
-      <dt>Caveat</dt><dd>Designation status is a snapshot. 97 is a floor on the sector, not a census of it</dd>
-      <dt>Dataset</dt><dd>Held privately — available on request</dd>
-    </dl>
-  </div>
-</article>
-
-<article class="item" id="moldova">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>Pro-Russian information network in Moldova</h2>
-  <div class="meta">
-    <span class="type">Analysis</span>
-    <span class="date">May 2026</span>
-    <span class="out"><a href="https://github.com/NazarGol/moldova-information-network">Repository →</a></span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>Within a fixed perimeter of 28 Telegram channels pushing pro-Russian and anti-Western
-    content in Moldova, does the observable structure look organic — or does it show
-    coordination? The perimeter was defined in advance, so the question is about structure inside
-    a boundary, not about discovering a network from scratch.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>A batch script drove GroupInt across every target — 500 messages each, endorsement
-    extraction, flood-wait handling, failures logged and skipped rather than aborting the run —
-    into a Neo4j graph. Edges are <code>ENDORSES</code> relations parsed from
-    <code>@username</code> and <code>t.me/</code> links in message text. Degree metrics in Cypher;
-    clustering is an analyst's reading, since the Neo4j GDS plugin was unavailable.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p><strong>27</strong> channels indexed of 28 targeted, <strong>23,110</strong> messages,
-    <strong>424</strong> endorsement links across <strong>164</strong> unique channel pairs,
-    <strong>4</strong> clusters. <code>@primulinmd</code> receives <strong>83</strong>
-    endorsements and sends <strong>8</strong>; KP Moldova sends <strong>129</strong> and receives
-    <strong class="f">none</strong>.</p>
-
-    <figure class="fig">
-      <svg viewBox="0 0 960 620" role="img" aria-labelledby="f-net-t f-net-d">
-        <title id="f-net-t">Schematic of the Moldovan channel network</title>
-        <desc id="f-net-d">Node size is proportional to endorsements received. The channel primulinmd receives 83 endorsements from all three narrative pipelines and is by far the largest node. KP Moldova sends 129 endorsements and receives none, so despite being the busiest distributor it is drawn small, with only outgoing arrows.</desc>
-        <defs>
-          <marker id="n-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-ink2"/></marker>
-          <marker id="n-fade" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-ink3"/></marker>
-          <marker id="n-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-acc"/></marker>
-        </defs>
-        <text x="0" y="26" font-size="26" letter-spacing="2.4" class="f-ink3">NODE SIZE ∝ ENDORSEMENTS RECEIVED</text>
-        <text x="0" y="128" font-size="26" class="f-ink3">anti-Sandu</text>
-        <text x="0" y="330" font-size="26" class="f-ink3">Transnistrian</text>
-        <text x="0" y="520" font-size="26" class="f-ink3">Gagauz</text>
-        <path d="M222,168 C400,208 496,244 566,292" class="s-acc nf" stroke-width="10" marker-end="url(#n-hot)"/>
-        <path d="M196,340 C380,344 470,342 558,342" class="s-ink2 nf" stroke-width="4" marker-end="url(#n-ink)"/>
-        <path d="M186,512 C400,504 502,438 578,390" class="s-ink2 nf" stroke-width="3" marker-end="url(#n-ink)"/>
-        <circle cx="190" cy="150" r="26" class="f-panel s-ink" stroke-width="3"/>
-        <text x="190" y="104" font-size="28" text-anchor="middle" class="f-ink">KP Moldova</text>
-        <text x="190" y="218" font-size="26" text-anchor="middle" class="f-ink3">out 129 · in 0</text>
-        <path d="M168,131 C138,100 112,92 88,94" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
-        <path d="M166,166 C130,182 108,200 96,220" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
-        <path d="M212,174 C222,204 226,222 228,242" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
-        <circle cx="82" cy="94" r="7" class="f-ink3"/>
-        <circle cx="92" cy="228" r="7" class="f-ink3"/>
-        <circle cx="230" cy="250" r="7" class="f-ink3"/>
-        <circle cx="700" cy="342" r="118" class="f-accbg s-acc" stroke-width="5"/>
-        <text x="700" y="338" font-size="86" text-anchor="middle" class="f-acc">83</text>
-        <text x="700" y="382" font-size="26" text-anchor="middle" class="f-acc">received</text>
-        <text x="700" y="506" font-size="32" text-anchor="middle" class="f-ink">@primulinmd</text>
-        <text x="700" y="540" font-size="26" text-anchor="middle" class="f-ink3">sends 8</text>
-        <circle cx="170" cy="340" r="14" class="f-panel s-ink2" stroke-width="2.5"/>
-        <text x="170" y="298" font-size="24" text-anchor="middle" class="f-ink2">e_tiraspol</text>
-        <circle cx="162" cy="508" r="12" class="f-panel s-ink2" stroke-width="2.5"/>
-        <text x="180" y="562" font-size="24" text-anchor="middle" class="f-ink2">gagauznewsmd</text>
-      </svg>
-      <figcaption>Sizing by endorsements received inverts the obvious reading: the busiest channel
-      in the network is one of the smallest nodes here, because nothing comes back to it.</figcaption>
-    </figure>
-
-    <p>Three coordination indicators, weighted separately rather than collapsed: byte-identical
-    texts published the same day by two Transnistrian channels; four or more channels framing the
-    27 May gas VAT decision within hours in near-identical wording; and a narrow shared set of
-    externally cited channels across otherwise unconnected clusters.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>A channel cited by ideologically distinct clusters that cites almost nobody in return is
-    the network's shared authority. That degree asymmetry is a structural signature — it does not
-    depend on reading the content, which makes it cheap to compute and hard to disguise.</p>
-    <p>The honest limit is stated with it: identical text and synchronised timing are consistent
-    with coordination, and equally consistent with a shared press-service feed. The report says
-    which is which for each pattern rather than collapsing them into one claim.</p>
-  </div>
-
-  <div class="source">
-    <h3>Sources and limits</h3>
-    <dl>
-      <dt>Perimeter</dt><dd>The 28-channel set was defined in advance; this describes structure inside a boundary</dd>
-      <dt>Depth</dt><dd>500 messages per channel, roughly March–May 2026 — not full history</dd>
-      <dt>Edges</dt><dd>Explicit links only; screenshot reposts and paraphrased attribution are invisible, so the edge count is a floor</dd>
-      <dt>Clustering</dt><dd>Manual — the Neo4j GDS plugin was unavailable, so no community detection was run</dd>
-      <dt>Tooling</dt><dd>GroupInt, by OSINT for Ukraine — a collection harness, not authored by me</dd>
-      <dt>Not published</dt><dd>The raw scraped message corpus and Telegram session material</dd>
-    </dl>
-  </div>
-</article>
-
-<article class="item" id="zhbk-185">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>ZhBK-185</h2>
-  <div class="meta">
-    <span class="type">Sample report</span>
-    <span class="date">June 2026</span>
-    <span class="out"><a href="../briefs/zhbk-185.html">Full report →</a></span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>ZhBK-185 produces anti-tank obstacles in occupied Zaporizhzhia oblast, at sites in
-    Berdiansk and Melitopol. Those are not new-build factories — they are Ukrainian
-    reinforced-concrete plants that existed before the occupation. Which plants were captured, and
-    is the operation run by the same people who ran them before?</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>Identify the pre-war entity from Ukrainian registry data, then find the successor in
-    Russian registries <strong>by physical address rather than by name</strong> — the address
-    survives the renaming — then compare directorships across the two systems. Names change,
-    corporate forms change, jurisdictions change; addresses and registry numbers persist.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p><strong>Two</strong> plants, <strong>five</strong> linked legal entities, and management
-    continuity across the seizure. At Melitopol the long-standing director of the pre-war
-    Ukrainian company is now general director of the Russian successor, appointed
-    <strong>June 2023</strong>, holding a founder's stake of <strong>~20.5%</strong>. At Berdiansk
-    the current director of the Russian entity at the original plant address is a former deputy
-    mayor and a known political associate of the MP whose family held pre-war ownership. Of four
-    individuals in directing roles, <strong>three hold Ukrainian citizenship</strong>.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>Continuity changes what the case is. A plant seized and run by outside operators is
-    expropriation; a plant whose management stayed in place and took equity in the vehicle that
-    acquired it is something else, with a documented ownership interest attached.</p>
-    <p>It also generalises. The method — pre-war entity, successor by address, then check the
-    people — applies to any occupied-asset case, and it works because operational convenience
-    beats operational security: the successor keeps the address, and often the email domain.</p>
-  </div>
-
-  <p class="note">Individuals are anonymised by role throughout. Corporate registry identifiers
-  are retained: companies operating in occupied territory are legitimate subjects of open-source
-  research, and the registry numbers are the evidence. Personal-profile links have been
-  removed.</p>
-
-  <div class="source">
-    <h3>Reference</h3>
-    <dl>
-      <dt>Status</dt><dd>Sample analytical report — training exercise. Not client work and not commissioned; published to show method</dd>
-      <dt>Sources</dt><dd>Ukrainian registry data (EDRPOU) and pre-war corporate directories; Russian registry aggregators queried by address; brand website contact records; existing published investigations as corroboration</dd>
-      <dt>Limits</dt><dd>Registry aggregators are secondary sources. The continuity finding is an identity inference across two registry systems in two languages, not a documentary confirmation</dd>
-      <dt>Financials</dt><dd>Entity-level only, and not attributable to the fortification line — the Berdiansk operator's primary activity code is wholesale fuel trade, one of some seventy declared areas</dd>
-    </dl>
-  </div>
-</article>
-
-<article class="item" id="economies-of-the-aftermath">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>Economies of the Aftermath</h2>
-  <div class="meta">
-    <span class="type">Investigation</span>
-    <span class="date">Anti-War Coalition Journal</span>
-    <span class="out"><a href="https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e">Read →</a></span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>Mariupol is routinely described as a city awaiting reconstruction. That framing assumes
-    destruction is an interruption in an economy that will resume. What if the destruction is not
-    an interruption but a precondition — and what would the physical record show?</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>Satellite imagery analysis of the city's energy infrastructure, working from the grid
-    rather than from buildings. Transmission lines and substations are large, fixed and
-    identifiable from above, which makes them a harder evidentiary base than damage counts of
-    housing stock — and they determine what an economy can physically do afterwards.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p><strong>15</strong> power transmission lines and <strong>16</strong> substations at
-    330/220/110 kV assessed across the city. What is destroyed is not only physical plant but the
-    arrangements that let an economy function on its own terms: labour relations, market access,
-    and the connective infrastructure between them.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>The piece argues that such economies read better as an <em>architecture of gaps</em> —
-    disrupted labour, fractured markets, severed infrastructure — than as sites awaiting
-    reconstruction. The distinction is not rhetorical: the two readings ask different
-    questions.</p>
-    <p>A site awaiting reconstruction invites asking when rebuilding starts. An architecture of
-    gaps invites asking who the gaps are for — and grid capacity is where that question becomes
-    answerable, because whoever rebuilds the substations decides what the city can produce and
-    for whom.</p>
-  </div>
-
-  <div class="source">
-    <h3>Reference</h3>
-    <dl>
-      <dt>Publication</dt><dd>Anti-War Coalition Journal</dd>
-      <dt>Byline</dt><dd>Nazar Golianych / UA</dd>
-      <dt>Date</dt><dd>Not stated on the published page</dd>
-      <dt>Evidence</dt><dd>Satellite imagery assessment of Mariupol transmission lines and 330/220/110 kV substations</dd>
-    </dl>
-  </div>
-</article>
-
-<article class="item" id="arctic">
-  <button class="back" type="button">← Portfolio</button>
-  <h2>At the break: Territorialization of Arctic</h2>
-  <div class="meta">
-    <span class="type">Investigation</span>
-    <span class="date">roflflfl.github.io</span>
-    <span class="out"><a href="https://roflflfl.github.io/portfolio/#arctic-territorialization">Read →</a></span>
-  </div>
-
-  <div class="beat">
-    <h3>The question</h3>
-    <p>Accelerating ice loss is usually reported as an environmental story. It is also an access
-    story: as the ice retreats, parts of the Arctic become physically reachable that were not
-    before. How does Russia convert that new access into control, and is the process visible from
-    open sources?</p>
-  </div>
-
-  <div class="beat">
-    <h3>Method</h3>
-    <p>Open-source infrastructure analysis across four case studies chosen to sit in different
-    domains — extraction, shipping, communications and military presence — so that a common
-    pattern across them would not be an artefact of looking at one kind of asset.</p>
-  </div>
-
-  <div class="beat finding">
-    <h3>Finding</h3>
-    <p><strong>4</strong> case studies — the Prirazlomnaya platform, the first extraction
-    installation on the Arctic shelf; the North Sea Passage; a transarctic fibre-optic cable; and
-    military expansion along the northern border — describe <strong>1</strong> process rather
-    than four developments. Each layer is separately visible in open sources, which is what makes
-    the whole traceable without privileged access.</p>
-  </div>
-
-  <div class="beat">
-    <h3>Why it matters</h3>
-    <p>Extraction, shipping route, data cable and garrison are four layers of a single claim, and
-    the direction of that claim is a reorientation of Arctic spatial and economic networks toward
-    East Asia.</p>
-    <p>Read one layer at a time, each looks like ordinary development. Read together, they are a
-    territorial strategy — which is an argument for infrastructure analysis over incident
-    reporting when the subject is a slow process rather than an event.</p>
-  </div>
-
-  <div class="source">
-    <h3>Reference</h3>
-    <dl>
-      <dt>Published</dt><dd>roflflfl.github.io/portfolio</dd>
-      <dt>Date</dt><dd>Not stated on the published page</dd>
-      <dt>Case studies</dt><dd>Prirazlomnaya platform · North Sea Passage · transarctic fibre-optic cable · military expansion on the northern border</dd>
-      <dt>Method</dt><dd>Open-source infrastructure analysis</dd>
-    </dl>
-  </div>
-</article>
-
-<!-- ============================ ENGINEERING ============================ -->
+<!-- ========================= ENGINEERING ========================= -->
 
 <article class="item" id="sanctions-checker">
   <button class="back" type="button">← Portfolio</button>
   <h2>Sanctions Checker — EU · US · UK export-control lookup</h2>
   <div class="meta">
-    <span class="type">Tool</span>
-    <span class="date">2026 · TrapAggressor / StateWatch</span>
+    <span class="type">Tool</span><span class="date">2026 · TrapAggressor / StateWatch</span>
     <span class="out"><a href="https://github.com/NazarGol/sanctions-checker">Repository →</a></span>
   </div>
 
@@ -623,19 +138,15 @@
       <div class="flow">
         <div class="flow-lane">
           <span class="flow-tag">Rejected</span>
-          <span class="box ghost">query</span>
-          <span class="arrow">→</span>
-          <span class="box ghost">model writes a code</span>
-          <span class="arrow dead">→</span>
+          <span class="box ghost">query</span><span class="arrow">→</span>
+          <span class="box ghost">model writes a code</span><span class="arrow dead">→</span>
           <span class="stopbar"></span>
           <span class="deadlabel">no source to confirm it exists</span>
         </div>
         <div class="flow-lane">
           <span class="flow-tag">Chapter-first</span>
-          <span class="box">query</span>
-          <span class="arrow">→</span>
-          <span class="box strong">model names a chapter</span>
-          <span class="arrow">→</span>
+          <span class="box">query</span><span class="arrow">→</span>
+          <span class="box strong">model names a chapter</span><span class="arrow">→</span>
           <span class="dbbox">
             <span class="dbh">Database · every row in chapter 39</span>
             <span class="dbrow">3912.11 · Annex XXIII</span>
@@ -656,8 +167,9 @@
     parsers plus UK schedule and US BIS supplement parsers. Classification runs four tiers: an
     alias table of roughly 200 known products, the chapter-first LLM stage above,
     keyword-intersection SQL with progressive relaxation, then a rapidfuzz fallback. Every answer
-    returns its legal basis, annex, restriction type, date enacted and a deep link into the
-    source document. It runs without the LLM, falling back to tiers three and four.</p>
+    returns its legal basis, annex, restriction type, date enacted and a deep link into the source
+    document. It runs without the LLM, falling back to tiers three and four, at roughly five points
+    lower accuracy on ambiguous queries.</p>
     <div class="stack">
       <span>Python 3.10+</span><span>FastAPI</span><span>SQLite → PostgreSQL path</span><span>Ollama qwen2.5:7b</span><span>rapidfuzz</span><span>pyhscodes</span><span>Docker Compose</span><span>nginx + certbot</span><span>pytest</span>
     </div>
@@ -689,8 +201,7 @@
   <button class="back" type="button">← Portfolio</button>
   <h2>Corpus Editor — Telegram video pipeline</h2>
   <div class="meta">
-    <span class="type">Tool</span>
-    <span class="date">2026</span>
+    <span class="type">Tool</span><span class="date">2026</span>
     <span class="out"><a href="https://github.com/NazarGol/corpus-editor">Repository →</a></span>
   </div>
 
@@ -714,7 +225,7 @@
   <div class="beat">
     <h3>How it works</h3>
     <div class="chart">
-      <p class="chart-h">Pipeline · accent marks the stages that survive interruption</p>
+      <p class="chart-h">Pipeline · amber marks the stages that survive interruption</p>
       <div class="pipe">
         <div class="stage resume"><span class="sn">collection</span><span class="sm">Telethon · public channels<br>↻ resumable</span></div>
         <div class="stage resume"><span class="sn">features</span><span class="sm">ffprobe · librosa · OpenCV · MediaPipe<br>↻ resumable</span></div>
@@ -725,8 +236,7 @@
         <div class="stage"><span class="sn">kNN edges</span><span class="sm">top-10 cosine</span></div>
         <div class="stage"><span class="sn">API</span><span class="sm">FastAPI over SQLite</span></div>
       </div>
-      <p class="chart-n">The batch stages cannot resume — UMAP fits over the whole corpus at
-      once.</p>
+      <p class="chart-n">The batch stages cannot resume — UMAP fits over the whole corpus at once.</p>
     </div>
     <p>Per-video extraction covers ffprobe metadata, librosa audio energy, OpenCV optical-flow
     motion and edge complexity, MediaPipe face counts, CLIP zero-shot scene labels and k-means
@@ -738,9 +248,9 @@
 
   <div class="beat finding">
     <h3>Result</h3>
-    <p><strong>153</strong> videos from <strong>12</strong> channels with <strong>1,100</strong>
-    similarity edges, from a target list of 102 Ukrainian public channels — queryable through a
-    REST API and navigable as a 3-D field.</p>
+    <p><strong class="f">153</strong> videos from <strong>12</strong> channels with
+    <strong>1,100</strong> similarity edges, from a target list of 102 Ukrainian public channels —
+    queryable through a REST API and navigable as a 3-D field.</p>
     <p>It began as a tool for a film project, not an intelligence one. It is here because the
     pipeline underneath is the same one a media-monitoring system needs, and I would rather show
     one I built end to end.</p>
@@ -761,8 +271,7 @@
   <button class="back" type="button">← Portfolio</button>
   <h2>Querying 77k sanctions entities — SQL and an agent</h2>
   <div class="meta">
-    <span class="type">Tool</span>
-    <span class="date">2026</span>
+    <span class="type">Tool</span><span class="date">2026</span>
     <span class="out"><a href="https://github.com/NazarGol/opensanctions-agent">Repository →</a></span>
   </div>
 
@@ -797,26 +306,20 @@
     <h3>Result</h3>
     <p><strong>76,996</strong> entities queryable both ways — and a documented auditability
     failure.</p>
-
     <div class="chart">
       <p class="chart-h">"How many sanctioned entities are from Russia?"</p>
       <div class="bars">
-        <div class="bar">
-          <span class="lab">agent</span>
+        <div class="bar"><span class="lab">agent</span>
           <span class="track"><span class="fill" style="width:100%"></span></span>
-          <span class="val">21,210</span>
-        </div>
-        <div class="bar">
-          <span class="lab">direct SQL</span>
+          <span class="val">21,210</span></div>
+        <div class="bar"><span class="lab">direct SQL</span>
           <span class="track"><span class="fill" style="width:90.7%"></span></span>
-          <span class="val">19,238</span>
-        </div>
+          <span class="val">19,238</span></div>
       </div>
       <p class="delta"><b>1,972 records unexplained</b><span>the agent never surfaced the query it generated</span></p>
       <p class="chart-n">The gap is not the problem — the missing query is. Both numbers are
       defensible; only one is auditable.</p>
     </div>
-
     <p>The difference is almost certainly multi-country records like <code>ru;ua</code> — but that
     is a reconstruction after the fact. There was no way to establish which question the agent had
     answered without redoing the work it was meant to save. For sanctions screening that is
@@ -843,8 +346,7 @@
   <button class="back" type="button">← Portfolio</button>
   <h2>Measuring LLM fabrication rate in OSINT profiling</h2>
   <div class="meta">
-    <span class="type">Method</span>
-    <span class="date">2026</span>
+    <span class="type">Method</span><span class="date">2026</span>
     <span class="out"><a href="https://github.com/NazarGol/llm-verification-osint">Repository →</a></span>
   </div>
 
@@ -870,7 +372,6 @@
     independent source families. "Unverifiable" is kept as its own category rather than folded into
     true or false, because collapsing it in either direction is precisely how unsourced claims
     enter finished analysis.</p>
-
     <div class="chart">
       <p class="chart-h">Unconstrained prompt · 12 claims</p>
       <div class="claims">
@@ -924,10 +425,7 @@
 <article class="item" id="rcp">
   <button class="back" type="button">← Portfolio</button>
   <h2>Russia Context Platform</h2>
-  <div class="meta">
-    <span class="type">Research · unfinished</span>
-    <span class="date">2026</span>
-  </div>
+  <div class="meta"><span class="type">Research · unfinished</span><span class="date">2026</span></div>
 
   <div class="beat">
     <h3>The problem</h3>
@@ -944,8 +442,8 @@
     place profile from it: local geography, institutions, transport, prices, seasonal rhythms,
     recurring names, register and dialect — deep enough that a generated resident would be hard for
     an actual resident to catch out.</p>
-    <p>Working at settlement scale rather than national scale is the whole point. National context
-    is abundant and cheap; it is the local, unrecorded texture that is expensive, and expense is
+    <p>Working at settlement scale rather than national scale is the point. National context is
+    abundant and cheap; it is the local, unrecorded texture that is expensive, and expense is
     exactly what a detector wants to test.</p>
   </div>
 
@@ -959,15 +457,14 @@
     for entities and relations, with a map layer for the geographic material. Models run locally,
     since the corpus is regional-language material that does not need to leave the machine.</p>
     <p>It is unfinished. Collection and the wiki store work; the graph is partial, the map layer is
-    early, and the synthesis step has been run over a small number of settlements rather than at
-    any scale.</p>
+    early, and synthesis has been run over a small number of settlements rather than at any
+    scale.</p>
   </div>
 
   <div class="beat finding">
     <h3>Result</h3>
     <p><strong class="f">5</strong> signal classes, ranked by how hard each turned out to
     fabricate — which is the output that transfers to detection.</p>
-
     <div class="chart">
       <p class="chart-h">What must be faked · what a detector must check</p>
       <div class="pairs-h"><span>Signal class</span><span class="m"></span><span class="r">Detection surface</span></div>
@@ -982,8 +479,7 @@
       not — which makes it the cheapest thing for a defender to test and the most expensive for an
       adversary to sustain.</p>
     </div>
-
-    <p>The four upper classes turned out to be tractable: enough local geography, rhythm, lexis and
+    <p>The four upper classes turned out tractable: enough local geography, rhythm, lexis and
     plausible social structure can be assembled from open regional sources to survive casual review.
     Event memory did not. A profile built from sources can only contain what a source recorded, and
     the unrecorded local event — the thing everyone in a town knows and nobody wrote down — has no
@@ -996,8 +492,7 @@
   </div>
 
   <p class="note">Unfinished and not open-sourced. There is no repository, no code, no screenshots
-  and no operational parameters here, and there will not be. Describing what a thing is and handing
-  someone a working copy are different acts, and only the second one matters for this project.</p>
+  and no operational parameters here, and there will not be.</p>
 
   <div class="source">
     <h3>Status</h3>
@@ -1006,6 +501,655 @@
       <dt>Partial</dt><dd>Knowledge graph, map layer</dd>
       <dt>Withheld</dt><dd>Repository, code, screenshots, operational parameters</dd>
       <dt>Position</dt><dd>Deliberately last, after the detection-side work</dd>
+    </dl>
+  </div>
+</article>
+
+<!-- ========================= INVESTIGATIONS ========================= -->
+
+<article class="item" id="passwork">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>Passwork — an FSB-licensed password manager in EU government systems</h2>
+  <div class="meta">
+    <span class="type">Investigation</span><span class="date">17 July 2026</span>
+    <span class="out">
+      <a href="https://statewatch.org.ua/en/publications/rozsliduvannia/sanktsii/passwork-fsb-password-manager-eu-government/">StateWatch →</a>
+      <a href="https://www.occrp.org/en/investigation/european-password-manager-shares-origins-and-updates-with-state-certified-russian-firm">OCCRP →</a>
+    </span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>Passwork is a password manager. It presents as a European company, and it is installed
+    inside European public-sector organisations — the software that holds the credentials to
+    everything else those organisations run.</p>
+    <p>The question was whether the corporate reality behind the product matched the marketing.
+    A password manager is an unusually consequential place for that gap to exist: the product's
+    entire function is custody of the keys.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>Corporate records across jurisdictions, tracing the entity structure back from the European
+    presentation to its origin. Russian cryptographic and technical licensing registries, which are
+    public and which record both the licence and its date. The product's own update infrastructure.
+    Published client lists, cross-checked against sanctions designations in both directions —
+    European public bodies on one side, designated Russian entities on the other. Technical
+    examination of the installed software by an independent specialist. And approaches to the
+    company for comment, which produced an on-record denial worth publishing alongside the
+    findings.</p>
+    <p>A cross-border effort: OCCRP journalists and StateWatch, with a consortium of European
+    outlets. My role was contributing research.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p>The product shares origins and update infrastructure with a Russian legal entity. That
+    entity holds an <strong class="f">FSB cryptographic licence</strong> obtained in 2025, and
+    <strong class="f">FSTEC licences</strong> from 2024 covering information-security software for
+    state-owned enterprises. The corporate presentation had moved through a Spanish entity while
+    the Russian company was acquiring exactly those permissions.</p>
+    <p>Its published client list ran in both directions at once. On one side,
+    <strong>5</strong> named European public institutions — Germany's federal research ministry,
+    the Government of Ireland, the Hildesheim District Administration, the University of Zurich
+    and TU Dresden. On the other, <strong>4</strong> sanctioned Russian companies: Gazprom Neft,
+    Aeroflot, Metrovagonmash and Rusal.</p>
+    <p>An independent technical examination added a mechanism to the paper trail. On installation
+    the software contacts an external server and receives a unique identifier, transmitting the
+    client's IP address and organisation details — which means every installation is individually
+    identifiable to the vendor.</p>
+    <p>The company's European CEO told OCCRP there are no corporate, contractual, operational,
+    infrastructure or data-sharing relationships between the European and Russian entities.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>An FSB licence is not only a permission, it is an obligation. Under Russian law a licensed
+    operator can be compelled to provide access to data in its possession — through Government
+    Resolution 313, Federal Law 144-FZ on operational-search activities, Federal Law 149-FZ on
+    information, and the SORM and Yarovaya framework that compels disclosure of metadata, content
+    and encryption keys.</p>
+    <p>That makes the exposure structural rather than incidental. It does not depend on a breach
+    having occurred, on anyone acting in bad faith, or on the denial being untrue. A sanctions
+    lawyer quoted in the investigation put the risk in terms of legal mechanism and de facto state
+    coercion rather than misconduct.</p>
+    <p>The framing the investigation lands on is the durable one: the question is not whether
+    passwords have already been accessed, but who holds the keys. That is a systemic-risk argument,
+    and it is the harder kind to make — it survives the absence of an incident, which is precisely
+    when procurement decisions actually get taken.</p>
+  </div>
+
+  <p>My credit is published on the StateWatch article and quoted here verbatim rather than
+  paraphrased, so it can be checked against the source:</p>
+
+  <blockquote><p>This investigation was produced with contributions from OCCRP journalists and
+  StateWatch volunteers Matvii Liadov and <strong>Nazar Holianych</strong>.</p></blockquote>
+
+  <div class="source">
+    <h3>Reference</h3>
+    <dl>
+      <dt>Publications</dt><dd>StateWatch (Ukraine) and OCCRP, co-published 17 July 2026, with a consortium of European outlets</dd>
+      <dt>Author</dt><dd>Anna Holishevska</dd>
+      <dt>My role</dt><dd>Contributing research, credited as a StateWatch volunteer. Published under the transliteration Holianych. The account above summarises the published investigation; specific findings are the team's collective work and are not individually attributed</dd>
+      <dt>Subject</dt><dd>Passwork — corporate structure, FSB and FSTEC licensing, client base, update infrastructure</dd>
+    </dl>
+  </div>
+</article>
+
+<article class="item" id="russian-military-ai">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>The UK has designated none of them</h2>
+  <div class="meta">
+    <span class="type">Analysis</span><span class="date">2026</span>
+    <span class="out"><a href="../briefs/russian-military-ai.html">Standalone version →</a></span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>Sanctions policy has tracked hardware — components, microelectronics, supply chains —
+    because goods are legible to a goods-based regime. The developer layer writing the targeting,
+    recognition, monitoring and censorship software has been tracked much less.</p>
+    <p>How much less, and where exactly are the holes? Sanctioning a drone manufacturer while
+    leaving the company that supplies its autonomous targeting stack undesignated addresses the
+    airframe and not the software that makes it autonomous.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>97 entities identified from Russian-language open sources: company product documentation,
+    state and state-adjacent media reporting on capability deployment, procurement and contract
+    records, technology-park and accelerator residency lists, university laboratory pages, and
+    investigative reporting by independent Russian and international outlets. Inclusion requires a
+    sourced link between the entity and a military, surveillance or information-control application
+    — not merely that the entity works on AI in Russia.</p>
+    <p>Each record carries the legal name in three languages, a functional classification, the
+    registry number (OGRN), the tax number (INN), the registered address in three languages, a
+    sourced designation justification with supporting URLs, and an explicit listed / not-listed
+    status for each of the four jurisdictions.</p>
+    <p>Recording OGRN and INN rather than names alone is the load-bearing decision. Russian
+    corporate names are unstable, frequently duplicated and routinely re-registered; a registration
+    number survives renaming and is what makes an entity matchable against a sanctions list, a
+    procurement record or a corporate registry. Trilingual fields exist so a record can be handed
+    to a Ukrainian, EU or US counterpart and used without re-derivation.</p>
+    <p>Sanctions status was checked per entity against each regime's published lists and recorded
+    as an explicit binary. No jurisdiction is inferred from another. The empty cells are as
+    deliberate as the filled ones — a blank is a checked negative, not an unchecked field, which is
+    what allows the gap to be counted rather than estimated.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p>Ukraine has designated <strong>47</strong>, the United States <strong>31</strong>, the
+    European Union <strong>21</strong> — and the United Kingdom
+    <strong class="f">none of the 97</strong>.</p>
+
+    <div class="chart">
+      <p class="chart-h">Entities designated, of 97 mapped</p>
+      <div class="bars">
+        <div class="bar ceilrow"><span></span><span class="c">97 ┤</span><span></span></div>
+        <div class="bar"><span class="lab">UKR</span>
+          <span class="track"><span class="fill" style="width:48.5%"></span></span>
+          <span class="val">47</span></div>
+        <div class="bar"><span class="lab">USA</span>
+          <span class="track"><span class="fill" style="width:32.0%"></span></span>
+          <span class="val">31</span></div>
+        <div class="bar"><span class="lab">EU</span>
+          <span class="track"><span class="fill" style="width:21.6%"></span></span>
+          <span class="val">21</span></div>
+        <div class="bar zero"><span class="lab">UK</span>
+          <span class="track"><span class="zerodigit">0</span></span>
+          <span class="val">0</span></div>
+      </div>
+      <p class="chart-n">Every track is all 97 entities, so the unfilled portion is the shortfall
+      without arithmetic.</p>
+    </div>
+
+    <p>Three further figures define the gap. <strong class="f">62%</strong> — 60 of 97 — carry no
+    Western designation at all, not US, not EU, not UK. <strong class="f">41%</strong> carry no
+    designation in any of the four jurisdictions, including Ukraine's. And
+    <strong class="f">20</strong> entities are Ukraine-listed with no Western follow-through:
+    already assessed as contributing to the war effort by the state fighting it, and untouched by
+    any Western regime.</p>
+    <p>The finding is not that these entities are unknown. Ukraine has designated 47 of them and
+    the justification for each is publicly sourced. The finding is that Western designation is not
+    following, and that in one jurisdiction it has not started.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>A zero is a different kind of number from a low number. US and EU coverage at 32% and 22%
+    describes a regime that is engaging with this sector and has reached part of it — partial,
+    lagging, but present. A zero describes a sector that has not been engaged at all.</p>
+    <p>The UK maintains an extensive Russia regime under the Russia (Sanctions) (EU Exit)
+    Regulations 2019, including detailed goods-based export controls across 11 schedules. The
+    absence is therefore not a matter of lacking a regime or lacking instruments. It is that the
+    military-AI developer layer specifically has not been brought inside them.</p>
+
+    <div class="chart">
+      <p class="chart-h">By cluster — bar length is the number of entities</p>
+      <ul class="legend">
+        <li><i class="miss"></i>no Western designation</li>
+        <li><i class="have"></i>designated</li>
+      </ul>
+      <div class="bars">
+        <div class="bar stacked"><span class="lab">UAV, weapons AI</span>
+          <span class="track"><span class="sw" style="width:100%"><span class="seg miss" style="width:64.7%"></span><span class="seg have" style="width:35.3%"></span></span></span>
+          <span class="val">65%</span></div>
+        <div class="bar stacked"><span class="lab">Media monitoring</span>
+          <span class="track"><span class="sw" style="width:44.1%"><span class="seg miss" style="width:53.3%"></span><span class="seg have" style="width:46.7%"></span></span></span>
+          <span class="val">53%</span></div>
+        <div class="bar stacked"><span class="lab">Computer vision</span>
+          <span class="track"><span class="sw" style="width:38.2%"><span class="seg miss" style="width:76.9%"></span><span class="seg have" style="width:23.1%"></span></span></span>
+          <span class="val">77%</span></div>
+        <div class="bar stacked"><span class="lab">Microelectronics</span>
+          <span class="track"><span class="sw" style="width:35.3%"><span class="seg miss" style="width:41.7%"></span><span class="seg have" style="width:58.3%"></span></span></span>
+          <span class="val">42%</span></div>
+        <div class="bar stacked"><span class="lab">Universities</span>
+          <span class="track"><span class="sw" style="width:35.3%"><span class="seg miss" style="width:66.7%"></span><span class="seg have" style="width:33.3%"></span></span></span>
+          <span class="val">67%</span></div>
+        <div class="bar stacked"><span class="lab">State funds</span>
+          <span class="track"><span class="sw" style="width:32.4%"><span class="seg miss" style="width:63.6%"></span><span class="seg have" style="width:36.4%"></span></span></span>
+          <span class="val">64%</span></div>
+      </div>
+      <p class="chart-n">Ordered largest cluster first, so proportion and absolute size read
+      together.</p>
+    </div>
+
+    <p><strong>Microelectronics is the best covered</strong> at 42% undesignated — unsurprising,
+    since component supply chains have been the primary focus of export-control policy since 2022.
+    Hardware is legible to a regime built around goods. <strong>Computer vision is the
+    worst</strong> at 77%: thirteen entities, one US listing, two EU, none UK. And the
+    <strong>universities and state funds sit at 67% and 64%</strong> — these are the pipeline, the
+    institutions producing the researchers and directing the money. They are harder to designate,
+    for real reasons of academic freedom and proportionality, but the effect of leaving them out is
+    that the sector's inputs stay untouched while its outputs are sanctioned one company at a
+    time.</p>
+
+    <h3>The counter-disinformation cut</h3>
+    <p>Fifteen entities develop media monitoring, censorship and cyber-operations tooling. This is
+    the cluster that matters to anyone working on information operations, because these are the
+    systems that detect, characterise and act on the information environment inside Russia — and
+    increasingly on its perimeter. US coverage is comparatively strong here at 7 of 15, its best
+    ratio of any cluster; the EU's is 2, Ukraine's is 4, the UK's is zero.</p>
+    <p>The functional profile is consistent across the cluster: social-media and mass-media
+    monitoring platforms, sentiment and author analysis, automated detection of undesirable
+    content, and threat-intelligence tooling sold to state customers. Several are marketed openly
+    to government buyers with public-sector client lists. At least one claims publicly to forecast
+    public reaction to state initiatives and to identify and "work with" difficult authors and
+    opinion leaders.</p>
+    <p>That last capability is worth stating plainly, because it is the point at which a
+    media-monitoring product stops being analytics: identifying influential critics and routing
+    them to an intervention is the operational core of an information-control system, and it is
+    sold as a commercial feature. The technical distance between "detect undesirable content at
+    national scale" and the detection systems a counter-disinformation vendor builds is small. The
+    difference is entirely in who points it and at whom.</p>
+
+    <h3>What follows</h3>
+    <p>The twenty Ukraine-listed entities with no Western follow-through are the lowest-friction
+    candidates for alignment, because the identification and evidentiary work is already done and
+    published. Coverage is weakest in the software layers and in the institutions feeding them,
+    and best in hardware — which is a statement about what the instruments were designed to reach,
+    not about where capability sits.</p>
+  </div>
+
+  <p class="note">Published here: the finding, the cluster taxonomy, the record schema and — in the
+  standalone version — three fully worked example entries, drawn only from entities already under
+  public designation, so nothing is disclosed that is not already a published listing. The
+  97-entity dataset itself is held privately. <strong>Full dataset available on request.</strong></p>
+
+  <div class="source">
+    <h3>Sources and limits</h3>
+    <dl>
+      <dt>Entity set</dt><dd>Russian-language open sources; inclusion requires a sourced link to a military, surveillance or information-control application</dd>
+      <dt>Designation</dt><dd>Checked per entity against the published lists of all four regimes as an explicit binary; no jurisdiction inferred from another</dd>
+      <dt>Clusters</dt><dd>One entity's row-level cluster field conflicted with its section placement; resolved on its functional classification and its sourced role. Cluster I is 34 and Cluster III 15, not 35 and 14. Totals and all jurisdiction counts are unaffected</dd>
+      <dt>Caveat</dt><dd>Designation status is a snapshot. 97 is a floor on the sector, not a census of it</dd>
+      <dt>Dataset</dt><dd>Held privately — available on request</dd>
+    </dl>
+  </div>
+</article>
+
+<article class="item" id="moldova">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>Pro-Russian information network in Moldova</h2>
+  <div class="meta">
+    <span class="type">Analysis</span><span class="date">May 2026</span>
+    <span class="out"><a href="https://github.com/NazarGol/moldova-information-network">Repository →</a></span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>Within a fixed perimeter of 28 Telegram channels pushing pro-Russian and anti-Western
+    content in Moldova, does the observable structure look organic — or does it show
+    coordination?</p>
+    <p>The perimeter was defined in advance, which bounds every claim that follows: this describes
+    structure inside a boundary, not a network discovered from scratch. Channels outside the list
+    appear only as citation targets.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>A batch script drove GroupInt across every target — 500 messages each, then endorsement
+    extraction, with a five-second delay between channels to stay under Telegram's flood-wait
+    threshold and per-channel failures logged and skipped rather than aborting the run. Everything
+    landed in a Neo4j graph: <code>Group</code>, <code>Message</code> and <code>User</code> nodes,
+    with <code>ENDORSES</code> edges parsed from <code>@username</code> and <code>t.me/</code>
+    links in message text.</p>
+    <p>In- and out-degree were computed in Cypher. The GDS plugin was unavailable, so there is no
+    betweenness and no algorithmic community detection — the clusters are an analyst's reading of
+    content and endorsement direction, and the report says so rather than implying a computed
+    result.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p><strong>27</strong> channels indexed of 28 targeted — one was not resolvable on Telegram.
+    <strong>23,110</strong> messages, <strong>424</strong> endorsement links across
+    <strong>164</strong> unique channel pairs, <strong>4</strong> clusters.</p>
+
+    <figure class="fig">
+      <svg viewBox="0 0 960 620" role="img" aria-labelledby="f-net-t f-net-d">
+        <title id="f-net-t">Schematic of the Moldovan channel network</title>
+        <desc id="f-net-d">Node size is proportional to endorsements received. The channel primulinmd receives 83 endorsements from all three narrative pipelines and is by far the largest node. KP Moldova sends 129 endorsements and receives none, so despite being the busiest distributor it is drawn small, with only outgoing arrows.</desc>
+        <defs>
+          <marker id="n-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-ink2"/></marker>
+          <marker id="n-fade" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-ink3"/></marker>
+          <marker id="n-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="f-acc"/></marker>
+        </defs>
+        <text x="0" y="26" font-size="26" letter-spacing="2.4" class="f-ink3">NODE SIZE ∝ ENDORSEMENTS RECEIVED</text>
+        <text x="0" y="128" font-size="26" class="f-ink3">anti-Sandu</text>
+        <text x="0" y="330" font-size="26" class="f-ink3">Transnistrian</text>
+        <text x="0" y="520" font-size="26" class="f-ink3">Gagauz</text>
+        <path d="M222,168 C400,208 496,244 566,292" class="s-acc nf" stroke-width="10" marker-end="url(#n-hot)"/>
+        <path d="M196,340 C380,344 470,342 558,342" class="s-ink2 nf" stroke-width="4" marker-end="url(#n-ink)"/>
+        <path d="M186,512 C400,504 502,438 578,390" class="s-ink2 nf" stroke-width="3" marker-end="url(#n-ink)"/>
+        <circle cx="190" cy="150" r="26" class="f-panel s-ink" stroke-width="3"/>
+        <text x="190" y="104" font-size="28" text-anchor="middle" class="f-ink">KP Moldova</text>
+        <text x="190" y="218" font-size="26" text-anchor="middle" class="f-ink3">out 129 · in 0</text>
+        <path d="M168,131 C138,100 112,92 88,94" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
+        <path d="M166,166 C130,182 108,200 96,220" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
+        <path d="M212,174 C222,204 226,222 228,242" class="s-ink3 nf" stroke-width="2.5" marker-end="url(#n-fade)"/>
+        <circle cx="82" cy="94" r="7" class="f-ink3"/>
+        <circle cx="92" cy="228" r="7" class="f-ink3"/>
+        <circle cx="230" cy="250" r="7" class="f-ink3"/>
+        <circle cx="700" cy="342" r="118" class="f-accbg s-acc" stroke-width="5"/>
+        <text x="700" y="338" font-size="86" text-anchor="middle" class="f-acc">83</text>
+        <text x="700" y="382" font-size="26" text-anchor="middle" class="f-acc">received</text>
+        <text x="700" y="506" font-size="32" text-anchor="middle" class="f-ink">@primulinmd</text>
+        <text x="700" y="540" font-size="26" text-anchor="middle" class="f-ink3">sends 8</text>
+        <circle cx="170" cy="340" r="14" class="f-panel s-ink2" stroke-width="2.5"/>
+        <text x="170" y="298" font-size="24" text-anchor="middle" class="f-ink2">e_tiraspol</text>
+        <circle cx="162" cy="508" r="12" class="f-panel s-ink2" stroke-width="2.5"/>
+        <text x="180" y="562" font-size="24" text-anchor="middle" class="f-ink2">gagauznewsmd</text>
+      </svg>
+      <figcaption>Sizing by endorsements received inverts the obvious reading: the busiest channel
+      in the network is one of the smallest nodes here, because nothing comes back to it.</figcaption>
+    </figure>
+
+    <p><strong>The structural finding.</strong> <code>@primulinmd</code> receives
+    <strong>83</strong> endorsements and sends <strong>8</strong>. It is the single node receiving
+    citations from all three narrative pipelines. KP Moldova is the mirror image: out-degree
+    <strong>129</strong>, in-degree <strong class="f">zero</strong> — the busiest distributor in
+    the network, and nothing comes back to it.</p>
+
+    <p><strong>Four clusters.</strong> A central anti-Sandu hub built around KP Moldova and
+    primulinmd, focused on domestic politics in a register critical of the president and the
+    governing party. A Transnistrian cluster — <code>e_tiraspol</code>,
+    <code>pridnestrovec</code>, <code>np_inform</code> — hyper-focused on local PMR news and
+    citing official Transnistrian structures. A Gagauz cluster promoting the region as a
+    pro-Russian island of stability. And an external bridge, led by Balkan-Centre at out-degree
+    41, moving content between the Moldovan segment and the wider post-Soviet and Balkan space.</p>
+
+    <p><strong>Four patterns, weighted separately rather than collapsed.</strong></p>
+    <p><em>Copy-paste pairs.</em> <code>@e_tiraspol</code> and <code>@pridnestrovec</code>
+    published six or more byte-identical texts on matching dates — weather bulletins, notices about
+    Russian-passport queues, hot-water outage announcements, school heating restored. The
+    duplication is systematic, not occasional.</p>
+    <p><em>Concentrated citation.</em> The 83 endorsements of <code>@primulinmd</code> arrive from
+    five different channels across three ideologically distinct clusters — KP Moldova 59, Mamalyga
+    i Tokana 9, Gagauznews 7, Moldavskaya politika 6, e_tiraspol 1. Cross-cluster agreement on a
+    single authority is not what organically formed media networks look like.</p>
+    <p><em>Synchronised framing.</em> On 27 May 2026 at least four channels published the Moldovan
+    Security Council's decision to raise gas VAT from 8% to 20%, within hours of each other and in
+    near-identical wording — framed not as fiscal policy but as proof of betrayal.</p>
+    <p><em>Shared external diet.</em> Across the 424 endorsements, channels from unconnected
+    clusters cite the same narrow set of external channels, the most-cited appearing 26, 25 and 21
+    times respectively.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>A channel cited by ideologically distinct clusters that cites almost nobody in return is the
+    network's shared authority. That degree asymmetry is a structural signature: it does not depend
+    on reading the content, which makes it cheap to compute, language-independent, and hard to
+    disguise without giving up the coordination it enables.</p>
+    <p>The network functions as three parallel narrative pipelines — Transnistrian legitimacy,
+    anti-Sandu delegitimisation, and Gagauz separatism — joined at a single amplifier. That
+    topology is the useful output, because it says where a monitoring effort should watch and what
+    a takedown would and would not disrupt.</p>
+    <p>The honest limit belongs with the finding. Identical text and synchronised timing are
+    consistent with coordination between administrators, and equally consistent with a shared
+    press-service feed. The report says which is which for each pattern rather than collapsing them
+    into a single claim of proof.</p>
+  </div>
+
+  <div class="source">
+    <h3>Sources and limits</h3>
+    <dl>
+      <dt>Perimeter</dt><dd>The 28-channel set was defined in advance; this describes structure inside a boundary</dd>
+      <dt>Depth</dt><dd>500 messages per channel, roughly March–May 2026 — not full history, so no longitudinal claims</dd>
+      <dt>Edges</dt><dd>Explicit links only; screenshot reposts and paraphrased attribution are invisible to the method, so the edge count is a floor</dd>
+      <dt>Clustering</dt><dd>Manual — the Neo4j GDS plugin was unavailable, so no community detection was run</dd>
+      <dt>Tooling</dt><dd>GroupInt, by OSINT for Ukraine — a collection harness, not authored by me. The scrape script, graph model, Cypher and analysis are mine</dd>
+      <dt>Not published</dt><dd>The raw scraped message corpus and Telegram session material</dd>
+    </dl>
+  </div>
+</article>
+
+<article class="item" id="zhbk-185">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>ZhBK-185</h2>
+  <div class="meta">
+    <span class="type">Sample report</span><span class="date">June 2026</span>
+    <span class="out"><a href="../briefs/zhbk-185.html">Standalone version →</a></span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>ZhBK-185 produces anti-tank obstacles — dragon's teeth — in occupied Zaporizhzhia oblast, at
+    sites in Berdiansk and Melitopol. Those are not new-build factories. They are Ukrainian
+    reinforced-concrete plants that existed before the occupation and were taken over.</p>
+    <p>Which Ukrainian companies and facilities were captured; is the management of the successor
+    operation connected to the original companies; what else is the operation linked to; and what
+    can be established about its finances.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>Identify the pre-war entity from Ukrainian registry data and pre-war corporate directories.
+    Then find the successor in Russian registries <strong>by physical address rather than by
+    name</strong> — the address survives the renaming — and compare directorships across the two
+    systems.</p>
+    <p>Names change, corporate forms change, jurisdictions change. Addresses and registry numbers
+    persist, and people are lazier than they are careful.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p><strong>Two</strong> plants captured under <strong>two different patterns</strong>, a
+    network of <strong>five</strong> linked legal entities, and management continuity across the
+    seizure at both sites.</p>
+
+    <p><strong>Melitopol.</strong> The pre-occupation entity was a Ukrainian private joint-stock
+    reinforced-concrete plant. After the occupation the asset split along the front line: the
+    Ukrainian legal entity was re-registered inside the Ukrainian system, while a new Russian
+    company was incorporated — and it is the Russian entity that actually operates the plant under
+    the ZhBK-185 brand. Its INN prefix falls in the range allocated to entities registered in the
+    occupied territories, so the number encodes the circumstances of its own creation.</p>
+
+    <p><strong>Berdiansk.</strong> A different pattern. The pre-war operator was a Ukrainian
+    company at a known street address; after the occupation, Russian-registered entities took over
+    operations <strong>at that same address</strong>. The address is the pivot — searching Russian
+    registries for the original plant address surfaces the current occupant.</p>
+
+    <p><strong>Management continuity is the substantive finding.</strong> At Melitopol, the person
+    who was the long-standing director of the pre-war Ukrainian company is now general director of
+    the Russian successor, appointed <strong>June 2023</strong>, holding a founder's stake of
+    <strong>~20.5%</strong>. The plant did not merely change hands: its management stayed in place
+    and acquired equity in the Russian vehicle that took it.</p>
+    <p>At Berdiansk, pre-war ownership was linked to the family of a Ukrainian MP. The current
+    director of the Russian entity operating at the original plant address is a former deputy mayor
+    of the city and a known political associate of that same MP. The pre-war political network
+    around the asset is the network now running it. That entity also uses a corporate email on the
+    domain of the group operating the site — a small artefact, and one of the harder links in the
+    chain, because an operational address is chosen for convenience rather than cover.</p>
+
+    <p><strong>The network.</strong> ZhBK-185 is not a company but a brand across several legal
+    entities: the Melitopol operator, the main Berdiansk operator and two affiliates, and a
+    separate entity that appears as the billing arm on the brand's own public contact page. Two of
+    these were found by different routes worth naming because they generalise — one surfaces on an
+    <em>address</em> search of Russian registries, the other is published by the operation
+    itself.</p>
+
+    <p><strong>Finances.</strong> There is no consolidated figure, because the brand is a network
+    rather than a legal entity. The correct answer is to decline the estimate and report per-entity
+    registry figures instead. One caveat materially limits what the Berdiansk operator's accounts
+    can be made to say: its primary activity code is <strong>wholesale trade in fuels</strong>, and
+    the plant is one of some seventy declared activity areas, so its revenue cannot be attributed
+    to fortification production.</p>
+
+    <p><strong>Citizenship.</strong> Of four individuals in directing or founding roles across the
+    network, <strong>three hold Ukrainian citizenship</strong> and one is Russian. One individual's
+    Russian tax number carries an issuing-region prefix outside the occupied territories — a tax
+    number encodes where it was issued, which can date and place a person's entry into the Russian
+    administrative system rather than merely establishing that they entered it.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>Continuity changes what the case is. A plant seized and run by outside operators is
+    expropriation. A plant whose management stayed in place and took equity in the vehicle that
+    acquired it is collaboration, with a documented ownership interest attached — a materially
+    different fact for any designation or prosecution built on it.</p>
+    <p>The method generalises to any occupied-asset case: pre-war entity, successor by address,
+    then check whether the people are the same. It works because operational convenience beats
+    operational security — the successor keeps the address, and often the email domain.</p>
+    <p>It also demonstrates where to stop. "Provide financial data for ZhBK-185" is unanswerable as
+    put, and the useful response is to say why and report what the registries actually support,
+    rather than producing a number that would look like an answer.</p>
+  </div>
+
+  <p class="note">Individuals are anonymised by role throughout. Corporate registry identifiers are
+  retained in the standalone version: companies operating in occupied territory are legitimate
+  subjects of open-source research, and the registry numbers are the evidence. Personal-profile
+  links have been removed.</p>
+
+  <div class="source">
+    <h3>Reference</h3>
+    <dl>
+      <dt>Status</dt><dd>Sample analytical report — training exercise. Not client work and not commissioned; published to show method</dd>
+      <dt>Sources</dt><dd>Ukrainian registry data (EDRPOU) and pre-war corporate directories; securities disclosure records for ownership history; Russian registry aggregators queried by address; brand website contact records; existing published investigations as corroboration</dd>
+      <dt>Limits</dt><dd>Registry aggregators are secondary sources reflecting filings, which can be stale or incomplete. The continuity finding is an identity inference across two registry systems in two languages, not a documentary confirmation of the same person</dd>
+      <dt>Completeness</dt><dd>Five entities were established; a brand operating two industrial sites will have logistics, staffing and supply relationships that registry-first research does not reach</dd>
+      <dt>Point in time</dt><dd>Directorships and registrations as recorded at the time of research</dd>
+    </dl>
+  </div>
+</article>
+
+<article class="item" id="economies-of-the-aftermath">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>Economies of the Aftermath</h2>
+  <div class="meta">
+    <span class="type">Investigation</span><span class="date">Anti-War Coalition Journal</span>
+    <span class="out"><a href="https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e">Published version →</a></span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>Mariupol is routinely described as a city awaiting reconstruction. That framing carries an
+    assumption: that destruction is an interruption in an economy which will resume, and that the
+    fragments can be reassembled into the thing they were.</p>
+    <p>The question is what happens if that assumption is dropped — if the destruction is read not
+    as an interruption but as a precondition, and the economy that follows is examined on its own
+    terms rather than as a damaged version of the previous one.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>The piece works from the physical record rather than from testimony alone, and from the grid
+    rather than from buildings. Transmission lines and substations are large, fixed and
+    identifiable from above, which makes them a harder evidentiary base than damage counts of
+    housing stock — and, unlike housing, they determine what an economy can physically do
+    afterwards.</p>
+    <p>Satellite imagery assessment of the city's energy infrastructure and of distribution points,
+    read alongside the sequence of the first weeks: what was destroyed, in what order, and what
+    that ordering permitted. The methodological frame the piece names for this is
+    <em>negative archaeology</em> — inferring from absences, on the principle that the absence of
+    evidence is not evidence of absence.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p><strong class="f">All 15</strong> of the city's electricity lines were destroyed by
+    <strong>2 March 2022</strong>. <strong>16</strong> substations at 330/220/110 kV were
+    assessed — the two major nodes plus at least fourteen 110 kV substations. Internet
+    connectivity fell to <strong class="f">7%</strong> of normal over the same period. Water
+    treatment depended on one of the destroyed substations, which is how a power target becomes a
+    water outage.</p>
+    <p>The pattern extends to distribution. Of <strong>11</strong> announced bread distribution
+    points, satellite imagery shows at least <strong>3</strong> sustained damage by 14 March, with
+    further hits over the following fortnight. Queues at functioning stores reached 300 people.</p>
+    <p>What replaced the formal economy is legible in its pricing. Currency gave way to barter
+    indexed to fuel: two hours of phone charging for one litre of A92, eight hours of power-bank
+    charging for four. Shelter micro-economies formed with assigned roles — guards, sanitation,
+    cooking, medicine-sharing — at the scale of a single basement.</p>
+    <p>Then the occupation economy arrives with its own instruments. A Free Economic Zone.
+    Compulsory re-registration of businesses from Ukrainian to Russian corporate forms. Property
+    claims made contingent on taking a Russian passport. And in the 2024 Russian budget,
+    <strong>430+ billion roubles</strong> allocated across the occupied territories — Donetsk
+    137.4, Crimea 126.7, Luhansk 92.5, Zaporizhzhia 60.1, Kherson 33.2.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>The apparent paradox — a territory simultaneously subsidised and extracted from — dissolves
+    once the arrangement is read as colonial rather than reconstructive. Systematic infrastructure
+    destruction manufactures dependency; selective restoration of service is then the instrument
+    through which control is exercised, alongside property expropriation and forced
+    naturalisation.</p>
+    <p>Reading such an economy as an <em>architecture of gaps</em> rather than as a site awaiting
+    reconstruction is not a rhetorical preference, because the two readings ask different
+    questions. A site awaiting reconstruction invites asking when rebuilding starts. An
+    architecture of gaps invites asking who the gaps are for.</p>
+    <p>Grid capacity is where that question becomes answerable, which is why the substations are
+    the right evidentiary object: whoever rebuilds them decides what the city can produce, and for
+    whom.</p>
+  </div>
+
+  <div class="source">
+    <h3>Reference</h3>
+    <dl>
+      <dt>Publication</dt><dd>Anti-War Coalition Journal</dd>
+      <dt>Byline</dt><dd>Nazar Golianych / UA</dd>
+      <dt>Date</dt><dd>Not stated on the published page</dd>
+      <dt>Evidence</dt><dd>Satellite imagery assessment of Mariupol transmission lines, 330/220/110 kV substations and distribution points; Russian federal budget allocations for 2024</dd>
+      <dt>Frame</dt><dd>Negative archaeology — inference from absence where archives do not exist</dd>
+    </dl>
+  </div>
+</article>
+
+<article class="item" id="arctic">
+  <button class="back" type="button">← Portfolio</button>
+  <h2>At the break: Territorialization of Arctic</h2>
+  <div class="meta">
+    <span class="type">Investigation</span><span class="date">roflflfl.github.io</span>
+    <span class="out"><a href="https://roflflfl.github.io/portfolio/#arctic-territorialization">Published version →</a></span>
+  </div>
+
+  <div class="beat">
+    <h3>The question</h3>
+    <p>Accelerating ice loss is usually reported as an environmental story. It is also an access
+    story: as the ice retreats, parts of the Arctic become physically reachable that were not
+    before, and reachability is the precondition for control.</p>
+    <p>How does Russia convert that new access into infrastructure, and is the process visible from
+    open sources?</p>
+  </div>
+
+  <div class="beat">
+    <h3>Method</h3>
+    <p>Open-source infrastructure analysis across four case studies, chosen deliberately to sit in
+    four different domains — extraction, shipping, communications and military presence — so that a
+    common pattern across them could not be an artefact of looking at one kind of asset.</p>
+  </div>
+
+  <div class="beat finding">
+    <h3>Finding</h3>
+    <p><strong class="f">4</strong> case studies describing <strong>1</strong> process. The
+    Prirazlomnaya platform, the first extraction installation on the Arctic shelf. The North Sea
+    Passage. A transarctic fibre-optic cable under development for Arctic conditions. And military
+    expansion along the northern border.</p>
+    <p>Each layer is separately visible in open sources — which is what makes the whole traceable
+    without privileged access, and is the methodological point as much as the finding.</p>
+  </div>
+
+  <div class="beat">
+    <h3>Why it matters</h3>
+    <p>Extraction, shipping route, data cable and garrison are four layers of a single claim, and
+    the direction of that claim is a reorientation of the Arctic's spatial and economic networks
+    toward East Asia.</p>
+    <p>Read one layer at a time, each looks like ordinary regional development. Read together they
+    are a territorial strategy — which is the argument for infrastructure analysis over incident
+    reporting whenever the subject is a slow process rather than an event.</p>
+  </div>
+
+  <div class="source">
+    <h3>Reference</h3>
+    <dl>
+      <dt>Published</dt><dd>roflflfl.github.io/portfolio</dd>
+      <dt>Date</dt><dd>Not stated on the published page</dd>
+      <dt>Case studies</dt><dd>Prirazlomnaya platform · North Sea Passage · transarctic fibre-optic cable · military expansion on the northern border</dd>
+      <dt>Method</dt><dd>Open-source infrastructure analysis</dd>
+      <dt>Note</dt><dd>The published piece is qualitative; this is the shortest entry here because the source carries no figures beyond the four cases</dd>
     </dl>
   </div>
 </article>

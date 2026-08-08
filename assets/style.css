@@ -1,8 +1,10 @@
 /* ------------------------------------------------------------------
    Nazar Golianych — shared surface
 
-   One accent. It marks the finding and nothing else: zeros, gaps, the
-   number an entry exists to report, the active row. Never on a heading,
+   One accent, amber. It marks the finding and nothing else: zeros, gaps,
+   the number an entry exists to report, the active tab and row. Amber
+   reads as a designation mark rather than an error state — red made every
+   gap look like a warning and flattened the distinction. Never on a heading,
    never on body text, never decorative. Everything else is grey.
    Charts that need two states use accent against --ink-3 or a hairline,
    never a second hue.
@@ -12,7 +14,7 @@
   --bg:#0C0C0E; --panel:#131316; --panel-2:#191A1D;
   --ink:#EDEDEA; --ink-2:#9A9A96; --ink-3:#7C7C77;
   --rule:#232326; --rule-2:#1A1A1D;
-  --accent:#FF4F35; --accent-bg:#1F0F0C;
+  --accent:#E3A23C; --accent-bg:#241A0C; --chart-neutral:#55554F;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
   --list-w:25rem;
@@ -24,14 +26,14 @@
     --bg:#F2F1EE; --panel:#FAFAF8; --panel-2:#E9E8E4;
     --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
     --rule:#DBDAD5; --rule-2:#E9E8E4;
-    --accent:#C3341B; --accent-bg:#F8E7E2;
+    --accent:#8F6209; --accent-bg:#FAF0DC; --chart-neutral:#C4C3BD;
   }
 }
 :root[data-theme="light"]{
   --bg:#F2F1EE; --panel:#FAFAF8; --panel-2:#E9E8E4;
   --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
   --rule:#DBDAD5; --rule-2:#E9E8E4;
-  --accent:#C3341B; --accent-bg:#F8E7E2;
+  --accent:#8F6209; --accent-bg:#FAF0DC; --chart-neutral:#C4C3BD;
 }
 
 *{box-sizing:border-box}
@@ -98,13 +100,20 @@ body.landing{min-height:100vh}
 .search::before{content:"⌕"; position:absolute; left:.55rem; top:50%; transform:translateY(-52%);
   color:var(--ink-3); font-size:.9rem; pointer-events:none}
 
-/* group headers carry real weight — the two kinds must never be confused */
-.group-h{font-size:.95rem; font-weight:640; letter-spacing:.02em;
-  padding:1.6rem 1.2rem .7rem; border-top:3px solid var(--ink);
-  border-bottom:1px solid var(--rule); margin-top:1.4rem; background:var(--panel-2)}
-.group-h:first-of-type{margin-top:0; border-top-width:0}
-.group-h .n{font-family:var(--mono); font-size:.68rem; font-weight:400;
-  color:var(--ink-3); margin-left:.5rem}
+/* tabs — the category is a choice, not a typographic hint */
+.tabs{display:flex; margin:.9rem 0 .85rem; border-bottom:1px solid var(--rule)}
+.tab{flex:1 1 50%; min-width:0; background:none; border:0; cursor:pointer;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-3); padding:.6rem .3rem .55rem; min-height:44px;
+  border-bottom:2px solid transparent; margin-bottom:-1px; text-align:center}
+.tab:hover{color:var(--ink)}
+.tab .n{font-size:.66rem; opacity:.8; margin-left:.4rem}
+.tab[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+.tabpanel[hidden]{display:none}
+.no-js .tabpanel[hidden]{display:block}
+.grouplabel{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); padding:.9rem 1.2rem .3rem; display:none}
+.no-js .grouplabel{display:block}
 .year{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; color:var(--ink-3);
   padding:.9rem 1.2rem .3rem}
 .rows{list-style:none; margin:0; padding:0}
@@ -181,7 +190,7 @@ blockquote p{margin:0}
 .bar .lab{font-family:var(--mono); font-size:.75rem; color:var(--ink-2); line-height:1.3}
 .bar .val{font-family:var(--mono); font-size:.95rem; text-align:right; color:var(--ink)}
 .bar .track{position:relative; height:1.85rem; border:1px solid var(--rule); background:var(--bg)}
-.bar .fill{position:absolute; inset:0 auto 0 0; background:var(--ink-3)}
+.bar .fill{position:absolute; inset:0 auto 0 0; background:var(--chart-neutral)}
 /* the zero: same track, empty, accent hairline, digit where a bar would start */
 .bar.zero .track{border-color:var(--accent); background:var(--accent-bg)}
 .bar.zero .val,.bar.zero .lab{color:var(--accent)}
@@ -196,26 +205,26 @@ blockquote p{margin:0}
 .bar.stacked .sw{display:flex; height:1.5rem; min-width:2px}
 .bar.stacked .seg{display:block}
 .bar.stacked .seg.miss{background:var(--accent)}
-.bar.stacked .seg.have{background:var(--ink-3); border-left:1px solid var(--panel)}
+.bar.stacked .seg.have{background:var(--chart-neutral); border-left:1px solid var(--panel)}
 .bar.stacked .val{color:var(--accent)}
 .legend{display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin:0 0 1rem; padding:0; list-style:none}
 .legend li{display:flex; align-items:center; gap:.4rem; font-family:var(--mono);
   font-size:.68rem; color:var(--ink-3)}
 .legend i{width:.85rem; height:.85rem; flex:none; display:block}
 .legend i.miss{background:var(--accent)}
-.legend i.have{background:var(--ink-3)}
+.legend i.have{background:var(--chart-neutral)}
 
 /* claim blocks — each group owns a column, so labels cannot collide */
 .claims{display:flex; gap:.5rem; align-items:flex-end}
 .claims .cg{display:flex; flex-direction:column; gap:.4rem; min-width:0}
 .claims .blocks{display:flex; gap:2px; height:3.4rem}
-.claims .blocks i{flex:1; display:block; background:var(--ink-3)}
+.claims .blocks i{flex:1; display:block; background:var(--chart-neutral)}
 .claims .cg.miss .blocks{height:4.6rem}
 .claims .cg.miss .blocks i{background:var(--accent)}
 .claims .cg.part .blocks{height:2.6rem}
-.claims .cg.part .blocks i{background:var(--ink-3); opacity:.55}
+.claims .cg.part .blocks i{background:var(--chart-neutral)}
 .claims .cg.ok .blocks{height:2rem}
-.claims .cg.ok .blocks i{background:var(--ink-3); opacity:.32}
+.claims .cg.ok .blocks i{background:var(--chart-neutral); opacity:.45}
 .claims .cl{font-family:var(--mono); font-size:.7rem; line-height:1.35; color:var(--ink-2)}
 .claims .cg.miss .cl{color:var(--accent)}
 .claims-after{margin:.9rem 0 0; padding:.55rem .7rem; border:1px solid var(--rule); background:var(--bg)}

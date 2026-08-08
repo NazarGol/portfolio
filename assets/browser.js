@@ -1,6 +1,6 @@
-/* Two-pane browser: hash routing, live filter, mobile push-detail.
-   Progressive enhancement — without JS every item renders stacked and
-   every in-page anchor still resolves, so nothing is lost. */
+/* Two-pane browser: tabs, hash routing, live filter, mobile push-detail.
+   Progressive enhancement — without JS both groups render, every item is
+   stacked and visible, and every in-page anchor still resolves. */
 (function () {
   'use strict';
 
@@ -9,17 +9,43 @@
 
   var rows = [].slice.call(doc.querySelectorAll('.row'));
   var items = [].slice.call(doc.querySelectorAll('.item'));
+  var tabs = [].slice.call(doc.querySelectorAll('.tab'));
+  var panels = [].slice.call(doc.querySelectorAll('.tabpanel'));
   var input = doc.querySelector('.search input');
   var listPane = doc.querySelector('.pane-list');
+  var empty = doc.querySelector('.no-hits');
   var mq = window.matchMedia ? window.matchMedia('(max-width: 52rem)') : null;
 
   if (!rows.length || !items.length) return;
 
-  function idOf(row) {
+  var idOf = function (row) {
     var a = row.querySelector('a[href^="#"]');
     return a ? a.getAttribute('href').slice(1) : null;
+  };
+  var groupOfRow = function (row) {
+    var p = row.closest('.tabpanel');
+    return p ? p.getAttribute('data-group') : null;
+  };
+  var filtering = function () { return !!(input && input.value.trim()); };
+
+  /* --- tabs --- */
+  function showGroup(g) {
+    tabs.forEach(function (t) {
+      t.setAttribute('aria-selected', String(t.getAttribute('data-group') === g));
+      t.tabIndex = t.getAttribute('data-group') === g ? 0 : -1;
+    });
+    panels.forEach(function (p) {
+      p.hidden = !filtering() && p.getAttribute('data-group') !== g;
+    });
+  }
+  function currentGroup() {
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].getAttribute('aria-selected') === 'true') return tabs[i].getAttribute('data-group');
+    }
+    return tabs.length ? tabs[0].getAttribute('data-group') : null;
   }
 
+  /* --- selection --- */
   function select(id, push) {
     var found = false;
     items.forEach(function (it) {
@@ -27,6 +53,7 @@
       it.classList.toggle('is-active', on);
       if (on) found = true;
     });
+    if (!found) return false;
     rows.forEach(function (r) {
       var on = idOf(r) === id;
       r.classList.toggle('is-active', on);
@@ -34,41 +61,50 @@
       if (sign) sign.textContent = on ? '−' : '+';
       var a = r.querySelector('a');
       if (a) a.setAttribute('aria-current', on ? 'true' : 'false');
+      if (on) { var g = groupOfRow(r); if (g) showGroup(g); }
     });
-    if (!found) return false;
-
-    if (mq && mq.matches) doc.body.classList.add('detail-open');
+    if (mq && mq.matches) { doc.body.classList.add('detail-open'); window.scrollTo(0, 0); }
     if (push && location.hash.slice(1) !== id) history.pushState(null, '', '#' + id);
     var d = doc.querySelector('.pane-detail');
     if (d) d.scrollTop = 0;
-    if (mq && mq.matches) window.scrollTo(0, 0);
     return true;
   }
 
-  function firstVisible() {
+  function firstIn(g) {
     for (var i = 0; i < rows.length; i++) {
-      if (!rows[i].hasAttribute('hidden')) return idOf(rows[i]);
+      if (rows[i].hasAttribute('hidden')) continue;
+      if (!g || groupOfRow(rows[i]) === g) return idOf(rows[i]);
     }
-    return idOf(rows[0]);
+    return null;
   }
 
   function fromHash() {
     var id = decodeURIComponent(location.hash.slice(1));
     if (id && select(id, false)) return;
     var wasMobile = mq && mq.matches;
-    select(firstVisible(), false);
+    select(firstIn(currentGroup()) || idOf(rows[0]), false);
     if (wasMobile) doc.body.classList.remove('detail-open');
   }
 
-  window.addEventListener('hashchange', fromHash);
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () {
+      var g = t.getAttribute('data-group');
+      showGroup(g);
+      var first = firstIn(g);
+      if (first) select(first, true);
+    });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      n.focus(); n.click();
+    });
+  });
 
   rows.forEach(function (r) {
     var a = r.querySelector('a[href^="#"]');
     if (!a) return;
-    a.addEventListener('click', function (e) {
-      e.preventDefault();
-      select(idOf(r), true);
-    });
+    a.addEventListener('click', function (e) { e.preventDefault(); select(idOf(r), true); });
   });
 
   [].slice.call(doc.querySelectorAll('.back')).forEach(function (b) {
@@ -79,53 +115,46 @@
     });
   });
 
-  /* --- live filter --- */
+  window.addEventListener('hashchange', fromHash);
+
+  /* --- filter: searches across both groups while a query is present --- */
   if (input) {
-    var empty = doc.querySelector('.no-hits');
     var hay = rows.map(function (r) {
       return (r.textContent || '').toLowerCase().replace(/\s+/g, ' ');
     });
-
-    // a heading owns every row until the next heading of the same or higher rank
-    function ownedRows(head, stopSelector) {
+    var owned = function (head) {
       var out = [], n = head.nextElementSibling;
-      while (n && !n.matches(stopSelector)) {
-        if (n.classList.contains('rows')) {
-          out = out.concat([].slice.call(n.children));
-        }
+      while (n && !n.matches('.year, .grouplabel')) {
+        if (n.classList.contains('rows')) out = out.concat([].slice.call(n.children));
         n = n.nextElementSibling;
       }
       return out;
-    }
-    function anyVisible(list) {
-      for (var i = 0; i < list.length; i++) {
-        if (!list[i].hasAttribute('hidden')) return true;
-      }
+    };
+    var anyVisible = function (l) {
+      for (var i = 0; i < l.length; i++) if (!l[i].hasAttribute('hidden')) return true;
       return false;
-    }
-
-    var groups = [].slice.call(doc.querySelectorAll('.group-h')).map(function (h) {
-      return { el: h, rows: ownedRows(h, '.group-h') };
-    });
-    var years = [].slice.call(doc.querySelectorAll('.year')).map(function (h) {
-      return { el: h, rows: ownedRows(h, '.year, .group-h') };
+    };
+    var heads = [].slice.call(doc.querySelectorAll('.year, .grouplabel')).map(function (h) {
+      return { el: h, rows: owned(h) };
     });
 
     var run = function () {
       var q = input.value.trim().toLowerCase(), hits = 0;
       rows.forEach(function (r, i) {
         var on = !q || hay[i].indexOf(q) !== -1;
-        if (on) { r.removeAttribute('hidden'); hits++; }
-        else { r.setAttribute('hidden', ''); }
+        if (on) { r.removeAttribute('hidden'); hits++; } else { r.setAttribute('hidden', ''); }
       });
-      years.forEach(function (g) { g.el.hidden = !anyVisible(g.rows); });
-      groups.forEach(function (g) { g.el.hidden = !anyVisible(g.rows); });
+      // a query spans both groups; clearing it returns to the active tab
+      panels.forEach(function (p) {
+        p.hidden = q ? false : p.getAttribute('data-group') !== currentGroup();
+      });
+      heads.forEach(function (h) { h.el.hidden = !anyVisible(h.rows); });
       if (empty) empty.hidden = hits !== 0;
     };
     input.addEventListener('input', run);
     input.addEventListener('search', run);
-    run();
   }
 
+  showGroup(tabs.length ? tabs[0].getAttribute('data-group') : null);
   fromHash();
 })();
