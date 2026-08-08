@@ -7,7 +7,7 @@ OSINT analyst and tool-builder. I work on Russian information and defence-tech i
 - [Investigations](https://nazargol.github.io/portfolio/investigations/)
 - [Tools](https://nazargol.github.io/portfolio/tools/)
 
-CV on request.
+[CV (PDF, Ukrainian)](cv/nazar-golianych-cv.pdf)
 
 ---
 
@@ -87,7 +87,9 @@ Method: identify the pre-war entity from Ukrainian registry data, find the succe
 
 **Investigation · undated** — [Anti-War Coalition Journal](https://antiwarcoalition.art/texts/16375855-5189-4da4-a8ee-12f2aff4d59e)
 
-On economic transformation in post-violence environments, taking Mariupol as its case. Systematic infrastructure destruction is not merely damage preceding reconstruction — it is the precondition that makes a new round of economic colonisation possible. The piece proposes reading such economies as an architecture of gaps — disrupted labour, fractured markets, severed infrastructure — rather than as sites awaiting reconstruction. The distinction matters because the two readings imply different questions.
+Mariupol is routinely described as a city awaiting reconstruction — a framing that assumes destruction is an interruption in an economy that will resume. The piece works from the physical record instead, assessing the city's energy infrastructure from satellite imagery: **15 power transmission lines and 16 substations at 330/220/110 kV**. Transmission assets are large, fixed and identifiable from above, and they determine what an economy can physically do afterwards.
+
+The argument is that such economies read better as an architecture of gaps — disrupted labour, fractured markets, severed infrastructure — than as sites awaiting reconstruction. The distinction is not rhetorical: a site awaiting reconstruction invites asking when rebuilding starts, while an architecture of gaps invites asking who the gaps are for. Grid capacity is where that question becomes answerable, because whoever rebuilds the substations decides what the city can produce and for whom.
 
 *Byline: Nazar Golianych / UA. No date shown on the published page.*
 
