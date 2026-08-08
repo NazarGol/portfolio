@@ -38,9 +38,7 @@
     if (!found) return false;
 
     if (mq && mq.matches) doc.body.classList.add('detail-open');
-    if (push && location.hash.slice(1) !== id) {
-      history.pushState(null, '', '#' + id);
-    }
+    if (push && location.hash.slice(1) !== id) history.pushState(null, '', '#' + id);
     var d = doc.querySelector('.pane-detail');
     if (d) d.scrollTop = 0;
     if (mq && mq.matches) window.scrollTo(0, 0);
@@ -54,18 +52,15 @@
     return idOf(rows[0]);
   }
 
-  /* --- routing --- */
-  function fromHash(push) {
+  function fromHash() {
     var id = decodeURIComponent(location.hash.slice(1));
     if (id && select(id, false)) return;
-    // no hash, or an id that does not exist: show the first item, and on
-    // mobile stay on the list rather than pushing an unrequested detail
     var wasMobile = mq && mq.matches;
     select(firstVisible(), false);
     if (wasMobile) doc.body.classList.remove('detail-open');
   }
 
-  window.addEventListener('hashchange', function () { fromHash(false); });
+  window.addEventListener('hashchange', fromHash);
 
   rows.forEach(function (r) {
     var a = r.querySelector('a[href^="#"]');
@@ -76,7 +71,6 @@
     });
   });
 
-  /* --- back control (mobile) --- */
   [].slice.call(doc.querySelectorAll('.back')).forEach(function (b) {
     b.addEventListener('click', function () {
       doc.body.classList.remove('detail-open');
@@ -88,27 +82,44 @@
   /* --- live filter --- */
   if (input) {
     var empty = doc.querySelector('.no-hits');
-    var haystack = rows.map(function (r) {
+    var hay = rows.map(function (r) {
       return (r.textContent || '').toLowerCase().replace(/\s+/g, ' ');
     });
+
+    // a heading owns every row until the next heading of the same or higher rank
+    function ownedRows(head, stopSelector) {
+      var out = [], n = head.nextElementSibling;
+      while (n && !n.matches(stopSelector)) {
+        if (n.classList.contains('rows')) {
+          out = out.concat([].slice.call(n.children));
+        }
+        n = n.nextElementSibling;
+      }
+      return out;
+    }
+    function anyVisible(list) {
+      for (var i = 0; i < list.length; i++) {
+        if (!list[i].hasAttribute('hidden')) return true;
+      }
+      return false;
+    }
+
+    var groups = [].slice.call(doc.querySelectorAll('.group-h')).map(function (h) {
+      return { el: h, rows: ownedRows(h, '.group-h') };
+    });
+    var years = [].slice.call(doc.querySelectorAll('.year')).map(function (h) {
+      return { el: h, rows: ownedRows(h, '.year, .group-h') };
+    });
+
     var run = function () {
-      var q = input.value.trim().toLowerCase();
-      var hits = 0;
+      var q = input.value.trim().toLowerCase(), hits = 0;
       rows.forEach(function (r, i) {
-        var on = !q || haystack[i].indexOf(q) !== -1;
+        var on = !q || hay[i].indexOf(q) !== -1;
         if (on) { r.removeAttribute('hidden'); hits++; }
         else { r.setAttribute('hidden', ''); }
       });
-      // hide a year heading whose rows are all filtered out
-      [].slice.call(doc.querySelectorAll('.year')).forEach(function (h) {
-        var list = h.nextElementSibling, any = false;
-        if (list) {
-          [].slice.call(list.children).forEach(function (r) {
-            if (!r.hasAttribute('hidden')) any = true;
-          });
-        }
-        h.hidden = !any;
-      });
+      years.forEach(function (g) { g.el.hidden = !anyVisible(g.rows); });
+      groups.forEach(function (g) { g.el.hidden = !anyVisible(g.rows); });
       if (empty) empty.hidden = hits !== 0;
     };
     input.addEventListener('input', run);
@@ -116,5 +127,5 @@
     run();
   }
 
-  fromHash(false);
+  fromHash();
 })();

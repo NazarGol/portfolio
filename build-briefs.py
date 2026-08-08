@@ -15,18 +15,18 @@ BRIEFS = HERE / "briefs"
 
 STYLE = """
 :root{
-  --bg:#0E1315; --panel:#141A1C; --ink:#E9E4DA; --ink-2:#A7AEAB; --ink-3:#78827F;
-  --rule:#243032; --rule-2:#1B2426; --stamp:#E2624A; --stamp-bg:#26140F; --link:#6FA8A2;
+  --bg:#0C0C0E; --panel:#131316; --ink:#EDEDEA; --ink-2:#9A9A96; --ink-3:#7C7C77;
+  --rule:#232326; --rule-2:#1A1A1D; --stamp:#FF4F35; --stamp-bg:#1F0F0C; --link:#EDEDEA;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --bg:#F4F1E9; --panel:#FBF9F3; --ink:#12181A; --ink-2:#3F4A4C; --ink-3:#5D6765;
-  --rule:#D5CFC1; --rule-2:#E5E0D4; --stamp:#B4402A; --stamp-bg:#F6E4DE; --link:#2F6B65;
+  --bg:#F2F1EE; --panel:#FAFAF8; --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
+  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#C3341B; --stamp-bg:#F8E7E2; --link:#141416;
 }}
 :root[data-theme="light"]{
-  --bg:#F4F1E9; --panel:#FBF9F3; --ink:#12181A; --ink-2:#3F4A4C; --ink-3:#5D6765;
-  --rule:#D5CFC1; --rule-2:#E5E0D4; --stamp:#B4402A; --stamp-bg:#F6E4DE; --link:#2F6B65;
+  --bg:#F2F1EE; --panel:#FAFAF8; --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
+  --rule:#DBDAD5; --rule-2:#E9E8E4; --stamp:#C3341B; --stamp-bg:#F8E7E2; --link:#141416;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -87,8 +87,8 @@ TEMPLATE = """<!DOCTYPE html>
 """
 
 BACK = {
-    "russian-military-ai": ("../investigations/#russian-military-ai", "Investigations"),
-    "zhbk-185": ("../investigations/#zhbk-185", "Investigations"),
+    "russian-military-ai": ("../portfolio/#russian-military-ai", "Portfolio"),
+    "zhbk-185": ("../portfolio/#zhbk-185", "Portfolio"),
 }
 
 DESCS = {

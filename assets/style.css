@@ -1,49 +1,37 @@
 /* ------------------------------------------------------------------
    Nazar Golianych — shared surface
 
-   Palette encodes the subject: presence and absence in registries.
-   Warm bone text on a cold blue-green ground, so it reads printed
-   rather than emitted. Two accents, each with exactly one job:
-
-     --found  amber   what exists — designated, confirmed, present
-     --gap    coral   what is missing — zero, absence, the finding
-
-   Neither is ever decorative and neither is ever on a heading.
-   --link is navigation only and carries no argument.
+   One accent. It marks the finding and nothing else: zeros, gaps, the
+   number an entry exists to report, the active row. Never on a heading,
+   never on body text, never decorative. Everything else is grey.
+   Charts that need two states use accent against --ink-3 or a hairline,
+   never a second hue.
    ------------------------------------------------------------------ */
 
 :root{
-  /* dark is the primary derivation */
-  --bg:#0E1315; --panel:#141A1C; --panel-2:#1A2225;
-  --ink:#E9E4DA; --ink-2:#A7AEAB; --ink-3:#78827F;
-  --rule:#243032; --rule-2:#1B2426;
-  --found:#D9A441; --found-bg:#241B0E;
-  --gap:#E2624A;   --gap-bg:#26140F;
-  --link:#6FA8A2;
+  --bg:#0C0C0E; --panel:#131316; --panel-2:#191A1D;
+  --ink:#EDEDEA; --ink-2:#9A9A96; --ink-3:#7C7C77;
+  --rule:#232326; --rule-2:#1A1A1D;
+  --accent:#FF4F35; --accent-bg:#1F0F0C;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
   --list-w:25rem;
   --shell:1200px;
-  --measure:38rem;   /* ≈ 74 characters */
+  --measure:38rem;
 }
-/* light: same two accents, darkened to hold contrast on warm paper */
 @media (prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
-    --bg:#F4F1E9; --panel:#FBF9F3; --panel-2:#EAE6DA;
-    --ink:#12181A; --ink-2:#3F4A4C; --ink-3:#5D6765;
-    --rule:#D5CFC1; --rule-2:#E5E0D4;
-    --found:#855C0C; --found-bg:#F2E9D4;
-    --gap:#B4402A;   --gap-bg:#F6E4DE;
-    --link:#2F6B65;
+    --bg:#F2F1EE; --panel:#FAFAF8; --panel-2:#E9E8E4;
+    --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
+    --rule:#DBDAD5; --rule-2:#E9E8E4;
+    --accent:#C3341B; --accent-bg:#F8E7E2;
   }
 }
 :root[data-theme="light"]{
-  --bg:#F4F1E9; --panel:#FBF9F3; --panel-2:#EAE6DA;
-  --ink:#12181A; --ink-2:#3F4A4C; --ink-3:#5D6765;
-  --rule:#D5CFC1; --rule-2:#E5E0D4;
-  --found:#855C0C; --found-bg:#F2E9D4;
-  --gap:#B4402A;   --gap-bg:#F6E4DE;
-  --link:#2F6B65;
+  --bg:#F2F1EE; --panel:#FAFAF8; --panel-2:#E9E8E4;
+  --ink:#141416; --ink-2:#55554F; --ink-3:#6E6E68;
+  --rule:#DBDAD5; --rule-2:#E9E8E4;
+  --accent:#C3341B; --accent-bg:#F8E7E2;
 }
 
 *{box-sizing:border-box}
@@ -55,30 +43,37 @@ body{
 }
 h1,h2,h3{line-height:1.22; letter-spacing:-0.012em; font-weight:640; margin:0}
 p{margin:0 0 1rem}
-a{color:var(--link); text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--link) 34%,transparent)}
-a:hover{border-bottom-color:var(--link)}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--link); outline-offset:3px; border-radius:2px}
+/* links carry no accent — foreground with a rule under it */
+a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--ink-3)}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 code{font-family:var(--mono); font-size:.9em; overflow-wrap:anywhere}
 .skip{position:absolute; left:-9999px}
 .skip:focus{left:.5rem; top:.5rem; position:fixed; background:var(--panel); color:var(--ink);
-  padding:.6rem .9rem; border:2px solid var(--link); border-radius:3px; z-index:99}
+  padding:.6rem .9rem; border:2px solid var(--accent); border-radius:3px; z-index:99}
 
-/* semantic inline accents — presence and absence, nothing else */
-.found{color:var(--found)}
-.gap{color:var(--gap)}
+/* the one accent, used inline on a finding */
+.f{color:var(--accent)}
 
 /* =============== landing =============== */
 body.landing{min-height:100vh}
-.landing main{max-width:34rem; padding:clamp(2.5rem,9vh,6rem) 1.5rem 4rem}
+.landing main{max-width:36rem; padding:clamp(2.5rem,9vh,6rem) 1.5rem 4rem}
 .landing h1{font-size:clamp(1.6rem,4vw,2rem); font-weight:600; letter-spacing:-0.015em; margin-bottom:2.2rem}
-.landing .summary{color:var(--ink-2); font-size:1rem; line-height:1.7; margin-bottom:3.4rem; max-width:30rem}
-.landing .group{margin-bottom:2.6rem}
-.landing .group > h2{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--ink-3); font-weight:500; margin-bottom:.9rem}
-.landing ul{list-style:none; margin:0; padding:0}
-.landing li{margin:0 0 .3rem}
-.landing li a{display:inline-block; font-size:1.06rem; padding:.32rem 0}
+.landing .summary{color:var(--ink-2); font-size:1rem; line-height:1.7; margin-bottom:3rem; max-width:30rem}
+.landing ul{list-style:none; margin:0 0 3.2rem; padding:0}
+.landing li{margin:0 0 .35rem}
+.landing li a{display:inline-block; font-size:1.12rem; padding:.34rem 0}
 .landing .sub{font-family:var(--mono); font-size:.72rem; color:var(--ink-3); margin-left:.55rem}
+
+/* ascii field — resolution out of noise */
+.field{position:relative; width:max-content; max-width:100%;
+  font-family:var(--mono); font-size:clamp(4px,1.55vw,11px); line-height:1.02;
+  letter-spacing:0; white-space:pre; user-select:none}
+.field pre{margin:0; font:inherit; letter-spacing:inherit}
+.field .noise{color:var(--ink-3)}
+.field .solid{position:absolute; inset:0; color:var(--ink)}
+.field-cap{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); margin-top:1rem}
 
 /* =============== two-pane browser =============== */
 .browser{display:grid; grid-template-columns:var(--list-w) 1fr;
@@ -86,29 +81,32 @@ body.landing{min-height:100vh}
   border-left:1px solid var(--rule-2); border-right:1px solid var(--rule-2)}
 
 /* --- left pane --- */
-.pane-list{
-  border-right:1px solid var(--rule); background:var(--panel-2);
-  position:sticky; top:0; height:100vh; overflow-y:auto; overscroll-behavior:contain;
-}
+.pane-list{border-right:1px solid var(--rule); background:var(--panel-2);
+  position:sticky; top:0; height:100vh; overflow-y:auto; overscroll-behavior:contain}
 .list-head{position:sticky; top:0; z-index:2; background:var(--panel-2);
-  border-bottom:1px solid var(--rule); padding:1.15rem 1.2rem .85rem}
+  border-bottom:1px solid var(--rule); padding:1.15rem 1.2rem .9rem}
 .list-head .home{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ink-3); border:0; display:inline-block; padding:.2rem 0 .55rem}
-.list-head .home:hover{color:var(--link)}
+.list-head .home:hover{color:var(--ink)}
 .list-head h1{font-family:var(--mono); font-size:.8rem; letter-spacing:.16em;
-  text-transform:uppercase; font-weight:600; margin-bottom:.75rem}
+  text-transform:uppercase; font-weight:600; margin-bottom:.8rem}
 .search{position:relative}
-.search input{
-  width:100%; font-family:var(--mono); font-size:.78rem; color:var(--ink);
+.search input{width:100%; font-family:var(--mono); font-size:.78rem; color:var(--ink);
   background:var(--bg); border:1px solid var(--rule); border-radius:2px;
-  padding:.5rem .6rem .5rem 1.7rem; min-height:38px;
-}
+  padding:.5rem .6rem .5rem 1.7rem; min-height:38px}
 .search input::placeholder{color:var(--ink-3)}
 .search::before{content:"⌕"; position:absolute; left:.55rem; top:50%; transform:translateY(-52%);
   color:var(--ink-3); font-size:.9rem; pointer-events:none}
 
-.year{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; color:var(--ink-3);
-  padding:1.1rem 1.2rem .35rem; border-bottom:1px solid var(--rule-2)}
+/* group headers carry real weight — the two kinds must never be confused */
+.group-h{font-size:.95rem; font-weight:640; letter-spacing:.02em;
+  padding:1.6rem 1.2rem .7rem; border-top:3px solid var(--ink);
+  border-bottom:1px solid var(--rule); margin-top:1.4rem; background:var(--panel-2)}
+.group-h:first-of-type{margin-top:0; border-top-width:0}
+.group-h .n{font-family:var(--mono); font-size:.68rem; font-weight:400;
+  color:var(--ink-3); margin-left:.5rem}
+.year{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; color:var(--ink-3);
+  padding:.9rem 1.2rem .3rem}
 .rows{list-style:none; margin:0; padding:0}
 .row{border-bottom:1px solid var(--rule-2)}
 .row > a{display:grid; grid-template-columns:1fr 1.2rem; gap:.15rem .5rem;
@@ -122,9 +120,8 @@ body.landing{min-height:100vh}
   color:var(--ink-3); background:var(--bg); border:1px solid var(--rule);
   border-radius:1px; padding:.1rem .34rem .12rem; white-space:nowrap; font-style:normal}
 .row.is-active{background:var(--panel)}
-.row.is-active > a{box-shadow:inset 3px 0 0 var(--link)}
-.row.is-active .rt{color:var(--link)}
-.row.is-active .sign{color:var(--link)}
+.row.is-active > a{box-shadow:inset 3px 0 0 var(--accent)}
+.row.is-active .rt,.row.is-active .sign{color:var(--accent)}
 .row[hidden]{display:none}
 .no-hits{font-family:var(--mono); font-size:.74rem; color:var(--ink-3); padding:1.1rem 1.2rem}
 
@@ -160,7 +157,6 @@ blockquote p{margin:0}
 .note{font-family:var(--mono); font-size:.72rem; line-height:1.55; color:var(--ink-3);
   border:1px dashed var(--rule); border-radius:2px; padding:.55rem .7rem; margin:1rem 0 0; background:var(--panel)}
 
-/* source / reference block */
 .source{margin:2.6rem 0 0; border-top:1px solid var(--ink); padding-top:.9rem}
 .source h3{font-family:var(--mono); font-size:.665rem; letter-spacing:.17em;
   text-transform:uppercase; color:var(--ink-3); font-weight:500; margin:0 0 .7rem}
@@ -169,39 +165,129 @@ blockquote p{margin:0}
   color:var(--ink-3); padding-top:.18rem}
 .source dd{margin:0; color:var(--ink-2)}
 
-/* =============== figures =============== */
+/* =============== charts — HTML, not SVG =============== */
+/* The browser measures and wraps every label, so collision is
+   structurally impossible rather than something to keep checking. */
+.chart{margin:1.2rem 0; padding:1rem 1rem .85rem; background:var(--panel);
+  border:1px solid var(--rule); border-radius:3px}
+.chart-h{font-family:var(--mono); font-size:.645rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 1rem}
+.chart-n{font-family:var(--mono); font-size:.7rem; line-height:1.55; color:var(--ink-3);
+  margin:.9rem 0 0; padding-top:.65rem; border-top:1px solid var(--rule-2)}
+
+/* bar rows: label | track | value */
+.bars{display:grid; gap:.5rem}
+.bar{display:grid; grid-template-columns:4.2rem 1fr 3.2rem; align-items:center; gap:.7rem}
+.bar .lab{font-family:var(--mono); font-size:.75rem; color:var(--ink-2); line-height:1.3}
+.bar .val{font-family:var(--mono); font-size:.95rem; text-align:right; color:var(--ink)}
+.bar .track{position:relative; height:1.85rem; border:1px solid var(--rule); background:var(--bg)}
+.bar .fill{position:absolute; inset:0 auto 0 0; background:var(--ink-3)}
+/* the zero: same track, empty, accent hairline, digit where a bar would start */
+.bar.zero .track{border-color:var(--accent); background:var(--accent-bg)}
+.bar.zero .val,.bar.zero .lab{color:var(--accent)}
+.bar .zerodigit{position:absolute; left:.45rem; top:50%; transform:translateY(-50%);
+  font-family:var(--mono); font-size:.9rem; color:var(--accent)}
+.bar.ceilrow{gap:.7rem; margin-bottom:-.25rem}
+.bar.ceilrow .c{font-family:var(--mono); font-size:.66rem; color:var(--ink-3); text-align:right}
+
+/* stacked rows: length is the group's size */
+.bar.stacked{grid-template-columns:9.5rem 1fr 3.2rem}
+.bar.stacked .track{border:0; background:none; height:auto; display:block}
+.bar.stacked .sw{display:flex; height:1.5rem; min-width:2px}
+.bar.stacked .seg{display:block}
+.bar.stacked .seg.miss{background:var(--accent)}
+.bar.stacked .seg.have{background:var(--ink-3); border-left:1px solid var(--panel)}
+.bar.stacked .val{color:var(--accent)}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin:0 0 1rem; padding:0; list-style:none}
+.legend li{display:flex; align-items:center; gap:.4rem; font-family:var(--mono);
+  font-size:.68rem; color:var(--ink-3)}
+.legend i{width:.85rem; height:.85rem; flex:none; display:block}
+.legend i.miss{background:var(--accent)}
+.legend i.have{background:var(--ink-3)}
+
+/* claim blocks — each group owns a column, so labels cannot collide */
+.claims{display:flex; gap:.5rem; align-items:flex-end}
+.claims .cg{display:flex; flex-direction:column; gap:.4rem; min-width:0}
+.claims .blocks{display:flex; gap:2px; height:3.4rem}
+.claims .blocks i{flex:1; display:block; background:var(--ink-3)}
+.claims .cg.miss .blocks{height:4.6rem}
+.claims .cg.miss .blocks i{background:var(--accent)}
+.claims .cg.part .blocks{height:2.6rem}
+.claims .cg.part .blocks i{background:var(--ink-3); opacity:.55}
+.claims .cg.ok .blocks{height:2rem}
+.claims .cg.ok .blocks i{background:var(--ink-3); opacity:.32}
+.claims .cl{font-family:var(--mono); font-size:.7rem; line-height:1.35; color:var(--ink-2)}
+.claims .cg.miss .cl{color:var(--accent)}
+.claims-after{margin:.9rem 0 0; padding:.55rem .7rem; border:1px solid var(--rule); background:var(--bg)}
+.delta{margin:.8rem 0 0; padding:.6rem .75rem; border:1px solid var(--accent);
+  background:var(--accent-bg); border-radius:2px}
+.delta b{font-family:var(--mono); font-size:1.05rem; color:var(--accent)}
+.delta span{font-family:var(--mono); font-size:.72rem; color:var(--accent); display:block; margin-top:.1rem}
+.claims-after .cl{font-family:var(--mono); font-size:.7rem; color:var(--ink-2)}
+
+/* flow: boxes and arrows in a row */
+.flow{display:grid; gap:.55rem}
+.flow-lane{display:flex; flex-wrap:wrap; align-items:center; gap:.45rem}
+.flow-tag{font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); width:100%; margin-bottom:.1rem}
+.box{font-family:var(--mono); font-size:.76rem; padding:.5rem .7rem; border:1px solid var(--rule);
+  background:var(--bg); color:var(--ink); border-radius:2px}
+.box.ghost{border-style:dashed; color:var(--ink-3)}
+.box.strong{border-width:2px; border-color:var(--ink)}
+.arrow{font-family:var(--mono); font-size:.9rem; color:var(--ink-3); flex:none}
+.arrow.dead{color:var(--accent)}
+.stopbar{width:5px; align-self:stretch; min-height:2.1rem; background:var(--accent); flex:none}
+.deadlabel{font-family:var(--mono); font-size:.72rem; color:var(--accent)}
+.dbbox{border:2px solid var(--ink); border-radius:2px; padding:.55rem; background:var(--bg);
+  display:grid; gap:.3rem; flex:1 1 14rem; min-width:0}
+.dbbox .dbh{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3)}
+.dbrow{font-family:var(--mono); font-size:.72rem; padding:.3rem .45rem; background:var(--panel-2);
+  color:var(--ink-3); border-radius:1px}
+.dbrow.picked{background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent)}
+.flow-out{display:flex; align-items:center; gap:.45rem; flex:none}
+.flow-out .box{border-color:var(--accent); color:var(--accent)}
+
+/* pipeline: stage boxes, wraps freely */
+.pipe{display:flex; flex-wrap:wrap; align-items:stretch; gap:.4rem}
+.stage{flex:1 1 8rem; min-width:0; border:1px solid var(--rule); background:var(--bg);
+  border-radius:2px; padding:.6rem .65rem; display:grid; gap:.2rem; align-content:start}
+.stage .sn{font-family:var(--mono); font-size:.78rem; color:var(--ink)}
+.stage .sm{font-family:var(--mono); font-size:.63rem; color:var(--ink-3); line-height:1.4}
+.stage.resume{border-color:var(--accent)}
+.stage.resume .sm{color:var(--accent)}
+
+/* two-column requirement/check list */
+.pairs{display:grid; gap:0; margin:0}
+.pair{display:grid; grid-template-columns:1fr 1.2rem 1fr; gap:.6rem; align-items:baseline;
+  padding:.6rem 0; border-bottom:1px solid var(--rule-2)}
+.pair:last-child{border-bottom:0}
+.pair .l{font-size:.88rem; color:var(--ink)}
+.pair .m{font-family:var(--mono); font-size:.78rem; color:var(--ink-3); text-align:center}
+.pair .r{font-family:var(--mono); font-size:.75rem; color:var(--ink-2); line-height:1.45}
+.pair.key{background:var(--accent-bg); margin:0 -.6rem; padding:.6rem; border-bottom:0}
+.pair.key .l,.pair.key .r,.pair.key .m{color:var(--accent)}
+.pairs-h{display:grid; grid-template-columns:1fr 1.2rem 1fr; gap:.6rem;
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--ink-3); padding-bottom:.45rem; border-bottom:1px solid var(--rule)}
+.pairs-h .m{text-align:center}
+
+/* the one remaining SVG — arbitrary curved geometry */
 figure.fig{margin:1.2rem 0; padding:1rem .9rem .8rem; background:var(--panel);
   border:1px solid var(--rule); border-radius:3px}
 figure.fig svg{display:block; width:100%; height:auto}
 figure.fig figcaption{font-family:var(--mono); font-size:.7rem; line-height:1.55; color:var(--ink-3);
   margin-top:.85rem; padding-top:.65rem; border-top:1px solid var(--rule-2)}
-.fig svg text,.fig svg tspan{font-family:var(--mono)}
-.fig .f-ink{fill:var(--ink)}          .fig .s-ink{stroke:var(--ink)}
-.fig .f-ink2{fill:var(--ink-2)}       .fig .s-ink2{stroke:var(--ink-2)}
-.fig .f-ink3{fill:var(--ink-3)}       .fig .s-ink3{stroke:var(--ink-3)}
-.fig .f-found{fill:var(--found)}      .fig .s-found{stroke:var(--found)}
-.fig .f-foundbg{fill:var(--found-bg)}
-.fig .f-gap{fill:var(--gap)}          .fig .s-gap{stroke:var(--gap)}
-.fig .f-gapbg{fill:var(--gap-bg)}   .fig .s-gapbg{stroke:var(--gap-bg)}
-.fig .f-bg{fill:var(--bg)}
-.fig .f-panel{fill:var(--panel)}
-.fig .f-panel2{fill:var(--panel-2)}
-.fig .s-rule{stroke:var(--rule)}      .fig .s-rule2{stroke:var(--rule-2)}
+.fig svg text{font-family:var(--mono)}
+.fig .f-ink{fill:var(--ink)}       .fig .s-ink{stroke:var(--ink)}
+.fig .f-ink2{fill:var(--ink-2)}    .fig .s-ink2{stroke:var(--ink-2)}
+.fig .f-ink3{fill:var(--ink-3)}    .fig .s-ink3{stroke:var(--ink-3)}
+.fig .f-acc{fill:var(--accent)}    .fig .s-acc{stroke:var(--accent)}
+.fig .f-accbg{fill:var(--accent-bg)}
+.fig .f-bg{fill:var(--bg)}         .fig .f-panel{fill:var(--panel)}
 .fig .nf{fill:none}
 
-/* =============== tables =============== */
-.tw{overflow-x:auto; margin:0 0 1.1rem; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
-table.matrix{border-collapse:collapse; width:100%; min-width:29rem; font-size:.84rem}
-table.matrix th,table.matrix td{padding:.48rem .68rem; text-align:left; border-bottom:1px solid var(--rule-2)}
-table.matrix thead th{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--ink-3); font-weight:500; border-bottom:1px solid var(--rule); white-space:nowrap}
-table.matrix tbody tr:last-child td{border-bottom:0}
-table.matrix td.num,table.matrix th.num{text-align:right; font-family:var(--mono)}
-table.matrix tr.total td{border-top:1px solid var(--rule); font-weight:640}
-td.zero{color:var(--gap); font-weight:700; background:var(--gap-bg)}
-.cl{font-family:var(--mono); font-size:.76rem; color:var(--ink-3)}
-
-/* =============== mobile: panes stack =============== */
+/* =============== narrow =============== */
 .back{display:none}
 @media (max-width:52rem){
   .browser{grid-template-columns:1fr; border-left:0; border-right:0}
@@ -211,15 +297,28 @@ td.zero{color:var(--gap); font-weight:700; background:var(--gap-bg)}
   .back{display:inline-flex; align-items:center; gap:.4rem; font-family:var(--mono);
     font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3);
     background:none; border:0; cursor:pointer; padding:.75rem 0; min-height:44px}
-  .back:hover{color:var(--link)}
+  .back:hover{color:var(--ink)}
   .source dl{grid-template-columns:1fr; gap:.15rem}
   .source dt{padding-top:.5rem}
   body.detail-open .pane-list{display:none}
   body:not(.detail-open) .pane-detail{display:none}
   body.no-js .pane-detail{display:block}
 }
+@media (max-width:34rem){
+  .bar{grid-template-columns:3.4rem 1fr 2.6rem; gap:.5rem}
+  .bar.stacked{grid-template-columns:1fr; gap:.25rem}
+  .bar.stacked .val{text-align:left}
+  .bar.stacked .lab{font-size:.8rem; color:var(--ink)}
+  .claims{flex-direction:column; align-items:stretch; gap:.7rem}
+  .claims .blocks,.claims .cg.miss .blocks,.claims .cg.part .blocks,.claims .cg.ok .blocks{height:1.6rem}
+  .pair,.pairs-h{grid-template-columns:1fr; gap:.15rem}
+  .pair .m{display:none}
+  .pairs-h .m,.pairs-h .r{display:none}
+  .flow-out{width:100%}
+}
 @media (max-width:23rem){
   .item{padding:1.4rem .85rem 0}
   .landing main{padding-left:1.1rem; padding-right:1.1rem}
+  .chart{padding:.75rem .6rem .6rem}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important; scroll-behavior:auto!important}}

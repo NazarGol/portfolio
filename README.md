@@ -4,10 +4,8 @@ OSINT analyst and tool-builder. I work on Russian information and defence-tech i
 
 **Live site:** [nazargol.github.io/portfolio](https://nazargol.github.io/portfolio)
 
-- [Investigations](https://nazargol.github.io/portfolio/investigations/)
-- [Tools](https://nazargol.github.io/portfolio/tools/)
-
-[CV (PDF, Ukrainian)](cv/nazar-golianych-cv.pdf)
+- [Portfolio](https://nazargol.github.io/portfolio/portfolio/) — investigations and engineering
+- [CV (PDF, Ukrainian)](cv/nazar-golianych-cv.pdf)
 
 ---
 
@@ -107,7 +105,7 @@ Taken together they describe a single process rather than four developments: as 
 
 ---
 
-# Tools
+# Engineering
 
 ## Sanctions Checker — EU · US · UK export-control lookup
 
@@ -175,13 +173,17 @@ Also documents a prompt-injection test — detected and refused unprompted, whic
 
 ## Russia Context Platform
 
-**Research · 2026**
+**Research · 2026 · unfinished**
 
-Adversary-capability research: modelling how synthetic local personas could be constructed from open sources, in order to understand what detection would have to catch.
+**The problem.** Detecting a synthetic persona means knowing what a convincing one would have to get right. That list is not published anywhere, so detection work runs on intuition about which signals are hard to fake — and intuition is a poor basis for deciding where to spend a detector's attention.
 
-Everything else here is detection-side work. Detection carries a dependency that is rarely stated: a detector is only as good as its model of what it is trying to catch. If the only available description of a synthetic persona is "an account that seems fake", the detection surface is intuition. So I approached it from the other side — not what a fake account looks like, but what a convincing one would have to *know*.
+**Approach.** Build the substrate for a single Russian settlement and see how far it gets. Collect the local Telegram channels, regional RSS and VK material for that one place, then synthesise a place profile from it: local geography, institutions, transport, prices, seasonal rhythms, recurring names, register and dialect — deep enough that a generated resident would be hard for an actual resident to catch out. Working at settlement scale rather than national scale is the point: national context is abundant and cheap, and it is the local, unrecorded texture that is expensive.
 
-| Must be faked | Must be checked |
+**How it works.** A collection layer pulls from regional sources on a schedule and normalises the results. Synthesis runs over that corpus into a structured place profile. The primary store is a **wiki rather than a database** — the material is mostly prose with citations, it is edited by hand as often as by machine, and a wiki keeps provenance and revision attached to each claim in a way a schema does not. A knowledge graph sits alongside for entities and relations, with a map layer for the geographic material. Models run locally, since the corpus is regional-language material that does not need to leave the machine. It is unfinished: collection and the wiki store work, the graph is partial, the map layer is early, and synthesis has been run over a small number of settlements rather than at any scale.
+
+**Result.** Five signal classes, ranked by how hard each turned out to fabricate.
+
+| Signal class | Detection surface |
 |---|---|
 | Place knowledge | Detail finer than public maps carry |
 | Temporal habits | Posting rhythm against local hours |
@@ -189,11 +191,11 @@ Everything else here is detection-side work. Detection carries a dependency that
 | Social graph | Age and reciprocity of ties, not their count |
 | **Event memory** | **Recall of what no source ever wrote down** |
 
-Each class is cheap to approximate and expensive to sustain, and each fails characteristically. Detection does not have to prove an account is synthetic, only to find the class where the approximation gives way. **Event memory is the hardest to synthesise and therefore the most productive to test** — a persona assembled from open sources can only know what a source recorded.
+The first four turned out tractable: enough local geography, rhythm, lexis and plausible social structure can be assembled from open regional sources to survive casual review. Event memory did not. A profile built from sources can only contain what a source recorded, and the unrecorded local event — the thing everyone in a town knows and nobody wrote down — has no substitute in the corpus.
 
-Framed this way the work is a detection specification rather than a capability: start with the class cheapest for a defender to test and most expensive for an adversary to sustain, and treat coherence *across* classes rather than any single anomaly as the signal. It also sets a realistic ceiling, since several classes are approximable well enough to survive casual review — an argument for detection that assumes competent synthesis rather than sloppy synthesis.
+For detection that inverts the usual priority: effort is better spent probing for recall of unrecorded specifics than on stylometry or posting-time analysis, and coherence *across* classes matters more than any single anomaly. It also sets a realistic ceiling — a detector built on the assumption of sloppy synthesis will not catch competent synthesis, and competent synthesis is achievable with open sources.
 
-*Unfinished and not open-sourced. Case study text only — no repository, no code, no screenshots, and nothing describing how such a persona would be constructed.*
+*Unfinished and not open-sourced. No repository, no code, no screenshots and no operational parameters.*
 
 ---
 
