@@ -79,12 +79,17 @@ TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 <div class="wrap">
-<a class="back" href="../">&#8592; Nazar Golianych</a>
+<a class="back" href="{back}">&#8592; {backlabel}</a>
 {body}
 </div>
 </body>
 </html>
 """
+
+BACK = {
+    "russian-military-ai": ("../investigations/#russian-military-ai", "Investigations"),
+    "zhbk-185": ("../investigations/#zhbk-185", "Investigations"),
+}
 
 DESCS = {
     "russian-military-ai": "97 Russian military-AI entities checked against four sanctions "
@@ -119,6 +124,8 @@ def render(md_path: pathlib.Path) -> None:
             desc=DESCS.get(md_path.stem, title),
             style=STYLE,
             body=html,
+            back=BACK.get(md_path.stem, ("../", "Nazar Golianych"))[0],
+            backlabel=BACK.get(md_path.stem, ("../", "Nazar Golianych"))[1],
         ),
         encoding="utf-8",
     )
