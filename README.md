@@ -3,7 +3,10 @@
 I work on **Russian information and defence-tech infrastructure** — and I build the tooling to do that work at scale.
 
 **Live site:** [nazargol.github.io/portfolio](https://nazargol.github.io/portfolio)
-**Contact:** golianych.nazar@gmail.com · [github.com/NazarGol](https://github.com/NazarGol)
+
+Contributor to an OCCRP / StateWatch investigation · open-source research for a project supported by Documenting Ukraine, IWM Vienna.
+
+**Contact:** [github.com/NazarGol](https://github.com/NazarGol) · CV on request
 *Published under Holianych in OCCRP/StateWatch.*
 
 ---
@@ -24,92 +27,7 @@ Built for TrapAggressor / StateWatch.
 
 ---
 
-## 02 · The UK has designated none of them
-
-**→ [Full brief](briefs/russian-military-ai.md)**
-
-97 Russian companies, institutes and state structures developing AI for military, surveillance and information-control applications, each checked against four sanctions regimes.
-
-| Jurisdiction | Designated | Share |
-|---|---:|---:|
-| 🇺🇦 Ukraine | 47 | 48% |
-| 🇺🇸 United States | 31 | 32% |
-| 🇪🇺 European Union | 21 | 22% |
-| 🇬🇧 United Kingdom | **0** | **0%** |
-
-**62%** carry no Western designation at all. **41%** carry none in any of the four jurisdictions. **20** are Ukraine-listed with no Western follow-through.
-
-A zero is a different kind of number from a low number. US and EU coverage describes a regime engaging with the sector and reaching part of it. Zero describes a sector not engaged at all — and not for want of instruments, since the UK maintains detailed goods-based export controls across 11 schedules under the same Russia regime.
-
-Six functional clusters, with coverage weakest where capability is growing fastest: computer vision for surveillance sits at 77% undesignated, universities at 67%, state funds at 64%. **Cluster III** — media monitoring, censorship and cyber operations, 15 entities — is the counter-disinformation-relevant cut.
-
-The brief publishes the finding, the taxonomy, the record schema and three fully worked examples, all drawn only from entities already under public designation. **The dataset itself is held privately; full dataset available on request.**
-
----
-
-## 03 · Pro-Russian information network in Moldova
-
-**→ [github.com/NazarGol/moldova-information-network](https://github.com/NazarGol/moldova-information-network)**
-
-Graph analysis of 27 Telegram channels: is the structure organic, or coordinated?
-
-**Result:** 27 channels indexed of 28 targeted · 23,110 messages · 424 endorsement links across 164 unique channel pairs · 4 clusters mapped.
-
-`@primulinmd` is the single node receiving endorsements from all three narrative pipelines — in-degree 83, out-degree 8. A channel cited by ideologically distinct clusters that cites almost nobody is the network's shared authority. KP Moldova is the distribution hub at out-degree 129, in-degree 0.
-
-Three coordination indicators, weighted separately rather than collapsed: byte-identical same-day texts between two Transnistrian channels; four or more channels framing the 27 May gas VAT decision within hours in near-identical wording; a narrow shared set of externally cited channels across unconnected clusters.
-
-**Stack:** Python 3.13 · Neo4j · Cypher · Telethon (via GroupInt) · Docker
-
-Telegram collection ran on **GroupInt** by **OSINT for Ukraine** — used as a harness, not authored by me. Report written in Ukrainian.
-
----
-
-## 04 · Measuring LLM fabrication rate in OSINT profiling
-
-**→ [github.com/NazarGol/llm-verification-osint](https://github.com/NazarGol/llm-verification-osint)**
-
-The same profiling task run twice — same model, same subject, search disabled on both sides — varying only prompt construction. Twelve claims extracted and checked individually against public sources.
-
-**Result:** unconstrained prompt — **17%** explicit hallucination, **33%** unverifiable claims. Source-constrained prompt on the identical task — **0%** fabrication.
-
-Two things matter more than the headline number. The hallucinations that survive review are the ones that look right: the model named the wrong university, and the university it named is a real institution in the same city. And the 33% unverifiable bucket is arguably worse than the 17% fabricated — claims like "speaks at conferences" cannot be disproven, so they pass review as harmless colour, having been generated from nothing.
-
-What moved fabrication to zero was not persona or tone but two clauses: *use only facts explicitly present in the text*, and *if a field is absent, return null*.
-
-Also documents a prompt-injection test, and an invalid first attempt at the comparison — I had compared retrieval against no-retrieval rather than two prompts — because catching a confounded comparison before publishing is the same skill as catching a plausible hallucination before it ships. Verification subject anonymised.
-
----
-
-## 05 · Querying 77k sanctions entities — SQL and an agent
-
-**→ [github.com/NazarGol/opensanctions-agent](https://github.com/NazarGol/opensanctions-agent)**
-
-A Dockerised MindsDB stack over the OpenSanctions consolidated dataset — **76,996 entities** — with two query paths compared: manual SQL context, and a tool-calling agent writing its own SQL.
-
-**The useful finding is a negative one.** Asked how many sanctioned entities are from Russia, the agent returned 21,210; my direct SQL returned 19,238. The gap is almost certainly multi-country records like `ru;ua` — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to tell which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying: a number without its query is an assertion, not a finding.
-
-**Stack:** MindsDB · Docker · Ollama `gemma3:4b` · Groq API · OpenSanctions
-
----
-
-## 06 · Corpus Editor — Telegram video pipeline
-
-**→ [github.com/NazarGol/corpus-editor](https://github.com/NazarGol/corpus-editor)**
-
-Bulk Telegram collection → per-video feature extraction → CLIP embeddings → UMAP 3-D projection → nearest-neighbour graph → SQLite behind FastAPI.
-
-**Result:** 153 videos from 12 channels with 1,100 similarity edges, from a target list of 102 Ukrainian public channels.
-
-Built for a film project, not an intelligence one. It is here because the pipeline underneath is what a media-monitoring system needs, and I would rather show one I built end to end.
-
-**Stack:** Python · Telethon · FastAPI · SQLite · CLIP ViT-B/32 · UMAP · OpenCV · MediaPipe · librosa · ffmpeg · Three.js
-
-No credentials, session file or scraped corpus are published.
-
----
-
-## 07 · Analytical writing
+## 02 · Analytical writing
 
 **Passwork — an FSB-licensed password manager in EU government systems**
 *StateWatch / OCCRP · 17 July 2026 · author Anna Holishevska*
@@ -139,13 +57,112 @@ On economic transformation in post-violence environments, taking Mariupol as its
 
 ---
 
+## 03 · The UK has designated none of them
+
+**→ [Full brief](briefs/russian-military-ai.md)**
+
+97 Russian companies, institutes and state structures developing AI for military, surveillance and information-control applications, each checked against four sanctions regimes.
+
+| Jurisdiction | Designated | Share |
+|---|---:|---:|
+| 🇺🇦 Ukraine | 47 | 48% |
+| 🇺🇸 United States | 31 | 32% |
+| 🇪🇺 European Union | 21 | 22% |
+| 🇬🇧 United Kingdom | **0** | **0%** |
+
+**62%** carry no Western designation at all. **41%** carry none in any of the four jurisdictions. **20** are Ukraine-listed with no Western follow-through.
+
+A zero is a different kind of number from a low number. US and EU coverage describes a regime engaging with the sector and reaching part of it. Zero describes a sector not engaged at all — and not for want of instruments, since the UK maintains detailed goods-based export controls across 11 schedules under the same Russia regime.
+
+Six functional clusters. Coverage is weakest in the software layers and the institutions behind them — computer vision for surveillance sits at 77% undesignated, universities at 67%, state funds at 64% — and best in hardware, with microelectronics at 42%. **Cluster III** — media monitoring, censorship and cyber operations, 15 entities — is the counter-disinformation-relevant cut.
+
+The brief publishes the finding, the taxonomy, the record schema and three fully worked examples, all drawn only from entities already under public designation. **The dataset itself is held privately; full dataset available on request.**
+
+---
+
+## 04 · Pro-Russian information network in Moldova
+
+**→ [github.com/NazarGol/moldova-information-network](https://github.com/NazarGol/moldova-information-network)**
+
+Graph analysis of 27 Telegram channels: is the structure organic, or coordinated?
+
+**Result:** 27 channels indexed of 28 targeted · 23,110 messages · 424 endorsement links across 164 unique channel pairs · 4 clusters mapped.
+
+`@primulinmd` is the single node receiving endorsements from all three narrative pipelines — in-degree 83, out-degree 8. A channel cited by ideologically distinct clusters that cites almost nobody is the network's shared authority. KP Moldova is the distribution hub at out-degree 129, in-degree 0.
+
+Three coordination indicators, weighted separately rather than collapsed: byte-identical same-day texts between two Transnistrian channels; four or more channels framing the 27 May gas VAT decision within hours in near-identical wording; a narrow shared set of externally cited channels across unconnected clusters.
+
+**Stack:** Python 3.13 · Neo4j · Cypher · Telethon (via GroupInt) · Docker
+
+Telegram collection ran on **GroupInt** by **OSINT for Ukraine** — used as a harness, not authored by me. Report written in Ukrainian.
+
+---
+
+## 05 · Measuring LLM fabrication rate in OSINT profiling
+
+**→ [github.com/NazarGol/llm-verification-osint](https://github.com/NazarGol/llm-verification-osint)**
+
+The same profiling task run twice — same model, same subject, search disabled on both sides — varying only prompt construction. Twelve claims extracted and checked individually against public sources.
+
+**Result:** unconstrained prompt — **17%** explicit hallucination, **33%** unverifiable claims. Source-constrained prompt on the identical task — **0%** fabrication.
+
+Two things matter more than the headline number. The hallucinations that survive review are the ones that look right: the model named the wrong university, and the university it named is a real institution in the same city. And the 33% unverifiable bucket is arguably worse than the 17% fabricated — claims like "speaks at conferences" cannot be disproven, so they pass review as harmless colour, having been generated from nothing.
+
+What moved fabrication to zero was not persona or tone but two clauses: *use only facts explicitly present in the text*, and *if a field is absent, return null*.
+
+Also documents a prompt-injection test, and an invalid first attempt at the comparison — I had compared retrieval against no-retrieval rather than two prompts — because catching a confounded comparison before publishing is the same skill as catching a plausible hallucination before it ships. Verification subject anonymised.
+
+---
+
+## 06 · Querying 77k sanctions entities — SQL and an agent
+
+**→ [github.com/NazarGol/opensanctions-agent](https://github.com/NazarGol/opensanctions-agent)**
+
+A Dockerised MindsDB stack over the OpenSanctions consolidated dataset — **76,996 entities** — with two query paths compared: manual SQL context, and a tool-calling agent writing its own SQL.
+
+**The useful finding is a negative one.** Asked how many sanctioned entities are from Russia, the agent returned 21,210; my direct SQL returned 19,238. The gap is almost certainly multi-country records like `ru;ua` — but that is a reconstruction after the fact. The agent did not show its query, so there was no way to tell which question it had answered without redoing the work it was meant to save. For sanctions screening that is disqualifying: a number without its query is an assertion, not a finding.
+
+**Stack:** MindsDB · Docker · Ollama `gemma3:4b` · Groq API · OpenSanctions
+
+---
+
+## 07 · Corpus Editor — Telegram video pipeline
+
+**→ [github.com/NazarGol/corpus-editor](https://github.com/NazarGol/corpus-editor)**
+
+Bulk Telegram collection → per-video feature extraction → CLIP embeddings → UMAP 3-D projection → nearest-neighbour graph → SQLite behind FastAPI.
+
+**Result:** 153 videos from 12 channels with 1,100 similarity edges, from a target list of 102 Ukrainian public channels.
+
+Built for a film project, not an intelligence one. It is here because the pipeline underneath is what a media-monitoring system needs, and I would rather show one I built end to end.
+
+**Stack:** Python · Telethon · FastAPI · SQLite · CLIP ViT-B/32 · UMAP · OpenCV · MediaPipe · librosa · ffmpeg · Three.js
+
+No credentials, session file or scraped corpus are published.
+
+---
+
 ## 08 · Russia Context Platform
 
-Adversary-capability research: modelling how synthetic local personas could be constructed from open sources, in order to understand what detection would have to catch.
+**Adversary-capability research:** what a synthetic local persona would have to get right, and therefore where detection has to look.
 
-Everything above is detection-side work. This is the same problem from the other direction — a detection system is only as good as its model of what it is trying to detect.
+Everything above this entry is detection-side work. Detection carries a dependency that is rarely stated: a detector is only as good as its model of what it is trying to catch, and that model has to come from somewhere. If the only available description of a synthetic persona is "an account that seems fake", the detection surface is intuition.
 
-Unfinished and not open-sourced. Case study text only; no repository, no code, no screenshots.
+So I approached it from the other side — not what a fake account looks like, but what a convincing one would have to *know*, treating each requirement as a place a detector can look.
+
+| Must be faked | Must be checked |
+|---|---|
+| Place knowledge | Detail finer than public maps carry |
+| Temporal habits | Posting rhythm against local hours |
+| Dialect, register | Lexis against regional corpora |
+| Social graph | Age and reciprocity of ties, not their count |
+| **Event memory** | **Recall of what no source ever wrote down** |
+
+Each class is cheap to approximate and expensive to sustain, and each fails in a characteristic way. That asymmetry is the useful part: detection does not have to prove an account is synthetic, only to find the class where the approximation gives way. **Event memory is the hardest to synthesise and therefore the most productive to test** — a persona assembled from open sources can only know what a source recorded.
+
+Framed this way the work is a detection specification rather than a capability. It says where to look and in what order: start with the class cheapest for a defender to test and most expensive for an adversary to sustain, and treat coherence *across* classes — rather than any single anomaly — as the signal. It also sets a realistic ceiling, since several classes are approximable well enough to survive casual review. That is an argument for detection that assumes competent synthesis rather than sloppy synthesis.
+
+**Unfinished, and not open-sourced.** Case study text only — no repository, no code, no screenshots, and nothing describing how such a persona would be constructed.
 
 ---
 

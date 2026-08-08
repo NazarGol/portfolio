@@ -33,7 +33,7 @@ A zero is a different kind of number from a low number. US and EU coverage at 32
 
 The UK maintains an extensive Russia sanctions regime under the Russia (Sanctions) (EU Exit) Regulations 2019, including detailed goods-based export controls across 11 schedules. The absence is therefore not a matter of the UK lacking a Russia regime or lacking the instruments. It is that the military-AI developer layer specifically — the companies writing the targeting, recognition, monitoring and censorship software rather than manufacturing the platforms it runs on — has not been reached by it.
 
-That layer is where a growing share of capability now sits. Sanctioning a drone manufacturer while leaving the company supplying its autonomous targeting stack undesignated addresses the airframe and not the capability.
+Sanctioning a drone manufacturer while leaving the company that supplies its autonomous targeting stack undesignated addresses the airframe and not the software that makes it autonomous.
 
 ## Cluster taxonomy
 
@@ -169,7 +169,7 @@ Three entries in full, to demonstrate the record structure.
 
 1. **The UK's Russia regime has a sector-shaped hole in it.** Zero of 97 is not a matter of degree. The instruments exist; the military-AI developer layer has not been brought inside them.
 2. **Twenty entities are already Ukraine-designated with a public, sourced justification and no Western follow-through.** These are the lowest-friction candidates for alignment, because the identification and evidentiary work is done and published.
-3. **Coverage is weakest exactly where capability is growing fastest.** Computer vision for surveillance sits at 77% undesignated; the universities and state funds feeding the sector sit at 67% and 64%. Policy has tracked hardware, which is legible to a goods-based regime, and has not tracked software.
+3. **Coverage is weakest in the software layers and best in hardware.** Computer vision for surveillance sits at 77% undesignated, and the universities and state funds feeding the sector at 67% and 64%, while microelectronics is the best-covered cluster at 42%. Policy has tracked goods, which a goods-based regime is built to reach, and has not tracked software.
 4. **Cluster III should be read as a counter-disinformation problem, not only a sanctions one.** These are the systems that detect and act on the information environment. Understanding what they can do is a prerequisite for understanding what a detection capability has to catch.
 
 ---
